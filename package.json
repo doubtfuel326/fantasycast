@@ -1,0 +1,35 @@
+{
+  "name": "fantasycast",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "14.2.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "@anthropic-ai/sdk": "^0.24.0",
+    "stripe": "^14.0.0",
+    "@clerk/nextjs": "^5.0.0",
+    "elevenlabs": "^0.8.0",
+    "axios": "^1.6.0",
+    "clsx": "^2.1.0",
+    "framer-motion": "^11.0.0",
+    "lucide-react": "^0.383.0",
+    "date-fns": "^3.6.0"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.0"
+  }
+}

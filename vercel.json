@@ -1,0 +1,16 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/generate-weekly",
+      "schedule": "0 10 * * 2"
+    }
+  ],
+  "functions": {
+    "src/app/api/generate-script/route.ts": {
+      "maxDuration": 60
+    },
+    "src/app/api/cron/generate-weekly/route.ts": {
+      "maxDuration": 300
+    }
+  }
+}

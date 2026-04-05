@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-blue: #378ADD;
+    --brand-dark: #0a0f1e;
+    --brand-navy: #141929;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: #378ADD44;
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0f1e;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1e2d4a;
+    border-radius: 3px;
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(255, 255, 255, 0.04);
+    border: 0.5px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+  }
+
+  .glass-blue {
+    background: rgba(55, 138, 221, 0.08);
+    border: 0.5px solid rgba(55, 138, 221, 0.2);
+  }
+
+  .btn-primary {
+    @apply bg-[#378ADD] hover:bg-[#2d70bb] text-white font-body font-medium
+           px-6 py-3 rounded-lg transition-all duration-150 text-sm;
+  }
+
+  .btn-ghost {
+    @apply bg-white/5 hover:bg-white/10 border border-white/10
+           text-white/70 hover:text-white font-body font-medium
+           px-6 py-3 rounded-lg transition-all duration-150 text-sm;
+  }
+
+  .segment-card {
+    @apply glass rounded-xl p-5 space-y-3;
+  }
+
+  .stat-pill {
+    @apply inline-flex items-center gap-1.5 text-xs font-medium
+           bg-white/5 border border-white/10 rounded-full px-3 py-1;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
+/* Talking animation for hosts */
+@keyframes mouth-talking {
+  0%, 100% { d: path("M 35 55 Q 50 60 65 55"); }
+  50% { d: path("M 35 55 Q 50 68 65 55"); }
+}
+
+@keyframes host-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.host-talking .mouth {
+  animation: mouth-talking 0.25s ease-in-out infinite alternate;
+}
+
+.host-glow-ring {
+  animation: host-glow 1.5s ease-in-out infinite;
+}
+
+/* Episode card hover */
+.episode-card {
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.episode-card:hover {
+  transform: translateY(-2px);
+}

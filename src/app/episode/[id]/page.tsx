@@ -29,7 +29,13 @@ const FORMAT_LABEL: Record<string, string> = {
 export default function EpisodePage({ params }: { params: { id: string } }) {
   const [episode, setEpisode] = useState<any>(null);
   const [activeLine, setActiveLine] = useState(0);
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(false);const [copied, setCopied] = useState(false);
+
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href);
+  setCopied(true);
+  setTimeout(() => setCopied(false), 2500);
+}
   const [talkingHost, setTalkingHost] = useState<string | null>(null);
   const [loadingAudio, setLoadingAudio] = useState(false);
   const [audioError, setAudioError] = useState("");

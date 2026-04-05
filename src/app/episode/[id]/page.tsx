@@ -165,10 +165,10 @@ function copyLink() {
 
   return (
     <div className="min-h-screen bg-[#060b18]">
-      <nav className="border-b border-white/5 px-6 h-14 flex items-center justify-between">
+      <nav className="border-b border-white/5 px-6 h-14 flex items-center gap-4">
         <Link href="/dashboard" className="text-white/30 hover:text-white transition-colors text-sm">← Dashboard</Link>
         <span className="text-white/10">/</span>
-        <span className="font-display text-lg tracking-wide">FANTASY<span className="text-[#378ADD]">CAST</span></span></div><button onClick={() => { navigator.clipboard.writeText(window.location.href); setCopied(true); setTimeout(() => setCopied(false), 2500); }} className="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-xs text-white/60 hover:text-white transition-colors">{copied ? "✓ Copied!" : "Share Episode"}</button>
+        <span className="font-display text-lg tracking-wide">FANTASY<span className="text-[#378ADD]">CAST</span></span>
       </nav>
 
       <div className="max-w-4xl mx-auto px-6 py-10">

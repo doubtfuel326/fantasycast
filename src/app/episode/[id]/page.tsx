@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
+// PUBLIC EPISODE PAGE - no login required, anyone with the link can view
+
 const EMOTION_COLORS: Record<string, string> = {
   neutral: "#378ADD",
   excited: "#F39C12",
@@ -29,35 +31,35 @@ const FORMAT_LABEL: Record<string, string> = {
 export default function EpisodePage({ params }: { params: { id: string } }) {
   const [episode, setEpisode] = useState<any>(null);
   const [activeLine, setActiveLine] = useState(0);
-  const [playing, setPlaying] = useState(false);const [copied, setCopied] = useState(false);
-
-function copyLink() {
-  navigator.clipboard.writeText(window.location.href);
-  setCopied(true);
-  setTimeout(() => setCopied(false), 2500);
-}
+  const [playing, setPlaying] = useState(false);
   const [talkingHost, setTalkingHost] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
   const [loadingAudio, setLoadingAudio] = useState(false);
   const [audioError, setAudioError] = useState("");
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const playingRef = useRef(false);
 
   useEffect(() => {
-    // Load episode from localStorage
-    const saved = localStorage.getItem(`fantasycast_episode_${params.id}`);
-    if (saved) {
-      try { setEpisode(JSON.parse(saved)); } catch {}
-    } else {
-      // Try episodes list
-      const list = localStorage.getItem("fantasycast_episodes");
-      if (list) {
-        try {
-          const episodes = JSON.parse(list);
-          const found = episodes.find((e: any) => e.id === params.id);
-          if (found) setEpisode(found);
-        } catch {}
+    try {
+      // First try URL query parameter (most reliable — no DB needed)
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlData = urlParams.get('data');
+      if (urlData) { setEpisode(JSON.parse(decodeURIComponent(urlData))); return; }
+
+      // Fall back to localStorage
+      for (const key of [`fcast_ep_${params.id}`, `fantasycast_episode_${params.id}`, `fc_episode_${params.id}`]) {
+        const saved = localStorage.getItem(key);
+        if (saved) { setEpisode(JSON.parse(saved)); return; }
       }
-    }
+      for (const listKey of ["fcast_episodes","fantasycast_episodes","fc_episodes"]) {
+        const list = localStorage.getItem(listKey);
+        if (list) {
+          const eps = JSON.parse(list);
+          const found = eps.find((e: any) => e.id === params.id);
+          if (found) { setEpisode(found); return; }
+        }
+      }
+    } catch {}
   }, [params.id]);
 
   const allLines = episode?.script?.segments?.flatMap((s: any, si: number) =>
@@ -165,11 +167,22 @@ function copyLink() {
 
   return (
     <div className="min-h-screen bg-[#060b18]">
-      <nav className="border-b border-white/5 px-6 h-14 flex items-center gap-4 justify-between">
-        <Link href="/dashboard" className="text-white/30 hover:text-white transition-colors text-sm">← Dashboard</Link>
-        <span className="text-white/10">/</span>
-        <span className="font-display text-lg tracking-wide">FANTASY<span className="text-[#378ADD]">CAST</span></span>
-        <button onClick={() => { navigator.clipboard.writeText(window.location.href); setCopied(true); setTimeout(() => setCopied(false), 2500); }} className="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-xs text-white/60 hover:text-white transition-colors">{copied ? "✓ Copied!" : "📤 Share"}</button>
+      <nav className="border-b border-white/5 px-6 h-14 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Link href="/dashboard" className="text-white/30 hover:text-white transition-colors text-sm">← Dashboard</Link>
+          <span className="text-white/10">/</span>
+          <span className="font-display text-lg tracking-wide">FANTASY<span className="text-[#378ADD]">CAST</span></span>
+        </div>
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(window.location.href);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2500);
+          }}
+          className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-xs text-white/60 hover:text-white transition-colors"
+        >
+          {copied ? "✓ Link Copied!" : "📤 Share Episode"}
+        </button>
       </nav>
 
       <div className="max-w-4xl mx-auto px-6 py-10">

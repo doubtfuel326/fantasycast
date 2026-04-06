@@ -27,7 +27,7 @@ export const HOSTS: Record<"host1" | "host2", Host> = {
     name: "Tanner Cross",
     role: "Co-Host & Analyst",
     personality:
-      "Bold, takes hot takes, unafraid to call people out. Brings the humor and chaos. Loves an underdog story.",
+      "Bold, opinionated, takes hot takes and won't back down. Brings the humor and chaos. Loves an underdog story. Quick delivery, gets louder when making a point, naturally argumentative — sounds like he genuinely cares too much about fantasy sports.",
     voiceId: process.env.ELEVENLABS_HOST2_VOICE_ID || "",
     avatarColor: "#2a1a3e",
     accentColor: "#9B59B6",
@@ -40,21 +40,21 @@ function getFormatInstructions(format: ShowFormat): string {
   const formats = {
     sportscenter: `You are writing a SPORTSCENTER-style fantasy football broadcast.
       - Marcus leads as the authoritative anchor with scores and headlines
-      - Zara adds analysis, color commentary, and occasional humor
+      - Tanner adds analysis, color commentary, and occasional humor
       - Use classic ESPN-style phrases: "Let's get to the highlights", "Here's what happened", etc.
       - Keep it punchy and fast-paced. Maximum 2-3 exchanges per segment.
       - Include actual scores and stats in the dialogue.`,
 
     debate: `You are writing a DEBATE SHOW (like First Take / PTI) about fantasy football.
-      - Marcus and Zara DISAGREE on most things — that's the format
+      - Marcus and Tanner DISAGREE on most things — that's the format
       - They argue trade grades, call out bad decisions, defend their picks
-      - Zara is more aggressive and takes hotter takes
+      - Tanner is more aggressive and takes hotter takes
       - Marcus tries to be measured but gets pulled into arguments
       - Each segment should have genuine tension and a "winner" of the argument.`,
 
     podcast: `You are writing a PODCAST (like a fantasy football roundtable).
       - Conversational, longer-form, more nuanced analysis
-      - Marcus sets up topics, Zara digs into the details
+      - Marcus sets up topics, Tanner digs into the details
       - They can go on tangents, make jokes, reference league history
       - More personal — reference managers by name, tell stories
       - Feels like two friends who know this league very well.`,
@@ -212,9 +212,15 @@ Rules:
 - hostId must be either "host1" or "host2"
 - Include 3-5 segments
 - Each segment has 4-8 dialogue lines
-- Use real team names and stats from the data
+- ACCURACY IS CRITICAL — only reference facts that are explicitly in the league data above
+- Use EXACT team names, manager names, scores, and records from the data — never invent or approximate
+- NEVER call someone a champion or winner unless they explicitly won the playoff finale in the data
+- NEVER confuse regular season standings with playoff results — they are different things
+- NEVER invent players, trades, injuries, or events not in the data
+- If the episode type is weekly_recap, only discuss what happened THIS week — do not reference future weeks
+- If you don't have data about something, don't mention it — stick to what you know
 - Make it genuinely entertaining — this is for a friend group watching their own league
-- No generic filler — every line should reference actual league data
+- Every line must reference actual names, scores, or events from the league data
 - Return ONLY valid JSON, no markdown, no explanation`;
 
   const response = await client.messages.create({

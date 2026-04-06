@@ -9,8 +9,8 @@ module.exports = {
       },
       colors: {
         brand: {
-          blue: "#378ADD",
-          dark: "#0a0f1e",
+          blue: "#00C853",
+          dark: "#111111",
           navy: "#141929",
         },
       },

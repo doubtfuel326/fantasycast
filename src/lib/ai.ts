@@ -19,8 +19,8 @@ export const HOSTS: Record<"host1" | "host2", Host> = {
     personality:
       "Professional, authoritative, loves stats and records. Occasionally drops dry one-liners. Think Stuart Scott energy.",
     voiceId: process.env.ELEVENLABS_HOST1_VOICE_ID || "",
-    avatarColor: "#1a2744",
-    accentColor: "#378ADD",
+    avatarColor: "#0d1a0d",
+    accentColor: "#00C853",
   },
   host2: {
     id: "host2",

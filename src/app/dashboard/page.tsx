@@ -5,7 +5,7 @@ import { useUser, UserButton } from "@clerk/nextjs";
 
 const FL = {sportscenter:"SportsCenter",debate:"Debate Show",podcast:"Podcast"} as Record<string,string>;
 const TL = {weekly_recap:"Weekly Recap",draft_recap:"Draft Recap",preseason:"Preseason",playoff:"Playoffs",legacy:"Legacy",offseason:"Offseason"} as Record<string,string>;
-const TC = {weekly_recap:"#27AE60",draft_recap:"#378ADD",preseason:"#F39C12",playoff:"#E74C3C",legacy:"#9B59B6",offseason:"#1ABC9C"} as Record<string,string>;
+const TC = {weekly_recap:"#27AE60",draft_recap:"#00C853",preseason:"#F39C12",playoff:"#E74C3C",legacy:"#9B59B6",offseason:"#1ABC9C"} as Record<string,string>;
 
 const LKEY = "fcast_league";
 const LIKEY = "fcast_lid";
@@ -87,11 +87,11 @@ export default function DashboardPage() {
   const st = league?.standings || [];
 
   return (
-    <div className="min-h-screen bg-[#060b18]">
+    <div className="min-h-screen bg-[#080808]">
       {/* Desktop sidebar - hidden on mobile */}
-      <div className="hidden md:flex fixed left-0 top-0 bottom-0 w-56 border-r border-white/5 bg-[#0a0f1e] flex-col">
+      <div className="hidden md:flex fixed left-0 top-0 bottom-0 w-56 border-r border-white/5 bg-[#111111] flex-col">
         <div className="p-5 border-b border-white/5">
-          <Link href="/" className="font-display text-xl tracking-wider">FANTASY<span className="text-[#378ADD]">CAST</span></Link>
+          <Link href="/" className="font-display text-xl tracking-wider">LEAGUE<span className="text-[#00C853]">WIRE</span></Link>
         </div>
         <nav className="flex-1 p-4 space-y-1">
           <Link href="/dashboard" className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-white/8 text-white text-sm">▶ Episodes</Link>
@@ -105,16 +105,16 @@ export default function DashboardPage() {
       </div>
 
       {/* Mobile top nav */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-40 bg-[#0a0f1e] border-b border-white/5 px-4 h-14 flex items-center justify-between">
-        <Link href="/" className="font-display text-lg tracking-wider">FANTASY<span className="text-[#378ADD]">CAST</span></Link>
+      <div className="md:hidden fixed top-0 left-0 right-0 z-40 bg-[#111111] border-b border-white/5 px-4 h-14 flex items-center justify-between">
+        <Link href="/" className="font-display text-lg tracking-wider">LEAGUE<span className="text-[#00C853]">WIRE</span></Link>
         <div className="flex items-center gap-3">
-          <button onClick={()=>setModal(true)} className="bg-[#378ADD] text-white text-xs font-medium px-3 py-1.5 rounded-lg">⚡ Generate</button>
+          <button onClick={()=>setModal(true)} className="bg-[#00C853] text-white text-xs font-medium px-3 py-1.5 rounded-lg">⚡ Generate</button>
           <UserButton appearance={{elements:{avatarBox:"w-8 h-8"}}} />
         </div>
       </div>
 
       {/* Mobile bottom nav */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0a0f1e] border-t border-white/5 flex">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#111111] border-t border-white/5 flex">
         <Link href="/dashboard" className="flex-1 flex flex-col items-center py-3 text-white text-xs gap-1">
           <span>▶</span><span>Episodes</span>
         </Link>
@@ -144,7 +144,7 @@ export default function DashboardPage() {
           <div className="flex gap-3">
             <input value={lid} onChange={e=>setLid(e.target.value)} onKeyDown={e=>e.key==="Enter"&&connect()}
               placeholder="Paste Sleeper League ID"
-              className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#378ADD]/50" />
+              className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#00C853]/50" />
             <button onClick={connect} disabled={connecting||!lid.trim()} className="btn-primary px-5 text-sm">
               {connecting?"Connecting...":"Connect →"}
             </button>
@@ -154,7 +154,7 @@ export default function DashboardPage() {
         </div>
 
         {newEp && (
-          <div className="glass-blue rounded-2xl p-5 mb-6 border border-[#378ADD]/20">
+          <div className="glass-green rounded-2xl p-5 mb-6 border border-[#00C853]/20">
             <p className="text-green-400 text-xs mb-1">✓ Episode generated</p>
             <h2 className="font-display text-xl tracking-wide mb-1">{newEp.title}</h2>
             <p className="text-white/50 text-sm mb-3">{newEp.teaser}</p>
@@ -172,8 +172,8 @@ export default function DashboardPage() {
               </div>
             ) : episodes.map(ep=>(
               <Link key={ep.id} href={"/episode/"+ep.id+"?data="+encodeURIComponent(JSON.stringify(ep))} className="glass rounded-xl p-5 flex gap-4 border border-white/5 hover:border-white/15 block">
-                <div className="w-12 h-12 rounded-xl bg-[#378ADD]/10 border border-[#378ADD]/20 flex items-center justify-center flex-shrink-0">
-                  <div className="w-0 h-0 border-t-[7px] border-t-transparent border-b-[7px] border-b-transparent border-l-[12px] border-l-[#378ADD] ml-1" />
+                <div className="w-12 h-12 rounded-xl bg-[#00C853]/10 border border-[#00C853]/20 flex items-center justify-center flex-shrink-0">
+                  <div className="w-0 h-0 border-t-[7px] border-t-transparent border-b-[7px] border-b-transparent border-l-[12px] border-l-[#00C853] ml-1" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex gap-2 mb-1.5">
@@ -207,14 +207,14 @@ export default function DashboardPage() {
 
       {modal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-6">
-          <div className="bg-[#0a0f1e] border border-white/10 rounded-2xl p-6 w-full max-w-md">
+          <div className="bg-[#111111] border border-white/10 rounded-2xl p-6 w-full max-w-md">
             <h2 className="font-display text-2xl tracking-wide mb-5">GENERATE EPISODE</h2>
             <div className="space-y-4 mb-6">
               <div>
                 <p className="text-xs uppercase tracking-widest text-white/30 mb-2">Format</p>
                 <div className="grid grid-cols-3 gap-2">
                   {[{id:"sportscenter",icon:"📺",l:"SportsCenter"},{id:"debate",icon:"🔥",l:"Debate"},{id:"podcast",icon:"🎧",l:"Podcast"}].map(f=>(
-                    <button key={f.id} onClick={()=>setFmt(f.id)} className={"p-3 rounded-xl text-center text-xs border "+(fmt===f.id?"border-[#378ADD] bg-[#378ADD]/10":"border-white/8 glass text-white/50")}>
+                    <button key={f.id} onClick={()=>setFmt(f.id)} className={"p-3 rounded-xl text-center text-xs border "+(fmt===f.id?"border-[#00C853] bg-[#00C853]/10":"border-white/8 glass text-white/50")}>
                       <span className="block text-lg mb-1">{f.icon}</span>{f.l}
                     </button>
                   ))}
@@ -224,7 +224,7 @@ export default function DashboardPage() {
                 <p className="text-xs uppercase tracking-widest text-white/30 mb-2">Episode Type</p>
                 <div className="grid grid-cols-2 gap-2">
                   {Object.entries(TL).map(([id,label])=>(
-                    <button key={id} onClick={()=>setTyp(id)} className={"p-2.5 rounded-lg text-xs border text-left "+(typ===id?"border-[#378ADD] bg-[#378ADD]/10":"border-white/8 glass text-white/50")}>
+                    <button key={id} onClick={()=>setTyp(id)} className={"p-2.5 rounded-lg text-xs border text-left "+(typ===id?"border-[#00C853] bg-[#00C853]/10":"border-white/8 glass text-white/50")}>
                       <span className="block mb-0.5" style={{color:TC[id]}}>●</span>{label}
                     </button>
                   ))}

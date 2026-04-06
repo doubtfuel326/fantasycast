@@ -4,9 +4,9 @@
 
 @layer base {
   :root {
-    --brand-blue: #378ADD;
-    --brand-dark: #0a0f1e;
-    --brand-navy: #141929;
+    --brand-blue: #00C853;
+    --brand-dark: #111111;
+    --brand-navy: #1a1a1a;
   }
 
   * {
@@ -22,7 +22,7 @@
   }
 
   ::selection {
-    background: #378ADD44;
+    background: #00C85344;
     color: #fff;
   }
 
@@ -30,7 +30,7 @@
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #0a0f1e;
+    background: #111111;
   }
   ::-webkit-scrollbar-thumb {
     background: #1e2d4a;
@@ -45,13 +45,13 @@
     backdrop-filter: blur(8px);
   }
 
-  .glass-blue {
+  .glass-green {
     background: rgba(55, 138, 221, 0.08);
     border: 0.5px solid rgba(55, 138, 221, 0.2);
   }
 
   .btn-primary {
-    @apply bg-[#378ADD] hover:bg-[#2d70bb] text-white font-body font-medium
+    @apply bg-[#00C853] hover:bg-[#00A846] text-white font-body font-medium
            px-6 py-3 rounded-lg transition-all duration-150 text-sm;
   }
 

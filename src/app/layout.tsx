@@ -3,13 +3,13 @@ import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "FantasyCast — Your League's Show",
+  title: "LeagueWire — Your League's Show",
   description:
     "AI-generated weekly video recaps for your fantasy football league. SportsCenter, Debate Show, and Podcast formats.",
   openGraph: {
-    title: "FantasyCast",
+    title: "LeagueWire",
     description: "Your league. Your show.",
-    siteName: "FantasyCast",
+    siteName: "LeagueWire",
   },
 };
 
@@ -29,7 +29,7 @@ export default function RootLayout({
             rel="stylesheet"
           />
         </head>
-        <body className="bg-[#060b18] text-white font-body antialiased">
+        <body className="bg-[#080808] text-white font-body antialiased">
           {children}
         </body>
       </html>

@@ -9,8 +9,8 @@ const FORMATS = [
     id: "sportscenter",
     icon: "📺",
     label: "SportsCenter",
-    color: "#378ADD",
-    bg: "rgba(55,138,221,0.1)",
+    color: "#00C853",
+    bg: "rgba(0,200,83,0.1)",
     line: "Anchor-led highlights, score tickers, Top Plays of the week.",
   },
   {
@@ -32,7 +32,7 @@ const FORMATS = [
 ];
 
 const STORY_TYPES = [
-  { icon: "🏈", label: "Draft Recap", tag: "Day of draft", color: "#378ADD" },
+  { icon: "🏈", label: "Draft Recap", tag: "Day of draft", color: "#00C853" },
   { icon: "📊", label: "Weekly Recap", tag: "Every week", color: "#27AE60" },
   { icon: "🏟", label: "Preseason", tag: "Before season", color: "#F39C12" },
   { icon: "🏆", label: "Playoffs", tag: "Postseason", color: "#E74C3C" },
@@ -41,7 +41,7 @@ const STORY_TYPES = [
 ];
 
 const TICKER_ITEMS = [
-  "🔥 Tanner Cross: That trade was highway robbery and everyone knows it",
+  "🔥 Zara Banks: That trade was highway robbery and everyone knows it",
   "📊 Marcus Cole: Week 9 produced the highest-scoring week in league history",
   "⚡ BREAKING: Team Chaos wins by 0.4 points for third consecutive week",
   "🏆 Marcus: The gap at the top of the standings is officially a crisis",
@@ -54,13 +54,13 @@ export default function HomePage() {
   const [sleeperPreview, setSleeperPreview] = useState("");
 
   return (
-    <div className="min-h-screen bg-[#060b18] overflow-hidden">
+    <div className="min-h-screen bg-[#080808] overflow-hidden">
 
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#060b18]/80 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#080808]/80 backdrop-blur-xl">
         <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
           <span className="font-display text-2xl tracking-wider text-white">
-            FANTASY<span className="text-[#378ADD]">CAST</span>
+            LEAGUE<span className="text-[#00C853]">WIRE</span>
           </span>
           <div className="flex items-center gap-3">
             <Link href="/pricing" className="text-white/50 hover:text-white text-sm transition-colors">
@@ -87,17 +87,17 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative pt-32 pb-20 px-6">
         <div className="absolute inset-0 grid-bg opacity-50" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#378ADD]/10 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#00C853]/10 rounded-full blur-3xl" />
 
         <div className="relative max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 glass-blue rounded-full px-4 py-1.5 mb-8">
+          <div className="inline-flex items-center gap-2 glass-green rounded-full px-4 py-1.5 mb-8">
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse-slow" />
-            <span className="text-xs text-blue-300 font-medium">AI-Generated Weekly Episodes</span>
+            <span className="text-xs text-green-300 font-medium">AI-Generated Weekly Episodes</span>
           </div>
 
           <h1 className="font-display text-[clamp(3.5rem,10vw,7rem)] leading-none tracking-wide mb-6">
             YOUR LEAGUE.<br />
-            <span className="text-[#378ADD]">YOUR SHOW.</span>
+            <span className="text-[#00C853]">YOUR SHOW.</span>
           </h1>
 
           <p className="text-white/50 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
@@ -123,7 +123,7 @@ export default function HomePage() {
         {/* Ticker */}
         <div className="relative max-w-4xl mx-auto mt-16 overflow-hidden">
           <div className="glass rounded-xl p-0 overflow-hidden">
-            <div className="bg-[#378ADD] px-4 py-1.5 inline-flex items-center gap-2">
+            <div className="bg-[#00C853] px-4 py-1.5 inline-flex items-center gap-2">
               <span className="font-display text-sm tracking-widest">BREAKING</span>
             </div>
             <div className="overflow-hidden">
@@ -161,7 +161,7 @@ export default function HomePage() {
                 onClick={() => setActiveFormat(f.id)}
                 className={`p-5 rounded-xl text-left transition-all duration-200 border ${
                   activeFormat === f.id
-                    ? "border-[#378ADD] bg-[#378ADD]/10"
+                    ? "border-[#00C853] bg-[#00C853]/10"
                     : "border-white/8 glass hover:border-white/15"
                 }`}
               >
@@ -176,8 +176,8 @@ export default function HomePage() {
 
           {/* Fake broadcast preview */}
           <div className="glass rounded-2xl overflow-hidden">
-            <div className="bg-[#0a0f1e] px-5 py-3 border-b border-white/5 flex items-center justify-between">
-              <span className="font-display text-sm tracking-widest text-[#378ADD]">
+            <div className="bg-[#111111] px-5 py-3 border-b border-white/5 flex items-center justify-between">
+              <span className="font-display text-sm tracking-widest text-[#00C853]">
                 {activeFormat === "sportscenter" ? "WEEK 9 · SPORTSCENTER EDITION" :
                  activeFormat === "debate" ? "WEEK 9 · HOT TAKE HOUR" : "WEEK 9 · THE BREAKDOWN POD"}
               </span>
@@ -187,9 +187,9 @@ export default function HomePage() {
               {activeFormat === "sportscenter" && (
                 <>
                   <div className="flex gap-3">
-                    <div className="w-9 h-9 rounded-full bg-[#1a2744] border border-[#378ADD]/30 flex items-center justify-center text-xs font-medium text-[#378ADD] flex-shrink-0">MC</div>
+                    <div className="w-9 h-9 rounded-full bg-[#1a2744] border border-[#00C853]/30 flex items-center justify-center text-xs font-medium text-[#00C853] flex-shrink-0">MC</div>
                     <div className="glass rounded-lg rounded-tl-none p-3 flex-1">
-                      <span className="text-[#378ADD] text-xs font-medium block mb-1">Marcus Cole · Anchor</span>
+                      <span className="text-[#00C853] text-xs font-medium block mb-1">Marcus Cole · Anchor</span>
                       <p className="text-white/80 text-sm leading-relaxed">Good evening. We have a historic night in the books — Kyle's 218-point week was the second-highest single-week score in this league's history. The catch? He still lost. His opponent dropped 231. Let's get into it.</p>
                     </div>
                   </div>
@@ -205,9 +205,9 @@ export default function HomePage() {
               {activeFormat === "debate" && (
                 <>
                   <div className="flex gap-3">
-                    <div className="w-9 h-9 rounded-full bg-[#1a2744] border border-[#378ADD]/30 flex items-center justify-center text-xs font-medium text-[#378ADD] flex-shrink-0">MC</div>
+                    <div className="w-9 h-9 rounded-full bg-[#1a2744] border border-[#00C853]/30 flex items-center justify-center text-xs font-medium text-[#00C853] flex-shrink-0">MC</div>
                     <div className="glass rounded-lg rounded-tl-none p-3 flex-1">
-                      <span className="text-[#378ADD] text-xs font-medium block mb-1">Marcus Cole</span>
+                      <span className="text-[#00C853] text-xs font-medium block mb-1">Marcus Cole</span>
                       <p className="text-white/80 text-sm leading-relaxed">I'm going to be fair here. The trade of Williams for two bench players was aggressive, but you have to respect the process—</p>
                     </div>
                   </div>
@@ -223,9 +223,9 @@ export default function HomePage() {
               {activeFormat === "podcast" && (
                 <>
                   <div className="flex gap-3">
-                    <div className="w-9 h-9 rounded-full bg-[#1a2744] border border-[#378ADD]/30 flex items-center justify-center text-xs font-medium text-[#378ADD] flex-shrink-0">MC</div>
+                    <div className="w-9 h-9 rounded-full bg-[#1a2744] border border-[#00C853]/30 flex items-center justify-center text-xs font-medium text-[#00C853] flex-shrink-0">MC</div>
                     <div className="glass rounded-lg rounded-tl-none p-3 flex-1">
-                      <span className="text-[#378ADD] text-xs font-medium block mb-1">Marcus Cole</span>
+                      <span className="text-[#00C853] text-xs font-medium block mb-1">Marcus Cole</span>
                       <p className="text-white/80 text-sm leading-relaxed">Alright so let's just... sit with what happened this week for a second. Because I pulled the numbers and Team Chaos's strength of schedule is historically brutal. Like, they would be 7-2 in literally any other bracket.</p>
                     </div>
                   </div>
@@ -244,7 +244,7 @@ export default function HomePage() {
       </section>
 
       {/* Episode Types */}
-      <section className="py-20 px-6 bg-[#0a0f1e]/50">
+      <section className="py-20 px-6 bg-[#111111]/50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-xs uppercase tracking-[0.15em] text-white/30 mb-3">Coverage</p>
@@ -270,7 +270,7 @@ export default function HomePage() {
       <section className="py-20 px-6">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="font-display text-5xl tracking-wide mb-4">
-            CONNECT YOUR <span className="text-[#378ADD]">SLEEPER</span> LEAGUE
+            CONNECT YOUR <span className="text-[#00C853]">SLEEPER</span> LEAGUE
           </h2>
           <p className="text-white/40 text-sm mb-8">Paste your Sleeper league ID to preview your league's data instantly — no account needed.</p>
           <div className="flex gap-2 max-w-lg mx-auto">
@@ -279,7 +279,7 @@ export default function HomePage() {
               placeholder="Sleeper League ID (e.g. 784123456789)"
               value={sleeperPreview}
               onChange={(e) => setSleeperPreview(e.target.value)}
-              className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-white/25 focus:outline-none focus:border-[#378ADD]/50"
+              className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-white/25 focus:outline-none focus:border-[#00C853]/50"
             />
             <Link
               href={sleeperPreview ? `/onboarding?leagueId=${sleeperPreview}&platform=sleeper` : "/sign-up"}
@@ -311,10 +311,10 @@ export default function HomePage() {
       <footer className="py-8 px-6 border-t border-white/5">
         <div className="max-w-6xl mx-auto flex items-center justify-between flex-wrap gap-4">
           <span className="font-display text-xl tracking-wider text-white/30">
-            FANTASY<span className="text-[#378ADD]/50">CAST</span>
+            LEAGUE<span className="text-[#00C853]/50">WIRE</span>
           </span>
           <p className="text-white/20 text-xs">
-            © 2025 FantasyCast · Not affiliated with ESPN, Yahoo, Sleeper, or the NFL
+            © 2025 LeagueWire · Not affiliated with ESPN, Yahoo, Sleeper, or the NFL
           </p>
         </div>
       </footer>

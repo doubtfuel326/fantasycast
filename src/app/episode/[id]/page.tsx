@@ -6,7 +6,7 @@ import Link from "next/link";
 // PUBLIC EPISODE PAGE - no login required, anyone with the link can view
 
 const EMOTION_COLORS: Record<string, string> = {
-  neutral: "#378ADD",
+  neutral: "#00C853",
   excited: "#F39C12",
   shocked: "#E74C3C",
   laughing: "#27AE60",
@@ -15,7 +15,7 @@ const EMOTION_COLORS: Record<string, string> = {
 
 const TYPE_COLOR: Record<string, string> = {
   weekly_recap: "#27AE60",
-  draft_recap: "#378ADD",
+  draft_recap: "#00C853",
   preseason: "#F39C12",
   playoff: "#E74C3C",
   legacy: "#9B59B6",
@@ -47,11 +47,11 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
       if (urlData) { setEpisode(JSON.parse(decodeURIComponent(urlData))); return; }
 
       // Fall back to localStorage
-      for (const key of [`fcast_ep_${params.id}`, `fantasycast_episode_${params.id}`, `fc_episode_${params.id}`]) {
+      for (const key of [`fcast_ep_${params.id}`, `leaguewire_episode_${params.id}`, `fc_episode_${params.id}`]) {
         const saved = localStorage.getItem(key);
         if (saved) { setEpisode(JSON.parse(saved)); return; }
       }
-      for (const listKey of ["fcast_episodes","fantasycast_episodes","fc_episodes"]) {
+      for (const listKey of ["fcast_episodes","leaguewire_episodes","fc_episodes"]) {
         const list = localStorage.getItem(listKey);
         if (list) {
           const eps = JSON.parse(list);
@@ -154,7 +154,7 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
 
   if (!episode) {
     return (
-      <div className="min-h-screen bg-[#060b18] flex items-center justify-center">
+      <div className="min-h-screen bg-[#080808] flex items-center justify-center">
         <div className="text-center">
           <p className="text-white/40 text-sm mb-4">Episode not found</p>
           <Link href="/dashboard" className="btn-primary">← Back to Dashboard</Link>
@@ -166,12 +166,12 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
   const currentLine = allLines[activeLine];
 
   return (
-    <div className="min-h-screen bg-[#060b18]">
+    <div className="min-h-screen bg-[#080808]">
       <nav className="border-b border-white/5 px-6 h-14 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link href="/dashboard" className="text-white/30 hover:text-white transition-colors text-sm">← Dashboard</Link>
           <span className="text-white/10">/</span>
-          <span className="font-display text-lg tracking-wide">FANTASY<span className="text-[#378ADD]">CAST</span></span>
+          <span className="font-display text-lg tracking-wide">LEAGUE<span className="text-[#00C853]">WIRE</span></span>
         </div>
         <button
           onClick={() => {
@@ -201,7 +201,7 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
 
         {/* Broadcast stage */}
         <div className="glass rounded-2xl overflow-hidden mb-6">
-          <div className="bg-[#0a0f1e] px-5 py-3 flex items-center justify-between border-b border-white/5">
+          <div className="bg-[#111111] px-5 py-3 flex items-center justify-between border-b border-white/5">
             <div className="flex items-center gap-3">
               <span className={`w-2 h-2 rounded-full ${playing ? "bg-red-500 animate-pulse-slow" : "bg-white/20"}`} />
               <span className="font-display text-sm tracking-widest text-white/60">
@@ -211,19 +211,19 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
             <span className="text-white/20 text-xs">{allLines.length} lines</span>
           </div>
 
-          <div className="p-8 bg-[#080d1a]">
+          <div className="p-8 bg-[#0d0d0d]">
             {/* Hosts */}
             <div className="flex items-end justify-center gap-16 mb-8">
               {/* Marcus */}
               <div className="text-center">
                 <div className="relative w-24 h-24 mx-auto mb-3">
-                  {talkingHost === "host1" && <div className="absolute inset-0 rounded-full border-2 border-[#378ADD]/60 animate-pulse" />}
+                  {talkingHost === "host1" && <div className="absolute inset-0 rounded-full border-2 border-[#00C853]/60 animate-pulse" />}
                   <svg viewBox="0 0 100 100" className="w-24 h-24">
                     <circle cx="50" cy="50" r="48" fill="#1a2744" />
                     <circle cx="50" cy="50" r="46" fill="#1e2d52" />
                     <ellipse cx="50" cy="85" rx="30" ry="20" fill="#142040" />
                     <rect x="42" y="65" width="16" height="25" fill="#102035" />
-                    <polygon points="50,63 47,72 50,78 53,72" fill="#378ADD" />
+                    <polygon points="50,63 47,72 50,78 53,72" fill="#00C853" />
                     <ellipse cx="50" cy="40" rx="22" ry="25" fill="#3d2b1f" />
                     <ellipse cx="42" cy="37" rx="3" ry="3.5" fill="#fff" />
                     <ellipse cx="58" cy="37" rx="3" ry="3.5" fill="#fff" />
@@ -237,7 +237,7 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
                     <ellipse cx="73" cy="40" rx="4" ry="6" fill="#3d2b1f" />
                   </svg>
                 </div>
-                <p className="font-display text-sm tracking-wider" style={{ color: talkingHost === "host1" ? "#378ADD" : "rgba(255,255,255,0.4)" }}>MARCUS COLE</p>
+                <p className="font-display text-sm tracking-wider" style={{ color: talkingHost === "host1" ? "#00C853" : "rgba(255,255,255,0.4)" }}>MARCUS COLE</p>
                 <p className="text-[10px] text-white/25">Lead Anchor</p>
               </div>
 
@@ -297,7 +297,7 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
               <button onClick={() => jumpToLine(Math.max(0, activeLine - 1))}
                 className="w-10 h-10 rounded-full glass flex items-center justify-center text-white/40 hover:text-white transition-colors text-lg">⏮</button>
               <button onClick={togglePlay}
-                className="w-14 h-14 rounded-full bg-[#378ADD] hover:bg-[#2d70bb] flex items-center justify-center transition-colors">
+                className="w-14 h-14 rounded-full bg-[#00C853] hover:bg-[#00A846] flex items-center justify-center transition-colors">
                 {playing ? (
                   <span className="text-white text-xl">⏸</span>
                 ) : (
@@ -312,7 +312,7 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
             <div className="flex items-center gap-3">
               <span className="text-xs text-white/25">{activeLine + 1}</span>
               <div className="flex-1 h-1 bg-white/10 rounded-full overflow-hidden">
-                <div className="h-full bg-[#378ADD] rounded-full transition-all duration-300"
+                <div className="h-full bg-[#00C853] rounded-full transition-all duration-300"
                   style={{ width: `${((activeLine + 1) / Math.max(allLines.length, 1)) * 100}%` }} />
               </div>
               <span className="text-xs text-white/25">{allLines.length}</span>
@@ -334,11 +334,11 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
                     <div key={li} onClick={() => jumpToLine(globalIdx)}
                       className={`flex gap-3 cursor-pointer rounded-lg p-2 -mx-2 transition-all ${line.hostId === "host2" ? "justify-end" : ""} ${isActive ? "bg-white/5" : "hover:bg-white/3"}`}>
                       {line.hostId === "host1" && (
-                        <div className="w-7 h-7 rounded-full bg-[#1a2744] border border-[#378ADD]/30 flex items-center justify-center text-[10px] text-[#378ADD] flex-shrink-0 mt-1">MC</div>
+                        <div className="w-7 h-7 rounded-full bg-[#1a2744] border border-[#00C853]/30 flex items-center justify-center text-[10px] text-[#00C853] flex-shrink-0 mt-1">MC</div>
                       )}
                       <div className={`glass rounded-lg p-3 max-w-[85%] ${line.hostId === "host2" ? "rounded-tr-none" : "rounded-tl-none"}`}
                         style={{ borderColor: isActive ? EMOTION_COLORS[line.emotion] + "40" : undefined }}>
-                        <span className={`text-[10px] font-medium block mb-1 ${line.hostId === "host1" ? "text-[#378ADD]" : "text-orange-400"}`}>
+                        <span className={`text-[10px] font-medium block mb-1 ${line.hostId === "host1" ? "text-[#00C853]" : "text-orange-400"}`}>
                           {line.hostId === "host1" ? "Marcus Cole" : "Tanner Cross"}
                         </span>
                         <p className="text-white/80 text-sm leading-relaxed">{line.text}</p>

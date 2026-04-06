@@ -20,6 +20,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid plan" }, { status: 400 });
     }
 
+    if (!plan.priceId) {
+      return NextResponse.json({ 
+        error: `Missing price ID for ${tier} plan. Check STRIPE_PRICE_${tier.toUpperCase()} environment variable.` 
+      }, { status: 500 });
+    }
+
+    if (!process.env.STRIPE_SECRET_KEY) {
+      return NextResponse.json({ 
+        error: "Missing STRIPE_SECRET_KEY environment variable." 
+      }, { status: 500 });
+    }
+
     const url = await createCheckoutSession(userId, email, plan.priceId, tier);
 
     return NextResponse.json({ url });

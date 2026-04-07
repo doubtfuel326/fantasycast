@@ -79,8 +79,8 @@ try {
     ...episode,
     leagueName: snapshot.league.leagueName,
   });
-} catch (err) {
-  console.error("Failed to save to database:", err);
+} catch (err: any) {
+  console.error("Failed to save to database:", err?.message || err);
 }
 
 return NextResponse.json(episode);

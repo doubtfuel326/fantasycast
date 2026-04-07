@@ -1,12 +1,20 @@
 import { createClient } from "@supabase/supabase-js";
 
+// Works on both client and server
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+
+if (!supabaseUrl) console.error("Missing NEXT_PUBLIC_SUPABASE_URL");
+if (!supabaseKey) console.error("Missing NEXT_PUBLIC_SUPABASE_ANON_KEY");
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Save episode to database
 export async function saveEpisode(episode: any) {
+  console.log("Attempting to save episode:", episode.id);
+  console.log("Supabase URL:", supabaseUrl ? "SET" : "MISSING");
+  console.log("Supabase Key:", supabaseKey ? "SET" : "MISSING");
+  
   const { data, error } = await supabase
     .from("episodes")
     .upsert({
@@ -26,11 +34,12 @@ export async function saveEpisode(episode: any) {
     });
 
   if (error) {
-  console.error("Error saving episode:", JSON.stringify(error));
-  throw new Error(JSON.stringify(error));
-}
-console.log("Episode saved successfully:", data);
-return data;
+    console.error("Supabase error:", JSON.stringify(error));
+    throw new Error(JSON.stringify(error));
+  }
+  
+  console.log("Episode saved successfully!");
+  return data;
 }
 
 // Get episode by ID

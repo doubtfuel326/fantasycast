@@ -25,11 +25,37 @@ export default function DashboardPage() {
   const [newEp, setNewEp] = useState<any>(null);
 
   useEffect(() => {
+  try {
+    const l = localStorage.getItem(LKEY); if(l) setLeague(JSON.parse(l));
+    const e = localStorage.getItem(EKEY); if(e) setEpisodes(JSON.parse(e));
+  } catch {}
+
+  // Also load from Supabase
+  async function loadFromDB() {
     try {
-      const l = localStorage.getItem(LKEY); if(l) setLeague(JSON.parse(l));
-      const e = localStorage.getItem(EKEY); if(e) setEpisodes(JSON.parse(e));
-    } catch {}
-  }, []);
+      if (!user?.id) return;
+      const { getEpisodesByUser } = await import("@/lib/supabase");
+      const dbEpisodes = await getEpisodesByUser(user.id);
+      if (dbEpisodes && dbEpisodes.length > 0) {
+        const formatted = dbEpisodes.map((ep: any) => ({
+          id: ep.id,
+          week: ep.week,
+          episodeType: ep.episode_type,
+          format: ep.format,
+          title: ep.title,
+          teaser: ep.teaser,
+          generatedAt: ep.generated_at,
+          script: ep.script,
+        }));
+        setEpisodes(formatted);
+        localStorage.setItem(EKEY, JSON.stringify(formatted));
+      }
+    } catch (err) {
+      console.error("Failed to load from DB:", err);
+    }
+  }
+  loadFromDB();
+}, [user?.id]);
 
   async function connect() {
     if(!lid.trim()) return;

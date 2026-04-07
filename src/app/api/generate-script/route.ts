@@ -72,7 +72,8 @@ export async function POST(req: NextRequest) {
       // audioUrl: null — audio generation happens async via ElevenLabs
     };
 
-// Save to Supabase database
+console.log("About to save to Supabase...");
+    // Save to Supabase database
     try {
       const { saveEpisode } = await import("@/lib/supabase");
       await saveEpisode({

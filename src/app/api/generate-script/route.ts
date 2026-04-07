@@ -72,18 +72,18 @@ export async function POST(req: NextRequest) {
       // audioUrl: null — audio generation happens async via ElevenLabs
     };
 
-    // Save to Supabase database
-try {
-  const { saveEpisode } = await import("@/lib/supabase");
-  await saveEpisode({
-    ...episode,
-    leagueName: snapshot.league.leagueName,
-  });
-} catch (err: any) {
-  console.error("Failed to save to database:", err?.message || err);
-}
+// Save to Supabase database
+    try {
+      const { saveEpisode } = await import("@/lib/supabase");
+      await saveEpisode({
+        ...episode,
+        leagueName: snapshot.league.leagueName,
+      });
+    } catch (err: any) {
+      console.error("Failed to save to database:", err?.message || err);
+    }
 
-return NextResponse.json(episode);
+    return NextResponse.json(episode);
   } catch (error: any) {
     console.error("Script generation error:", error);
     return NextResponse.json(

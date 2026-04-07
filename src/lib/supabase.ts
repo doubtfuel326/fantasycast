@@ -25,8 +25,12 @@ export async function saveEpisode(episode: any) {
       plays: 0,
     });
 
-  if (error) console.error("Error saving episode:", error);
-  return data;
+  if (error) {
+  console.error("Error saving episode:", JSON.stringify(error));
+  throw new Error(JSON.stringify(error));
+}
+console.log("Episode saved successfully:", data);
+return data;
 }
 
 // Get episode by ID

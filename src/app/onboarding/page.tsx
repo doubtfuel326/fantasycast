@@ -115,26 +115,37 @@ export default function OnboardingPage() {
           {/* Step 2: Enter League ID */}
           {step === "connect" && (
             <div className="space-y-6">
-              <div>
-                <h1 className="font-display text-4xl tracking-wide mb-2">ENTER LEAGUE ID</h1>
-                <p className="text-white/40 text-sm">
-                  Find your Sleeper league ID:{" "}
-                  <span className="text-white/60">League → Settings → League ID</span>
-                </p>
-              </div>
-              <div className="glass rounded-xl p-5 space-y-2">
-                <label className="text-xs text-white/40 uppercase tracking-widest">Sleeper League ID</label>
-                <input type="text" value={leagueId} onChange={(e) => setLeagueId(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && fetchLeaguePreview()}
-                  placeholder="e.g. 784123456789012345"
-                  className="w-full bg-transparent text-white text-lg focus:outline-none placeholder-white/20"
-                  autoFocus />
-              </div>
-              {error && <p className="text-red-400 text-sm">{error}</p>}
-              <button onClick={fetchLeaguePreview} disabled={loading} className="btn-primary w-full py-3.5">
-                {loading ? "Fetching league data..." : "Preview League →"}
-              </button>
-              <button onClick={() => setStep("platform")} className="text-white/30 text-xs hover:text-white/50 transition-colors block mx-auto">← Back</button>
+              {platform === "yahoo" ? (
+                <>
+                  <h1 className="font-display text-4xl tracking-wide mb-2">CONNECT YAHOO</h1>
+                  <p className="text-white/40 text-sm mb-6">Sign in with Yahoo to connect your fantasy league.</p>
+                  <a href="/api/auth/yahoo" className="btn-primary w-full py-3.5 text-center block">Connect Yahoo Fantasy →</a>
+                  <button onClick={() => setStep("platform")} className="text-white/30 text-xs hover:text-white/50 transition-colors block mx-auto mt-4">← Back</button>
+                </>
+              ) : (
+                <>
+                  <div>
+                    <h1 className="font-display text-4xl tracking-wide mb-2">ENTER LEAGUE ID</h1>
+                    <p className="text-white/40 text-sm">
+                      Find your Sleeper league ID:{" "}
+                      <span className="text-white/60">League → Settings → League ID</span>
+                    </p>
+                  </div>
+                  <div className="glass rounded-xl p-5 space-y-2">
+                    <label className="text-xs text-white/40 uppercase tracking-widest">Sleeper League ID</label>
+                    <input type="text" value={leagueId} onChange={(e) => setLeagueId(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && fetchLeaguePreview()}
+                      placeholder="e.g. 784123456789012345"
+                      className="w-full bg-transparent text-white text-lg focus:outline-none placeholder-white/20"
+                      autoFocus />
+                  </div>
+                  {error && <p className="text-red-400 text-sm">{error}</p>}
+                  <button onClick={fetchLeaguePreview} disabled={loading} className="btn-primary w-full py-3.5">
+                    {loading ? "Fetching league data..." : "Preview League →"}
+                  </button>
+                  <button onClick={() => setStep("platform")} className="text-white/30 text-xs hover:text-white/50 transition-colors block mx-auto">← Back</button>
+                </>
+              )}
             </div>
           )}
 

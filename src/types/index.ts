@@ -66,7 +66,7 @@ export interface LeagueSnapshot {
 
 // ─── Episode / Show Types ─────────────────────────────────────────────────────
 
-export type ShowFormat = "sportscenter" | "debate" | "podcast";
+export type ShowFormat = "thewire" | "debate" | "podcast";
 
 export type EpisodeType =
   | "weekly_recap"

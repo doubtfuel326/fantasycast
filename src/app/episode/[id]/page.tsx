@@ -40,25 +40,26 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
   const playingRef = useRef(false);
 
   useEffect(() => {
-    try {
-      // First try URL query parameter (most reliable — no DB needed)
-      const urlParams = new URLSearchParams(window.location.search);
-      const urlData = urlParams.get('data');
-      if (urlData) { setEpisode(JSON.parse(decodeURIComponent(urlData))); return; }
+    async function loadEpisode() {
+      try {
+        // First try URL query parameter (most reliable — no DB needed)
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlData = urlParams.get('data');
+        if (urlData) { setEpisode(JSON.parse(decodeURIComponent(urlData))); return; }
 
-// Try loading from Supabase database
-const { getEpisodeById } = await import("@/lib/supabase");
-const dbEpisode = await getEpisodeById(params.id);
-if (dbEpisode) {
-  setEpisode({
-    ...dbEpisode,
-    episodeType: dbEpisode.episode_type,
-    leagueName: dbEpisode.league_name,
-    generatedAt: dbEpisode.generated_at,
-    script: dbEpisode.script,
-  });
-  return;
-}
+        // Try loading from Supabase database
+        const { getEpisodeById } = await import("@/lib/supabase");
+        const dbEpisode = await getEpisodeById(params.id);
+        if (dbEpisode) {
+          setEpisode({
+            ...dbEpisode,
+            episodeType: dbEpisode.episode_type,
+            leagueName: dbEpisode.league_name,
+            generatedAt: dbEpisode.generated_at,
+            script: dbEpisode.script,
+          });
+          return;
+        }
 
       // Fall back to localStorage
       for (const key of [`fcast_ep_${params.id}`, `leaguewire_episode_${params.id}`, `fc_episode_${params.id}`]) {
@@ -74,6 +75,8 @@ if (dbEpisode) {
         }
       }
     } catch {}
+    }
+    loadEpisode();
   }, [params.id]);
 
   const allLines = episode?.script?.segments?.flatMap((s: any, si: number) =>

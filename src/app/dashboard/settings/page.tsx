@@ -10,7 +10,7 @@ export default function SettingsPage() {
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
   const [connected, setConnected] = useState<any>(null);
-  const [fmt, setFmt] = useState("sportscenter");
+  const [fmt, setFmt] = useState("thewire");
 
   useEffect(() => {
     try {
@@ -80,7 +80,7 @@ export default function SettingsPage() {
           <h2 className="font-display text-xl tracking-wide mb-1">DEFAULT FORMAT</h2>
           <p className="text-white/40 text-sm mb-4">Format used for auto-generated episodes.</p>
           <div className="grid grid-cols-3 gap-3">
-            {[{id:"sportscenter",icon:"📺",l:"SportsCenter"},{id:"debate",icon:"🔥",l:"Debate Show"},{id:"podcast",icon:"🎧",l:"Podcast"}].map(f=>(
+            {[{id:"thewire",icon:"📺",l:"SportsCenter"},{id:"debate",icon:"🔥",l:"Debate Show"},{id:"podcast",icon:"🎧",l:"Podcast"}].map(f=>(
               <button key={f.id} onClick={()=>{setFmt(f.id);localStorage.setItem("fcast_format",f.id);}}
                 className={"p-4 rounded-xl text-center text-xs border "+(fmt===f.id?"border-[#00C853] bg-[#00C853]/10":"glass border-white/8 text-white/50")}>
                 <span className="text-2xl block mb-1">{f.icon}</span>{f.l}

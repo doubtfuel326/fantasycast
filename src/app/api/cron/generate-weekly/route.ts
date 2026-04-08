@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
     const activeLeagues: Array<{
       leagueId: string;
       userId: string;
-      defaultFormat: "sportscenter" | "debate" | "podcast";
+      defaultFormat: "thewire" | "debate" | "podcast";
     }> = [];
 
     const results = [];

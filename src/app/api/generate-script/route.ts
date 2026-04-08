@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     const {
       leagueId = DEMO_LEAGUE_ID,
       platform = "sleeper",
-      format = "sportscenter" as ShowFormat,
+      format = "thewire" as ShowFormat,
       episodeType = "weekly_recap" as EpisodeType,
     } = body;
 

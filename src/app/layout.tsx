@@ -4,12 +4,18 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "LeagueWire — Your League's Show",
-  description:
-    "AI-generated weekly video recaps for your fantasy football league. SportsCenter, Debate Show, and Podcast formats.",
+  description: "AI-generated weekly broadcasts for your fantasy sports league. The Wire, Debate Show, and Podcast formats.",
   openGraph: {
     title: "LeagueWire",
     description: "Your league. Your show.",
     siteName: "LeagueWire",
+  },
+  manifest: "/manifest.json",
+  themeColor: "#00C853",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "LeagueWire",
   },
 };
 

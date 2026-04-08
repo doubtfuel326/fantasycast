@@ -38,7 +38,7 @@ export const HOSTS: Record<"host1" | "host2", Host> = {
 
 function getFormatInstructions(format: ShowFormat): string {
   const formats = {
-    sportscenter: `You are writing a SPORTSCENTER-style fantasy football broadcast.
+    thewire: `You are writing a SPORTSCENTER-style fantasy football broadcast.
       - Marcus leads as the authoritative anchor with scores and headlines
       - Tanner adds analysis, color commentary, and occasional humor
       - Use classic ESPN-style phrases: "Let's get to the highlights", "Here's what happened", etc.

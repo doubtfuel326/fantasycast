@@ -6,12 +6,12 @@ import { useState } from "react";
 
 const FORMATS = [
   {
-    id: "sportscenter",
-    icon: "📺",
-    label: "SportsCenter",
+    id: "thewire",
+    icon: "📡",
+    label: "The Wire",
     color: "#00C853",
     bg: "rgba(0,200,83,0.1)",
-    line: "Anchor-led highlights, score tickers, Top Plays of the week.",
+    line: "Breaking news format. Urgent headlines, score tickers, top plays of the week.",
   },
   {
     id: "debate",
@@ -41,16 +41,16 @@ const STORY_TYPES = [
 ];
 
 const TICKER_ITEMS = [
-  "🔥 Zara Banks: That trade was highway robbery and everyone knows it",
+  "🔥 Tanner Cross: That trade was highway robbery and everyone knows it",
   "📊 Marcus Cole: Week 9 produced the highest-scoring week in league history",
   "⚡ BREAKING: Team Chaos wins by 0.4 points for third consecutive week",
   "🏆 Marcus: The gap at the top of the standings is officially a crisis",
-  "😤 Zara: I said it Week 1 — this manager cannot be trusted in the playoffs",
+  "😤 Tanner: I said it Week 1 — this manager cannot be trusted in the playoffs",
 ];
 
 export default function HomePage() {
   const { isSignedIn } = useUser();
-  const [activeFormat, setActiveFormat] = useState("sportscenter");
+  const [activeFormat, setActiveFormat] = useState("thewire");
   const [sleeperPreview, setSleeperPreview] = useState("");
 
   return (
@@ -103,7 +103,7 @@ export default function HomePage() {
           <p className="text-white/50 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
             Connect your fantasy league. Get a weekly AI-generated broadcast
             with two hosts covering every score, trade, and storyline — in
-            SportsCenter, Debate, or Podcast style.
+            The Wire, Debate, or Podcast style.
           </p>
 
           <div className="flex items-center justify-center gap-3 flex-wrap">
@@ -116,7 +116,7 @@ export default function HomePage() {
           </div>
 
           <p className="text-white/25 text-xs mt-4">
-            Starts at $9/mo · Works with Sleeper, ESPN, Yahoo
+            Starts at $19/mo · Works with Sleeper, ESPN, Yahoo
           </p>
         </div>
 
@@ -178,13 +178,13 @@ export default function HomePage() {
           <div className="glass rounded-2xl overflow-hidden">
             <div className="bg-[#111111] px-5 py-3 border-b border-white/5 flex items-center justify-between">
               <span className="font-display text-sm tracking-widest text-[#00C853]">
-                {activeFormat === "sportscenter" ? "WEEK 9 · SPORTSCENTER EDITION" :
+                {activeFormat === "thewire" ? "WEEK 9 · SPORTSCENTER EDITION" :
                  activeFormat === "debate" ? "WEEK 9 · HOT TAKE HOUR" : "WEEK 9 · THE BREAKDOWN POD"}
               </span>
               <span className="text-white/20 text-xs">AI Generated · 4 min</span>
             </div>
             <div className="p-6 space-y-4">
-              {activeFormat === "sportscenter" && (
+              {activeFormat === "thewire" && (
                 <>
                   <div className="flex gap-3">
                     <div className="w-9 h-9 rounded-full bg-[#1a2744] border border-[#00C853]/30 flex items-center justify-center text-xs font-medium text-[#00C853] flex-shrink-0">MC</div>
@@ -299,7 +299,7 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto flex items-center justify-between flex-wrap gap-6">
           <div>
             <p className="font-display text-2xl tracking-wide">READY TO GO LIVE?</p>
-            <p className="text-white/40 text-sm mt-1">Starts at $9/mo per league. Cancel anytime.</p>
+            <p className="text-white/40 text-sm mt-1">Starts at $19/mo per league. Cancel anytime.</p>
           </div>
           <Link href="/pricing" className="btn-primary">
             See Pricing Plans →

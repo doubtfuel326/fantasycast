@@ -36,6 +36,7 @@ const STORY_TYPES = [
   { icon: "📊", label: "Weekly Recap", tag: "Every week", color: "#27AE60" },
   { icon: "🏟", label: "Preseason", tag: "Before season", color: "#F39C12" },
   { icon: "🏆", label: "Playoffs", tag: "Postseason", color: "#E74C3C" },
+  { icon: "🥇", label: "Championship", tag: "Title game", color: "#FFD700" },
   { icon: "👑", label: "Legacy", tag: "All-time", color: "#9B59B6" },
   { icon: "💬", label: "Offseason", tag: "Between seasons", color: "#1ABC9C" },
 ];

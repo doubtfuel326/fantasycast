@@ -25,11 +25,11 @@ import * as path from "path";
 const ACTIVE_LEAGUES: Array<{
   leagueId: string;
   platform: "sleeper";
-  defaultFormat: "sportscenter" | "debate" | "podcast";
+  defaultFormat: "thewire" | "debate" | "podcast";
   userId: string;
 }> = [
   // Add your test Sleeper league ID here:
-  // { leagueId: "YOUR_LEAGUE_ID", platform: "sleeper", defaultFormat: "sportscenter", userId: "user_abc" },
+  // { leagueId: "YOUR_LEAGUE_ID", platform: "sleeper", defaultFormat: "thewire", userId: "user_abc" },
 ];
 
 // ─── Main generator ───────────────────────────────────────────────────────────

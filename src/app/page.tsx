@@ -178,7 +178,7 @@ export default function HomePage() {
           <div className="glass rounded-2xl overflow-hidden">
             <div className="bg-[#111111] px-5 py-3 border-b border-white/5 flex items-center justify-between">
               <span className="font-display text-sm tracking-widest text-[#00C853]">
-                {activeFormat === "thewire" ? "WEEK 9 · SPORTSCENTER EDITION" :
+                {activeFormat === "thewire" ? "WEEK 9 · THE WIRE EDITION" :
                  activeFormat === "debate" ? "WEEK 9 · HOT TAKE HOUR" : "WEEK 9 · THE BREAKDOWN POD"}
               </span>
               <span className="text-white/20 text-xs">AI Generated · 4 min</span>

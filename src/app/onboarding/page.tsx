@@ -9,7 +9,7 @@ type Step = "platform" | "connect" | "preview";
 const PLATFORMS = [
   { id: "sleeper", name: "Sleeper", color: "#5865F2", available: true, note: "Free API — connects instantly" },
   { id: "espn", name: "ESPN Fantasy", color: "#CC2222", available: false, note: "Coming soon" },
-  { id: "yahoo", name: "Yahoo Fantasy", color: "#7B0099", available: false, note: "Coming soon" },
+  { id: "yahoo", name: "Yahoo Fantasy", color: "#7B0099", available: true, note: "Connect via Yahoo account" },
   { id: "nfl", name: "NFL.com", color: "#013369", available: false, note: "Coming soon" },
 ];
 

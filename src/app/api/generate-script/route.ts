@@ -23,8 +23,8 @@ export async function POST(req: NextRequest) {
     } = body;
 
     // Validate format and type
-    const validFormats = ["sportscenter", "debate", "podcast"];
-    const validTypes = ["weekly_recap", "draft_recap", "preseason", "playoff", "legacy", "offseason"];
+    const validFormats = ["thewire", "debate", "podcast"];
+    const validTypes = ["weekly_recap", "draft_recap", "preseason", "playoff", "legacy", "offseason", "championship"];
     if (!validFormats.includes(format) || !validTypes.includes(episodeType)) {
       return NextResponse.json({ error: "Invalid format or episode type" }, { status: 400 });
     }

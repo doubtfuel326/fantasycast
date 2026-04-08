@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useUser, UserButton } from "@clerk/nextjs";
 
-const FL = {sportscenter:"SportsCenter",debate:"Debate Show",podcast:"Podcast"} as Record<string,string>;
-const TL = {weekly_recap:"Weekly Recap",draft_recap:"Draft Recap",preseason:"Preseason",playoff:"Playoffs",legacy:"Legacy",offseason:"Offseason"} as Record<string,string>;
+const FL = {thewire:"The Wire",debate:"Debate Show",podcast:"Podcast"} as Record<string,string>;
+const TL = {weekly_recap:"Weekly Recap",draft_recap:"Draft Recap",preseason:"Preseason",playoff:"Playoffs",championship:"Championship",legacy:"Legacy",offseason:"Offseason"} as Record<string,string>;
 const TC = {weekly_recap:"#27AE60",draft_recap:"#00C853",preseason:"#F39C12",playoff:"#E74C3C",legacy:"#9B59B6",offseason:"#1ABC9C"} as Record<string,string>;
 
 const LKEY = "fcast_league";
@@ -19,7 +19,7 @@ export default function DashboardPage() {
   const [connErr, setConnErr] = useState("");
   const [episodes, setEpisodes] = useState<any[]>([]);
   const [gen, setGen] = useState(false);
-  const [fmt, setFmt] = useState("sportscenter");
+  const [fmt, setFmt] = useState("thewire");
   const [typ, setTyp] = useState("weekly_recap");
   const [modal, setModal] = useState(false);
   const [newEp, setNewEp] = useState<any>(null);
@@ -239,7 +239,7 @@ export default function DashboardPage() {
               <div>
                 <p className="text-xs uppercase tracking-widest text-white/30 mb-2">Format</p>
                 <div className="grid grid-cols-3 gap-2">
-                  {[{id:"sportscenter",icon:"📺",l:"SportsCenter"},{id:"debate",icon:"🔥",l:"Debate"},{id:"podcast",icon:"🎧",l:"Podcast"}].map(f=>(
+                  {[{id:"thewire",icon:"📡",l:"The Wire"},{id:"debate",icon:"🔥",l:"Debate"},{id:"podcast",icon:"🎧",l:"Podcast"}].map(f=>(
                     <button key={f.id} onClick={()=>setFmt(f.id)} className={"p-3 rounded-xl text-center text-xs border "+(fmt===f.id?"border-[#00C853] bg-[#00C853]/10":"border-white/8 glass text-white/50")}>
                       <span className="block text-lg mb-1">{f.icon}</span>{f.l}
                     </button>

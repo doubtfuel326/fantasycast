@@ -11,7 +11,7 @@ export const PLANS: Plan[] = [
   {
     id: "starter",
     name: "Starter",
-    price: 9,
+    price: 19,
     priceId: process.env.STRIPE_PRICE_STARTER || "",
     episodesPerWeek: 1,
     leagues: 1,
@@ -27,7 +27,7 @@ export const PLANS: Plan[] = [
   {
     id: "pro",
     name: "Pro",
-    price: 19,
+    price: 39,
     priceId: process.env.STRIPE_PRICE_PRO || "",
     episodesPerWeek: 3,
     leagues: 3,
@@ -45,7 +45,7 @@ export const PLANS: Plan[] = [
   {
     id: "elite",
     name: "Elite",
-    price: 39,
+    price: 79,
     priceId: process.env.STRIPE_PRICE_ELITE || "",
     episodesPerWeek: 7,
     leagues: 10,

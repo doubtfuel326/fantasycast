@@ -23,6 +23,30 @@ export default function DashboardPage() {
   const [typ, setTyp] = useState("weekly_recap");
   const [modal, setModal] = useState(false);
   const [newEp, setNewEp] = useState<any>(null);
+  const [showInstall, setShowInstall] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+
+  useEffect(() => {
+    const isInstalled = window.matchMedia("(display-mode: standalone)").matches;
+    if (isInstalled) return;
+    const handler = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstall(true);
+    };
+    window.addEventListener("beforeinstallprompt", handler);
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    if (isIOS) setTimeout(() => setShowInstall(true), 2000);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, []);
+
+  async function installApp() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const result = await deferredPrompt.userChoice;
+      if (result.outcome === "accepted") setShowInstall(false);
+    }
+  }
 
   useEffect(() => {
   try {
@@ -152,6 +176,23 @@ export default function DashboardPage() {
         </Link>
       </div>
 
+      {showInstall && (
+        <div className="md:hidden fixed top-14 left-0 right-0 z-30 bg-[#111111] border-b border-[#00C853]/20 px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="text-lg">📱</span>
+            <div>
+              <p className="text-xs font-medium text-white">Add to Home Screen</p>
+              <p className="text-[10px] text-white/40">Tap Share then Add to Home Screen</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            {deferredPrompt && (
+              <button onClick={installApp} className="bg-[#00C853] text-black text-xs font-medium px-3 py-1.5 rounded-lg">Install</button>
+            )}
+            <button onClick={() => setShowInstall(false)} className="text-white/40 text-lg leading-none">x</button>
+          </div>
+        </div>
+      )}
       {/* Main content */}
       <div className="md:ml-56 pt-14 md:pt-0 pb-20 md:pb-0 p-4 md:p-8">
         <div className="flex items-start justify-between mb-6">

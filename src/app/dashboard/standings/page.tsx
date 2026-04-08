@@ -33,7 +33,7 @@ export default function StandingsPage() {
         </nav>
       </div>
 
-      <div className="ml-56 p-8 max-w-3xl">
+      <div className="md:ml-56 p-4 md:p-8 pt-16 md:pt-8 pb-20 md:pb-8 max-w-3xl">
         <div className="mb-8">
           <p className="text-white/30 text-xs uppercase tracking-widest mb-1">
             {league ? `Week ${leagueData?.currentWeek} · ${league.season}` : "Standings"}

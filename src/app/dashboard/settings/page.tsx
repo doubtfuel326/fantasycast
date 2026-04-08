@@ -48,7 +48,7 @@ export default function SettingsPage() {
           <Link href="/dashboard/settings" className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-white/8 text-white text-sm">⚙ Settings</Link>
         </nav>
       </div>
-      <div className="ml-56 p-8 max-w-2xl">
+      <div className="md:ml-56 p-4 md:p-8 pt-16 md:pt-8 pb-20 md:pb-8 max-w-2xl">
         <h1 className="font-display text-4xl tracking-wide mb-8">SETTINGS</h1>
 
         {connected && (

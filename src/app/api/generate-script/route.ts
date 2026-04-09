@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
 
     let snapshot;
 
+    console.log("Platform received:", platform, "LeagueId:", leagueId);
     if (platform === "sleeper") {
       try {
         snapshot = await buildLeagueSnapshot(leagueId);

@@ -35,7 +35,7 @@ export default function OnboardingPage() {
       fetch('/api/yahoo-leagues')
         .then(r => r.json())
         .then(d => {
-          const recent = (d.leagues || []).filter((l: any) => parseInt(l.season) >= 2023);
+          const recent = (d.leagues || []).filter((l: any) => parseInt(l.season) >= 2022).sort((a: any, b: any) => parseInt(b.season) - parseInt(a.season));
           setYahooLeagues(recent);
         })
         .finally(() => setLoadingYahoo(false));

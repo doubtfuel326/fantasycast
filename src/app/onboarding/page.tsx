@@ -21,8 +21,26 @@ export default function OnboardingPage() {
   const [platform, setPlatform] = useState(params.get("platform") || "");
   const [leagueId, setLeagueId] = useState(params.get("leagueId") || "");
   const [leagueData, setLeagueData] = useState<any>(null);
+  const [yahooLeagues, setYahooLeagues] = useState<any[]>([]);
+  const [loadingYahoo, setLoadingYahoo] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('yahoo') === 'connected') {
+      setPlatform('yahoo');
+      setStep('preview');
+      setLoadingYahoo(true);
+      fetch('/api/yahoo-leagues')
+        .then(r => r.json())
+        .then(d => {
+          const recent = (d.leagues || []).filter((l: any) => parseInt(l.season) >= 2023);
+          setYahooLeagues(recent);
+        })
+        .finally(() => setLoadingYahoo(false));
+    }
+  }, []);
 
   useEffect(() => {
     if (params.get("leagueId") && params.get("platform")) {
@@ -145,6 +163,33 @@ export default function OnboardingPage() {
                   </button>
                   <button onClick={() => setStep("platform")} className="text-white/30 text-xs hover:text-white/50 transition-colors block mx-auto">← Back</button>
                 </>
+              )}
+            </div>
+          )}
+
+          {/* Yahoo League Picker */}
+          {step === 'preview' && platform === 'yahoo' && (
+            <div className='space-y-6'>
+              <div>
+                <h1 className='font-display text-4xl tracking-wide mb-2'>SELECT YOUR LEAGUE</h1>
+                <p className='text-white/40 text-sm'>Choose which Yahoo league to use for LeagueWire.</p>
+              </div>
+              {loadingYahoo ? (
+                <p className='text-white/40 text-sm'>Loading your leagues...</p>
+              ) : (
+                <div className='space-y-2 max-h-96 overflow-y-auto'>
+                  {yahooLeagues.map((league: any) => (
+                    <button key={league.leagueId} onClick={() => {
+                      localStorage.setItem('fcast_league', JSON.stringify({ league, standings: [] }));
+                      localStorage.setItem('fcast_lid', league.leagueId);
+                      localStorage.setItem('fcast_platform', 'yahoo');
+                      window.location.href = '/dashboard';
+                    }} className='w-full glass rounded-xl p-4 text-left hover:border-[#00C853]/40 border border-white/5 transition-colors'>
+                      <p className='font-medium text-sm'>{league.leagueName}</p>
+                      <p className='text-white/40 text-xs mt-1'>{league.sport.toUpperCase()} · {league.season} · {league.totalTeams} teams</p>
+                    </button>
+                  ))}
+                </div>
               )}
             </div>
           )}

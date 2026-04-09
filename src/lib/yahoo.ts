@@ -63,43 +63,78 @@ export async function getYahooLeagues(userId: string) {
 }
 
 export async function buildYahooSnapshot(userId: string, leagueKey: string) {
-  const [settingsData, standingsData] = await Promise.all([
-    yahooRequest(userId, `league/${leagueKey}/settings`),
-    yahooRequest(userId, `league/${leagueKey}/standings`),
-  ]);
-  const leagueSettings = settingsData?.fantasy_content?.league?.[0];
-  const standings = standingsData?.fantasy_content?.league?.[1]?.standings?.[0]?.teams;
-  const teamCount = standings?.count || 0;
-  const teams = [];
+  const standingsData = await yahooRequest(userId, `league/${leagueKey}/standings`);
+  
+  const leagueInfo = standingsData?.fantasy_content?.league?.[0];
+  const teamsObj = standingsData?.fantasy_content?.league?.[1]?.standings?.[0]?.teams;
+  
+  const teamCount = teamsObj?.count || 0;
+  const teams: any[] = [];
+
   for (let i = 0; i < teamCount; i++) {
-    const team = standings[i]?.team;
-    if (!team) continue;
-    const teamData = team[0];
-    const teamStandings = team[2]?.team_standings;
+    const teamWrapper = teamsObj?.[i]?.team;
+    if (!teamWrapper) continue;
+
+    const teamArr = teamWrapper[0];
+    const teamPoints = teamWrapper[1]?.team_points;
+    const teamStandings = teamWrapper[2]?.team_standings;
+
+    // Parse team name from array
+    const name = teamArr?.find((t: any) => typeof t === 'object' && t?.name)?.name || `Team ${i+1}`;
+    
+    // Parse manager nickname
+    const managersObj = teamArr?.find((t: any) => typeof t === 'object' && t?.managers);
+    const managerName = managersObj?.managers?.[0]?.manager?.nickname || "Manager";
+
+    const wins = parseInt(teamStandings?.outcome_totals?.wins || "0");
+    const losses = parseInt(teamStandings?.outcome_totals?.losses || "0");
+    const rank = parseInt(teamStandings?.rank || String(i + 1));
+    const pointsFor = parseFloat(teamStandings?.points_for || "0");
+    const pointsAgainst = parseFloat(teamStandings?.points_against || "0");
+    const streakType = teamStandings?.streak?.type === "win" ? "W" : "L";
+    const streakVal = teamStandings?.streak?.value || "1";
+
     teams.push({
-      teamId: String(i),
-      teamName: teamData?.find((t: any) => t?.name)?.name || `Team ${i + 1}`,
-      managerName: teamData?.find((t: any) => t?.managers)?.managers?.[0]?.manager?.nickname || "Manager",
-      wins: parseInt(teamStandings?.outcome_totals?.wins || "0"),
-      losses: parseInt(teamStandings?.outcome_totals?.losses || "0"),
+      teamId: String(i + 1),
+      teamName: name,
+      managerName,
+      wins,
+      losses,
       ties: 0,
-      pointsFor: parseFloat(teamStandings?.points_for || "0"),
-      pointsAgainst: parseFloat(teamStandings?.points_against || "0"),
-      rank: parseInt(teamStandings?.rank || String(i + 1)),
-      streak: "W1",
+      pointsFor,
+      pointsAgainst,
+      rank,
+      streak: `${streakType}${streakVal}`,
     });
   }
+
   const sortedTeams = [...teams].sort((a, b) => a.rank - b.rank);
-  const currentWeek = parseInt(leagueSettings?.current_week || "1");
+  const currentWeek = parseInt(leagueInfo?.current_week || "1");
+
   return {
-    league: { id: leagueKey, platform: "yahoo" as const, leagueId: leagueKey, leagueName: leagueSettings?.name || "Yahoo League", sport: leagueSettings?.game_code || "nfl", season: leagueSettings?.season || "2024", totalTeams: parseInt(leagueSettings?.num_teams || "10"), scoringType: leagueSettings?.scoring_type || "head", userId, connectedAt: new Date().toISOString() },
+    league: {
+      id: leagueKey,
+      platform: "yahoo" as const,
+      leagueId: leagueKey,
+      leagueName: leagueInfo?.name || "Yahoo League",
+      sport: leagueInfo?.game_code || "nfl",
+      season: leagueInfo?.season || "2024",
+      totalTeams: parseInt(leagueInfo?.num_teams || "12"),
+      scoringType: leagueInfo?.scoring_type || "head",
+      userId,
+      connectedAt: new Date().toISOString(),
+    },
     teams,
     currentWeek,
     matchups: [],
     recentTrades: [],
     topScorer: sortedTeams[0] || teams[0],
     biggestUpset: undefined,
-    highestScore: { team: sortedTeams[0]?.teamName || "", score: sortedTeams[0]?.pointsFor || 0, week: currentWeek },
+    highestScore: {
+      team: sortedTeams[0]?.teamName || "",
+      score: sortedTeams[0]?.pointsFor || 0,
+      week: currentWeek,
+    },
     standings: sortedTeams,
   };
 }

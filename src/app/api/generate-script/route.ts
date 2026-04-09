@@ -45,10 +45,19 @@ export async function POST(req: NextRequest) {
         // If Sleeper API fails (e.g. invalid ID), use demo data
         snapshot = buildDemoSnapshot();
       }
+    } else if (platform === "yahoo") {
+      try {
+        const { buildYahooSnapshot } = await import("@/lib/yahoo");
+        snapshot = await buildYahooSnapshot(userId, leagueId);
+      } catch (e: any) {
+        return NextResponse.json(
+          { error: e.message || "Failed to load Yahoo league." },
+          { status: 400 }
+        );
+      }
     } else {
-      // ESPN/Yahoo: return coming soon
       return NextResponse.json(
-        { error: "ESPN and Yahoo integrations coming soon. Connect a Sleeper league to generate episodes." },
+        { error: "ESPN integration coming soon." },
         { status: 400 }
       );
     }

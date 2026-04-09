@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
 
     if (dbError) console.error("DB error:", dbError);
 
-    return NextResponse.redirect(new URL("/dashboard?yahoo=connected", req.url));
+    return NextResponse.redirect(new URL("/onboarding?yahoo=connected", req.url));
   } catch (err: any) {
     console.error("Yahoo OAuth error:", err);
     return NextResponse.redirect(new URL(`/dashboard?error=${err.message}`, req.url));

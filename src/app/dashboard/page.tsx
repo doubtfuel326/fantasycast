@@ -207,7 +207,7 @@ export default function DashboardPage() {
         </div>
 
         <div className="glass rounded-xl p-4 mb-6">
-          <p className="text-xs text-white/40 mb-2">{lg ? "Switch league:" : "Connect your Sleeper league:"}</p>
+          <div className="flex items-center justify-between mb-2"><p className="text-xs text-white/40">{lg ? "Switch league:" : "Connect your league:"}</p><a href="/onboarding" className="text-xs text-[#00C853] hover:underline">+ Add league</a></div>
           <div className="flex gap-3">
             <input value={lid} onChange={e=>setLid(e.target.value)} onKeyDown={e=>e.key==="Enter"&&connect()}
               placeholder="Paste Sleeper League ID"

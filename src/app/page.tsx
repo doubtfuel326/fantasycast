@@ -108,7 +108,7 @@ export default function HomePage() {
           </p>
 
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            <Link href={isSignedIn ? "/dashboard" : "/sign-up"} className="btn-primary text-base px-8 py-3.5">
+            <Link href={isSignedIn ? "/onboarding" : "/sign-up"} className="btn-primary text-base px-8 py-3.5">
               Connect Your League →
             </Link>
             <Link href="/pricing" className="btn-ghost text-base px-8 py-3.5">

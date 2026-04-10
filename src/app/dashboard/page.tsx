@@ -54,6 +54,25 @@ export default function DashboardPage() {
     const e = localStorage.getItem(EKEY); if(e) setEpisodes(JSON.parse(e));
   } catch {}
 
+    // Load Yahoo standings if redirected from onboarding
+    const params = new URLSearchParams(window.location.search);
+    const yahooLeagueId = params.get('loadYahoo');
+    if (yahooLeagueId) {
+      fetch('/api/yahoo-leagues/standings?leagueId=' + yahooLeagueId)
+        .then(r => r.json())
+        .then(data => {
+          if (data.standings) {
+            const saved = localStorage.getItem(LKEY);
+            const parsed = saved ? JSON.parse(saved) : {};
+            parsed.standings = data.standings;
+            if (data.league) parsed.league = { ...parsed.league, ...data.league };
+            localStorage.setItem(LKEY, JSON.stringify(parsed));
+            setLeague(parsed);
+          }
+        })
+        .catch(err => console.error('Failed to load Yahoo standings:', err));
+    }
+
   // Also load from Supabase
   async function loadFromDB() {
     try {

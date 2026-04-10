@@ -50,6 +50,15 @@ export default function DashboardPage() {
 
   useEffect(() => {
   try {
+    const savedUserId = localStorage.getItem("fcast_user_id");
+    if (savedUserId && user?.id && savedUserId !== user.id) {
+      localStorage.removeItem(LKEY);
+      localStorage.removeItem(EKEY);
+      localStorage.removeItem(LIKEY);
+      localStorage.removeItem("fcast_platform");
+      localStorage.removeItem("fcast_episodes_lid");
+    }
+    if (user?.id) localStorage.setItem("fcast_user_id", user.id);
     const l = localStorage.getItem(LKEY); if(l) setLeague(JSON.parse(l));
     const e = localStorage.getItem(EKEY); if(e) setEpisodes(JSON.parse(e));
   } catch {}

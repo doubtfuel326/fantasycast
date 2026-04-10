@@ -180,10 +180,20 @@ export default function OnboardingPage() {
                 <div className='space-y-2 max-h-96 overflow-y-auto'>
                   {yahooLeagues.map((league: any) => (
                     <button key={league.leagueId} onClick={() => {
-                      localStorage.setItem('fcast_league', JSON.stringify({ league, standings: [] }));
-                      localStorage.setItem('fcast_lid', league.leagueId);
-                      localStorage.setItem('fcast_platform', 'yahoo');
-                      window.location.href = '/dashboard';
+                      fetch('/api/yahoo-leagues/standings?leagueId=' + league.leagueId)
+                      .then(r => r.json())
+                      .then(data => {
+                        localStorage.setItem('fcast_league', JSON.stringify({ league: { leagueName: league.leagueName, totalTeams: league.totalTeams, scoringType: 'head', season: league.season }, standings: data.standings || [] }));
+                        localStorage.setItem('fcast_lid', league.leagueId);
+                        localStorage.setItem('fcast_platform', 'yahoo');
+                        window.location.href = '/dashboard';
+                      })
+                      .catch(() => {
+                        localStorage.setItem('fcast_league', JSON.stringify({ league: { leagueName: league.leagueName, totalTeams: league.totalTeams, scoringType: 'head', season: league.season }, standings: [] }));
+                        localStorage.setItem('fcast_lid', league.leagueId);
+                        localStorage.setItem('fcast_platform', 'yahoo');
+                        window.location.href = '/dashboard';
+                      });
                     }} className='w-full glass rounded-xl p-4 text-left hover:border-[#00C853]/40 border border-white/5 transition-colors'>
                       <p className='font-medium text-sm'>{league.leagueName}</p>
                       <p className='text-white/40 text-xs mt-1'>{league.sport.toUpperCase()} · {league.season} · {league.totalTeams} teams</p>

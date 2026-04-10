@@ -65,7 +65,9 @@ export async function getYahooLeagues(userId: string) {
 export async function buildYahooSnapshot(userId: string, leagueKey: string) {
   const standingsData = await yahooRequest(userId, `league/${leagueKey}/standings`);
   
+  console.log("Yahoo raw data:", JSON.stringify(standingsData?.fantasy_content?.league?.[0]));
   const leagueInfo = standingsData?.fantasy_content?.league?.[0];
+  console.log("Teams count:", standingsData?.fantasy_content?.league?.[1]?.standings?.[0]?.teams?.count);
   const teamsObj = standingsData?.fantasy_content?.league?.[1]?.standings?.[0]?.teams;
   
   const teamCount = teamsObj?.count || 0;

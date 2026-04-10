@@ -128,17 +128,17 @@ export default function DashboardPage() {
   const [checkingSub, setCheckingSub] = useState(true);
 
   useEffect(() => {
-    // Check subscription status
-    // TODO: In production, fetch from your DB using user.id
-    // For now check if STRIPE_PRICE keys are configured — if not, allow free access during beta
-    if (!user?.id) return;
-    try {
-      const { createClient } = await import("@supabase/supabase-js");
-      const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL || "", process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "");
-      const { data } = await supabase.from("subscribers").select("status").eq("user_id", user.id).single();
-      setHasSubscription(data?.status === "active");
-    } catch { setHasSubscription(false); } finally { setCheckingSub(false); }
-  }, []);
+    async function checkSub() {
+      if (!user?.id) return;
+      try {
+        const { createClient } = await import("@supabase/supabase-js");
+        const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL || "", process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "");
+        const { data } = await supabase.from("subscribers").select("status").eq("user_id", user.id).single();
+        setHasSubscription(data?.status === "active");
+      } catch { setHasSubscription(false); } finally { setCheckingSub(false); }
+    }
+    checkSub();
+  }, [user?.id]);
 
   async function generate() {
     if(!hasSubscription) {

@@ -146,7 +146,7 @@ export default function DashboardPage() {
       const savedLid = localStorage.getItem(LIKEY) || "demo_league";
       const r = await fetch("/api/generate-script", {
         method:"POST", headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({leagueId:savedLid, platform:localStorage.getItem("fcast_platform") || "sleeper", format:fmt, episodeType:typ}),
+        body: JSON.stringify({leagueId:savedLid, platform:savedLid.includes(".") ? "yahoo" : (localStorage.getItem("fcast_platform") || "sleeper"), format:fmt, episodeType:typ}),
       });
       const d = await r.json();
       if(d.error) throw new Error(d.error);

@@ -118,6 +118,7 @@ export default function DashboardPage() {
       setLeague(d);
       localStorage.setItem(LKEY, JSON.stringify(d));
       localStorage.setItem(LIKEY, lid.trim());
+      localStorage.setItem("fcast_platform", "sleeper");
       setLid("");
     } catch(e:any) { setConnErr(e.message); }
     finally { setConnecting(false); }

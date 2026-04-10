@@ -192,7 +192,8 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
         </div>
         <button
           onClick={() => {
-            navigator.clipboard.writeText(window.location.href);
+            const cleanUrl = window.location.origin + "/episode/" + params.id;
+            navigator.clipboard.writeText(cleanUrl);
             setCopied(true);
             setTimeout(() => setCopied(false), 2500);
           }}

@@ -80,7 +80,13 @@ export default function DashboardPage() {
       const { getEpisodesByUser } = await import("@/lib/supabase");
       const lid = localStorage.getItem("fcast_lid") || "";
       const currentLid = localStorage.getItem("fcast_lid") || "";
-      const dbEpisodes = await getEpisodesByUser(user.id, currentLid);
+      const cachedLid = localStorage.getItem("fcast_episodes_lid");
+      if (cachedLid !== currentLid) {
+        localStorage.removeItem(EKEY);
+        setEpisodes([]);
+        localStorage.setItem("fcast_episodes_lid", currentLid);
+      }
+      const dbEpisodes = currentLid ? await getEpisodesByUser(user.id, currentLid) : [];
       if (dbEpisodes && dbEpisodes.length > 0) {
         const formatted = dbEpisodes.map((ep: any) => ({
           id: ep.id,

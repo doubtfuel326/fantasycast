@@ -63,31 +63,24 @@ export async function getYahooLeagues(userId: string) {
 }
 
 export async function buildYahooSnapshot(userId: string, leagueKey: string) {
-  const standingsData = await yahooRequest(userId, `league/${leagueKey}/standings`);
-  
-  console.log("Yahoo raw data:", JSON.stringify(standingsData?.fantasy_content?.league?.[0]));
+  const [standingsData, scoreboardData] = await Promise.all([
+    yahooRequest(userId, `league/${leagueKey}/standings`),
+    yahooRequest(userId, `league/${leagueKey}/scoreboard`).catch(() => null),
+  ]);
+
   const leagueInfo = standingsData?.fantasy_content?.league?.[0];
-  console.log("Teams count:", standingsData?.fantasy_content?.league?.[1]?.standings?.[0]?.teams?.count);
   const teamsObj = standingsData?.fantasy_content?.league?.[1]?.standings?.[0]?.teams;
-  
   const teamCount = teamsObj?.count || 0;
   const teams: any[] = [];
 
   for (let i = 0; i < teamCount; i++) {
     const teamWrapper = teamsObj?.[i]?.team;
     if (!teamWrapper) continue;
-
     const teamArr = teamWrapper[0];
-    const teamPoints = teamWrapper[1]?.team_points;
     const teamStandings = teamWrapper[2]?.team_standings;
-
-    // Parse team name from array
     const name = teamArr?.find((t: any) => typeof t === 'object' && t?.name)?.name || `Team ${i+1}`;
-    
-    // Parse manager nickname
     const managersObj = teamArr?.find((t: any) => typeof t === 'object' && t?.managers);
     const managerName = managersObj?.managers?.[0]?.manager?.nickname || "Manager";
-
     const wins = parseInt(teamStandings?.outcome_totals?.wins || "0");
     const losses = parseInt(teamStandings?.outcome_totals?.losses || "0");
     const rank = parseInt(teamStandings?.rank || String(i + 1));
@@ -95,48 +88,53 @@ export async function buildYahooSnapshot(userId: string, leagueKey: string) {
     const pointsAgainst = parseFloat(teamStandings?.points_against || "0");
     const streakType = teamStandings?.streak?.type === "win" ? "W" : "L";
     const streakVal = teamStandings?.streak?.value || "1";
-
-    teams.push({
-      teamId: String(i + 1),
-      teamName: name,
-      managerName,
-      wins,
-      losses,
-      ties: 0,
-      pointsFor,
-      pointsAgainst,
-      rank,
-      streak: `${streakType}${streakVal}`,
-    });
+    teams.push({ teamId: String(i + 1), teamName: name, managerName, wins, losses, ties: 0, pointsFor, pointsAgainst, rank, streak: `${streakType}${streakVal}` });
   }
 
   const sortedTeams = [...teams].sort((a, b) => a.rank - b.rank);
   const currentWeek = parseInt(leagueInfo?.current_week || "1");
 
+  // Parse matchups from scoreboard
+  const matchups: any[] = [];
+  try {
+    const matchupObj = scoreboardData?.fantasy_content?.league?.[1]?.scoreboard?.[0]?.matchups;
+    const matchupCount = matchupObj?.count || 0;
+    for (let i = 0; i < matchupCount; i++) {
+      const matchup = matchupObj?.[i]?.matchup;
+      if (!matchup) continue;
+      const matchupTeams = matchup[0]?.teams;
+      if (!matchupTeams) continue;
+      const t1 = matchupTeams[0]?.team;
+      const t2 = matchupTeams[1]?.team;
+      if (!t1 || !t2) continue;
+      const t1Name = t1[0]?.find((t: any) => typeof t === 'object' && t?.name)?.name || "Team A";
+      const t2Name = t2[0]?.find((t: any) => typeof t === 'object' && t?.name)?.name || "Team B";
+      const t1Score = parseFloat(t1[1]?.team_points?.total || "0");
+      const t2Score = parseFloat(t2[1]?.team_points?.total || "0");
+      matchups.push({
+        matchupId: String(i),
+        week: currentWeek,
+        team1: teams.find(t => t.teamName === t1Name) || teams[0],
+        team2: teams.find(t => t.teamName === t2Name) || teams[1],
+        team1Score: t1Score,
+        team2Score: t2Score,
+        winner: t1Score >= t2Score ? t1Name : t2Name,
+        isPlayoff: matchup[0]?.is_playoffs === "1",
+      });
+    }
+  } catch (e) {
+    console.log("No scoreboard data available");
+  }
+
   return {
-    league: {
-      id: leagueKey,
-      platform: "yahoo" as const,
-      leagueId: leagueKey,
-      leagueName: leagueInfo?.name || "Yahoo League",
-      sport: leagueInfo?.game_code || "nfl",
-      season: leagueInfo?.season || "2024",
-      totalTeams: parseInt(leagueInfo?.num_teams || "12"),
-      scoringType: leagueInfo?.scoring_type || "head",
-      userId,
-      connectedAt: new Date().toISOString(),
-    },
+    league: { id: leagueKey, platform: "yahoo" as const, leagueId: leagueKey, leagueName: leagueInfo?.name || "Yahoo League", sport: leagueInfo?.game_code || "nfl", season: leagueInfo?.season || "2024", totalTeams: parseInt(leagueInfo?.num_teams || "12"), scoringType: leagueInfo?.scoring_type || "head", userId, connectedAt: new Date().toISOString() },
     teams,
     currentWeek,
-    matchups: [],
+    matchups,
     recentTrades: [],
     topScorer: sortedTeams[0] || teams[0],
     biggestUpset: undefined,
-    highestScore: {
-      team: sortedTeams[0]?.teamName || "",
-      score: sortedTeams[0]?.pointsFor || 0,
-      week: currentWeek,
-    },
+    highestScore: { team: sortedTeams[0]?.teamName || "", score: sortedTeams[0]?.pointsFor || 0, week: currentWeek },
     standings: sortedTeams,
   };
 }

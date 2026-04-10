@@ -55,12 +55,18 @@ export async function getEpisodeById(id: string) {
 }
 
 // Get all episodes for a user
-export async function getEpisodesByUser(userId: string) {
-  const { data, error } = await supabase
+export async function getEpisodesByUser(userId: string, leagueId?: string) {
+  let query = supabase
     .from("episodes")
     .select("*")
     .eq("user_id", userId)
     .order("generated_at", { ascending: false });
+  
+  if (leagueId) {
+    query = query.eq("league_id", leagueId);
+  }
+
+  const { data, error } = await query;
 
   if (error) console.error("Error fetching episodes:", error);
   return data || [];

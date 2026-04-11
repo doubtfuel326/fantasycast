@@ -314,8 +314,12 @@ export default function HomePage() {
           <span className="font-display text-xl tracking-wider text-white/30">
             LEAGUE<span className="text-[#00C853]/50">WIRE</span>
           </span>
+          <div className="flex items-center gap-6">
+            <a href="/privacy" className="text-white/20 text-xs hover:text-white/40">Privacy Policy</a>
+            <a href="/terms" className="text-white/20 text-xs hover:text-white/40">Terms of Service</a>
+          </div>
           <p className="text-white/20 text-xs">
-            © 2025 LeagueWire · Not affiliated with ESPN, Yahoo, Sleeper, or the NFL
+            © 2026 LeagueWire · Not affiliated with ESPN, Yahoo, Sleeper, or the NFL
           </p>
         </div>
       </footer>

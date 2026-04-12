@@ -273,12 +273,12 @@ export default function LeagueSetupPage() {
           <p className="text-white/30 text-xs mb-4">For Legacy episodes — add seasons OLDER than last season only. Do not add last season here, it is already saved above.</p>
           <div className="space-y-3">
             {pastChampions.map((champ, i) => (
-              <div key={i} className="grid grid-cols-3 gap-2 items-center">
+              <div key={i} className="flex gap-2 items-center">
                 <input value={champ.year} onChange={e => {
                   const updated = [...pastChampions];
                   updated[i] = {...updated[i], year: e.target.value};
                   setPastChampions(updated);
-                }} placeholder="Year" className={inputClass} />
+                }} placeholder="Year" className={inputClass + " w-20"} />
                 <input value={champ.team} onChange={e => {
                   const updated = [...pastChampions];
                   updated[i] = {...updated[i], team: e.target.value};
@@ -289,8 +289,10 @@ export default function LeagueSetupPage() {
                   updated[i] = {...updated[i], manager: e.target.value};
                   setPastChampions(updated);
                 }} placeholder="Manager" className={inputClass} />
-                <button onClick={() => setPastChampions(pastChampions.filter((_, idx) => idx !== i))}
-                  className="text-red-400 hover:text-red-300 text-xs px-2">✕</button>
+                <button onClick={() => {
+                  const updated = pastChampions.filter((_, idx) => idx !== i);
+                  setPastChampions(updated.length === 0 ? [{year: "", team: "", manager: ""}] : updated);
+                }} className="text-red-400 hover:text-red-300 text-xl flex-shrink-0 px-1">✕</button>
               </div>
             ))}
           </div>

@@ -107,6 +107,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Fetch league settings for accurate episode data
+    let leagueSettings = null;
+    try {
+      const { data: settings } = await supabase
+        .from("league_settings")
+        .select("*")
+        .eq("user_id", userId)
+        .eq("league_id", leagueId)
+        .single();
+      leagueSettings = settings;
+    } catch {}
+
     // Generate the AI script
     const script = await generateEpisodeScript(snapshot, format, episodeType, leagueSettings);
 

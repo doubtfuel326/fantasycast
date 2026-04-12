@@ -273,7 +273,7 @@ export default function LeagueSetupPage() {
           <p className="text-white/30 text-xs mb-4">Used for Legacy episodes. Add one row per season.</p>
           <div className="space-y-3">
             {pastChampions.map((champ, i) => (
-              <div key={i} className="grid grid-cols-3 gap-2">
+              <div key={i} className="grid grid-cols-3 gap-2 items-center">
                 <input value={champ.year} onChange={e => {
                   const updated = [...pastChampions];
                   updated[i] = {...updated[i], year: e.target.value};
@@ -289,6 +289,8 @@ export default function LeagueSetupPage() {
                   updated[i] = {...updated[i], manager: e.target.value};
                   setPastChampions(updated);
                 }} placeholder="Manager" className={inputClass} />
+                <button onClick={() => setPastChampions(pastChampions.filter((_, idx) => idx !== i))}
+                  className="text-red-400 hover:text-red-300 text-xs px-2">✕</button>
               </div>
             ))}
           </div>

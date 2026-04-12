@@ -427,13 +427,15 @@ Teams That Made Playoffs: ${leagueSettings.this_season?.playoff_teams?.join(", "
 ALL-TIME CHAMPIONS:
 ${leagueSettings.past_champions?.map((c: any) => c.year + ": " + c.team + " (" + c.manager + ")").join("\n") || "Not set"}
 
-CRITICAL RULES FOR USING THIS DATA:
-1. Lyon Ave Patriots WON the championship — NOT whoever is #1 in standings
-2. Standings show regular season record only — NOT playoff results
-3. NEVER say a team went on a winning streak unless it is explicitly in the matchup data
-4. The champion, runner up, and eliminated teams listed above are FACTS — treat them as gospel
-5. If standings conflict with this data, THIS DATA WINS every time
-6. Do not invent any playoff narrative not supported by this data` : "WARNING: No league setup data available. Only use standings and matchup data provided. Do not invent any playoff results, championship winners, or streaks not shown in the data."}
+CRITICAL RULES — READ CAREFULLY:
+1. THIS IS THE OFFSEASON AFTER THE ${leagueSettings.last_season?.year} SEASON THAT JUST ENDED
+2. Lyon Ave Patriots (jbrenna1) WON THE CHAMPIONSHIP THIS PAST SEASON — they are the CURRENT champion
+3. Niner Gang (manwellz) finished #1 in regular season standings BUT LOST IN THE PLAYOFFS — they did NOT win the championship
+4. IRON PARADISE (Seuss01) was the runner up — they lost the championship game
+5. Niner Gang was eliminated in the 2nd round by someone else — they did not make the finals
+6. STANDINGS SHOW REGULAR SEASON ONLY — winning streak in standings does NOT mean they won the playoff
+7. Do NOT invent winning streaks — only reference wins/losses from the standings data provided
+8. The season just ended — treat this as fresh news, not ancient history` : "WARNING: No league setup data available. Only use standings and matchup data provided. Do not invent any playoff results, championship winners, or streaks not shown in the data."}
 
 CRITICAL WRITING RULES — violating these ruins the episode:
 1. Use manager names and team names CONSTANTLY — every segment should feel specific to THIS league and THESE people

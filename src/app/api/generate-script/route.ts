@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Generate the AI script
-    const script = await generateEpisodeScript(snapshot, format, episodeType);
+    const script = await generateEpisodeScript(snapshot, format, episodeType, leagueSettings);
 
     const episode = {
       id: `ep_${Date.now()}`,

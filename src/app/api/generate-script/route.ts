@@ -1,3 +1,5 @@
+export const maxDuration = 300;
+
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { buildLeagueSnapshot } from "@/lib/sleeper";

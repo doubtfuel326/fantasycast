@@ -456,7 +456,7 @@ OUTPUT FORMAT — return ONLY valid JSON, no other text before or after:
   ]
 }
 
-Write 6-10 segments following the episode structure exactly. Each segment should have 4-8 lines of dialogue. Make every single line count. This should feel like a real sports broadcast, not a summary.`;
+Write exactly 6 segments following the episode structure. Each segment should have exactly 4 lines of dialogue — 2 from Marcus, 2 from Tanner, alternating. Keep each line under 40 words. Total response must fit in 4000 tokens.`;
 
   const response = await anthropic.messages.create({
     model: "claude-sonnet-4-5-20250929",

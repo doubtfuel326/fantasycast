@@ -454,6 +454,7 @@ Write 6-10 segments following the episode structure exactly. Each segment should
     clean = clean.slice(jsonStart, jsonEnd + 1);
   }
 
+  console.log("Raw AI response (first 500 chars):", clean.slice(0, 500));
   try {
     const parsed = JSON.parse(clean);
     return {

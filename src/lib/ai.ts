@@ -393,7 +393,8 @@ EPISODE STRUCTURE — follow exactly:
 export async function generateEpisodeScript(
   snapshot: LeagueSnapshot,
   format: ShowFormat,
-  episodeType: EpisodeType
+  episodeType: EpisodeType,
+  leagueSettings?: any
 ): Promise<any> {
   const formatInstructions = getFormatInstructions(format);
   const episodeContext = getEpisodeTypeContext(episodeType, snapshot);

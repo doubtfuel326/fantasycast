@@ -414,14 +414,14 @@ ${episodeContext}
 ${leagueSettings ? `VERIFIED LEAGUE HISTORY — USE THIS DATA, DO NOT CONTRADICT IT:
 League Type: ${leagueSettings.league_type || "redraft"}
 
-LAST SEASON (${leagueSettings.last_season?.year || ""}):
+THE SEASON THAT JUST ENDED (${leagueSettings.last_season?.year || ""}) — this is what we are currently recapping in the offseason:
 Champion: ${leagueSettings.last_season?.champion_team || "Unknown"} managed by ${leagueSettings.last_season?.champion_manager || "Unknown"}
 Runner Up: ${leagueSettings.last_season?.runner_up_team || "Unknown"} managed by ${leagueSettings.last_season?.runner_up_manager || "Unknown"}
 Last Place: ${leagueSettings.last_season?.last_place_team || "Unknown"} managed by ${leagueSettings.last_season?.last_place_manager || "Unknown"}
 1st Round Eliminated: ${leagueSettings.last_season?.round1_eliminated?.filter((t: string) => t).join(", ") || "Unknown"}
 2nd Round Eliminated: ${leagueSettings.last_season?.round2_eliminated?.filter((t: string) => t).join(", ") || "Unknown"}
 
-THIS SEASON (${leagueSettings.this_season?.year || ""}):
+UPCOMING SEASON (${leagueSettings.this_season?.year || ""}) — this has not started yet:
 Teams That Made Playoffs: ${leagueSettings.this_season?.playoff_teams?.join(", ") || "Not set"}
 
 ALL-TIME CHAMPIONS:

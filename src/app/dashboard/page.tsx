@@ -188,6 +188,7 @@ export default function DashboardPage() {
           <Link href="/dashboard" className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-white/8 text-white text-sm">▶ Episodes</Link>
           <Link href="/dashboard/standings" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/50 hover:bg-white/5 text-sm">📊 Standings</Link>
           <Link href="/dashboard/settings" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/50 hover:bg-white/5 text-sm">⚙ Settings</Link>
+          <Link href="/dashboard/league-setup" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/50 hover:bg-white/5 text-sm">🏆 League Setup</Link>
         </nav>
         <div className="p-4 border-t border-white/5 flex items-center gap-3">
           <UserButton appearance={{elements:{avatarBox:"w-8 h-8"}}} />
@@ -214,6 +215,9 @@ export default function DashboardPage() {
         </Link>
         <Link href="/dashboard/settings" className="flex-1 flex flex-col items-center py-3 text-white/40 text-xs gap-1">
           <span>⚙</span><span>Settings</span>
+        </Link>
+        <Link href="/dashboard/league-setup" className="flex-1 flex flex-col items-center py-3 text-white/40 text-xs gap-1">
+          <span>🏆</span><span>Setup</span>
         </Link>
       </div>
 

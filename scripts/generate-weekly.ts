@@ -69,7 +69,7 @@ async function generateWeeklyEpisodes() {
       if (process.env.ELEVENLABS_API_KEY && process.env.ELEVENLABS_HOST1_VOICE_ID) {
         console.log("  → Generating audio clips via ElevenLabs...");
 
-        const allLines = script.segments.flatMap((s) => s.lines);
+        const allLines = script.segments.flatMap((s: any) => s.lines);
         const audioBuffers: Buffer[] = [];
 
         for (const line of allLines.slice(0, 5)) { // Limit to first 5 lines for testing

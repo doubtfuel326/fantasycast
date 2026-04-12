@@ -51,12 +51,23 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
         const { getEpisodeById } = await import("@/lib/supabase");
         const dbEpisode = await getEpisodeById(params.id);
         if (dbEpisode) {
+          const script = dbEpisode.script;
+          if (script?.segments) {
+            script.segments = script.segments.map((seg: any) => ({
+              ...seg,
+              lines: seg.lines.map((l: any) => ({
+                ...l,
+                hostId: l.hostId || (l.host === "Marcus" ? "host1" : "host2"),
+                text: l.text || l.line || "",
+              }))
+            }));
+          }
           setEpisode({
             ...dbEpisode,
             episodeType: dbEpisode.episode_type,
             leagueName: dbEpisode.league_name,
             generatedAt: dbEpisode.generated_at,
-            script: dbEpisode.script,
+            script,
           });
           return;
         }

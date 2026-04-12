@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useUser, UserButton } from "@clerk/nextjs";
 
 const FL = {thewire:"The Wire",debate:"Debate Show",podcast:"Podcast"} as Record<string,string>;
-const TL = {weekly_recap:"Weekly Recap",weekly_preview:"Weekly Preview",matchup_of_the_week:"Matchup of the Week",draft_recap:"Draft Recap",preseason:"Preseason",playoff:"Playoff Preview",playoff_recap:"Playoff Recap",championship:"Championship Preview",championship_recap:"Championship Recap",legacy:"Legacy",offseason:"Offseason"} as Record<string,string>;
+const TL = {draft_recap:"Draft Recap",preseason:"Preseason",weekly_preview:"Weekly Preview",matchup_of_the_week:"Matchup of the Week",weekly_recap:"Weekly Recap",playoff:"Playoff Preview",playoff_recap:"Playoff Recap",championship:"Championship Preview",championship_recap:"Championship Recap",offseason:"Offseason",legacy:"Legacy"} as Record<string,string>;
 const TC = {weekly_recap:"#27AE60",draft_recap:"#00C853",preseason:"#F39C12",playoff:"#E74C3C",legacy:"#9B59B6",offseason:"#1ABC9C"} as Record<string,string>;
 
 const LKEY = "fcast_league";

@@ -160,8 +160,8 @@ export default function LeagueSetupPage() {
 
         {/* This Season */}
         <section className="glass rounded-2xl p-6 mb-6">
-          <h2 className="font-display text-xl tracking-wide mb-1">THIS SEASON</h2>
-          <p className="text-white/30 text-xs mb-4">Used for Preseason, Weekly Preview, and Playoff Preview episodes.</p>
+          <h2 className="font-display text-xl tracking-wide mb-1">THIS SEASON — CURRENT OR UPCOMING</h2>
+          <p className="text-white/30 text-xs mb-4">The season currently being played or about to start. Update playoff teams as the season progresses.</p>
           <div className="mb-4">
             <label className="text-xs text-white/40 uppercase tracking-widest mb-2 block">Season Year</label>
             <input value={thisSeason.year}
@@ -192,8 +192,8 @@ export default function LeagueSetupPage() {
 
         {/* Last Season */}
         <section className="glass rounded-2xl p-6 mb-6">
-          <h2 className="font-display text-xl tracking-wide mb-1">LAST SEASON</h2>
-          <p className="text-white/30 text-xs mb-4">Used for Offseason, Legacy, Championship, and Preseason episodes.</p>
+          <h2 className="font-display text-xl tracking-wide mb-1">LAST SEASON — SEASON THAT JUST ENDED</h2>
+          <p className="text-white/30 text-xs mb-4">The most recent completed season. Marcus and Tanner will recap this season in Offseason, Preseason, and Championship episodes.</p>
 
           <div className="mb-4">
             <label className="text-xs text-white/40 uppercase tracking-widest mb-2 block">Season Year</label>
@@ -270,7 +270,7 @@ export default function LeagueSetupPage() {
         {/* All-Time Champions */}
         <section className="glass rounded-2xl p-6 mb-6">
           <h2 className="font-display text-xl tracking-wide mb-1">ALL-TIME CHAMPIONS</h2>
-          <p className="text-white/30 text-xs mb-4">Used for Legacy episodes. Add one row per season.</p>
+          <p className="text-white/30 text-xs mb-4">For Legacy episodes — add seasons OLDER than last season only. Do not add last season here, it is already saved above.</p>
           <div className="space-y-3">
             {pastChampions.map((champ, i) => (
               <div key={i} className="grid grid-cols-3 gap-2 items-center">

@@ -75,7 +75,7 @@ async function generateWeeklyEpisodes() {
         for (const line of allLines.slice(0, 5)) { // Limit to first 5 lines for testing
           try {
             const audio = await // generateHostAudio(line.text, line.hostId as "host1" | "host2");
-            audioBuffers.push(audio);
+            // audioBuffers.push(audio);
             console.log(`    ✓ ${line.hostId}: "${line.text.slice(0, 40)}..."`);
           } catch (audioErr: any) {
             console.warn(`    ⚠ Audio failed for line: ${audioErr.message}`);

@@ -14,7 +14,7 @@
  */
 
 import { buildLeagueSnapshot } from "../src/lib/sleeper";
-import { generateEpisodeScript, generateHostAudio, HOSTS } from "../src/lib/ai";
+import { generateEpisodeScript } from "../src/lib/ai";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -74,7 +74,7 @@ async function generateWeeklyEpisodes() {
 
         for (const line of allLines.slice(0, 5)) { // Limit to first 5 lines for testing
           try {
-            const audio = await generateHostAudio(line.text, line.hostId as "host1" | "host2");
+            const audio = await // generateHostAudio(line.text, line.hostId as "host1" | "host2");
             audioBuffers.push(audio);
             console.log(`    ✓ ${line.hostId}: "${line.text.slice(0, 40)}..."`);
           } catch (audioErr: any) {

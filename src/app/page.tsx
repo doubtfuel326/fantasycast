@@ -32,13 +32,17 @@ const FORMATS = [
 ];
 
 const STORY_TYPES = [
-  { icon: "🏈", label: "Draft Recap", tag: "Day of draft", color: "#00C853" },
-  { icon: "📊", label: "Weekly Recap", tag: "Every week", color: "#27AE60" },
+  { icon: "🏈", label: "Draft Recap", tag: "Draft day", color: "#378ADD" },
   { icon: "🏟", label: "Preseason", tag: "Before season", color: "#F39C12" },
-  { icon: "🏆", label: "Playoffs", tag: "Postseason", color: "#E74C3C" },
-  { icon: "🥇", label: "Championship", tag: "Title game", color: "#FFD700" },
-  { icon: "👑", label: "Legacy", tag: "All-time", color: "#9B59B6" },
+  { icon: "📅", label: "Weekly Preview", tag: "Every week", color: "#00C853" },
+  { icon: "🎯", label: "Matchup of the Week", tag: "Every week", color: "#00C853" },
+  { icon: "📊", label: "Weekly Recap", tag: "Every week", color: "#00C853" },
+  { icon: "🏆", label: "Playoff Preview", tag: "Postseason", color: "#E74C3C" },
+  { icon: "📋", label: "Playoff Recap", tag: "Postseason", color: "#E74C3C" },
+  { icon: "🥇", label: "Championship Preview", tag: "Title week", color: "#FFD700" },
+  { icon: "👑", label: "Championship Recap", tag: "Title week", color: "#FFD700" },
   { icon: "💬", label: "Offseason", tag: "Between seasons", color: "#1ABC9C" },
+  { icon: "📜", label: "Legacy", tag: "All-time history", color: "#9B59B6" },
 ];
 
 const TICKER_ITEMS = [

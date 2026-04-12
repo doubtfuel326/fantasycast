@@ -57,7 +57,7 @@ function getEpisodeTypeContext(type: EpisodeType, snapshot: LeagueSnapshot): str
   const leagueType = isDynasty ? "DYNASTY LEAGUE" : "REDRAFT LEAGUE";
 
   const standingsText = standings
-    .map((t) => `${t.rank}. ${t.teamName} (${t.managerName}): ${t.wins}-${t.losses}, ${t.pointsFor.toFixed(1)} pts scored, Streak: ${t.streak}`)
+    .map((t) => `${t.rank}. ${t.teamName} (${t.managerName}): ${t.wins}-${t.losses}, ${t.pointsFor.toFixed(1)} pts scored`)
     .join("\n");
 
   const matchupText = matchups

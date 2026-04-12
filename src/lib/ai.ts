@@ -424,8 +424,8 @@ Last Place: ${leagueSettings.last_season?.last_place_team || "Unknown"} managed 
 UPCOMING SEASON (${leagueSettings.this_season?.year || ""}) — this has not started yet:
 Teams That Made Playoffs: ${leagueSettings.this_season?.playoff_teams?.join(", ") || "Not set"}
 
-ALL-TIME CHAMPIONS:
-${leagueSettings.past_champions?.map((c: any) => c.year + ": " + c.team + " (" + c.manager + ")").join("\n") || "Not set"}
+ALL-TIME CHAMPIONS (do not include the season listed above as LAST SEASON):
+${leagueSettings.past_champions?.filter((c: any) => c.year !== leagueSettings.last_season?.year).map((c: any) => c.year + ": " + c.team + " (" + c.manager + ")").join("\n") || "No historical data"}
 
 CRITICAL RULES — READ CAREFULLY:
 1. THIS IS THE OFFSEASON AFTER THE ${leagueSettings.last_season?.year} SEASON THAT JUST ENDED

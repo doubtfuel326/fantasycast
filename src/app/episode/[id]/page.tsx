@@ -80,7 +80,14 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
   }, [params.id]);
 
   const allLines = episode?.script?.segments?.flatMap((s: any, si: number) =>
-    s.lines.map((l: any, li: number) => ({ ...l, segmentIndex: si, lineIndex: li, segmentTitle: s.segmentTitle }))
+    s.lines.map((l: any, li: number) => ({
+      ...l,
+      segmentIndex: si,
+      lineIndex: li,
+      segmentTitle: s.segmentTitle,
+      hostId: l.hostId || (l.host === "Marcus" ? "host1" : "host2"),
+      text: l.text || l.line || "",
+    }))
   ) || [];
 
   async function speakLine(line: any): Promise<void> {

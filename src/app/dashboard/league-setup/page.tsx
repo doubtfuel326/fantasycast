@@ -9,18 +9,21 @@ export default function LeagueSetupPage() {
   const [saved, setSaved] = useState(false);
   const [leagueId, setLeagueId] = useState("");
   const [leagueName, setLeagueName] = useState("");
+  const [allTeams, setAllTeams] = useState<string[]>([]);
+  const [leagueType, setLeagueType] = useState("redraft");
 
-  const [form, setForm] = useState({
-    league_type: "redraft",
-    current_season: "2024",
-    champion: "",
-    champion_manager: "",
-    runner_up: "",
-    runner_up_manager: "",
-    last_place: "",
-    last_place_manager: "",
+  const [lastSeason, setLastSeason] = useState({
+    year: "2024",
+    champion_team: "", champion_manager: "",
+    runner_up_team: "", runner_up_manager: "",
+    last_place_team: "", last_place_manager: "",
     round1_eliminated: ["", "", "", ""],
     round2_eliminated: ["", ""],
+  });
+
+  const [thisSeason, setThisSeason] = useState({
+    year: "2025",
+    playoff_teams: [] as string[],
   });
 
   const [pastChampions, setPastChampions] = useState<{year: string, team: string, manager: string}[]>([
@@ -35,6 +38,8 @@ export default function LeagueSetupPage() {
       if (league) {
         const parsed = JSON.parse(league);
         setLeagueName(parsed.league?.leagueName || "");
+        const teams = parsed.standings?.map((t: any) => t.teamName) || [];
+        setAllTeams(teams);
       }
     } catch {}
 
@@ -54,20 +59,10 @@ export default function LeagueSetupPage() {
           .eq("user_id", user.id)
           .eq("league_id", lid)
           .single();
-
         if (data) {
-          setForm({
-            league_type: data.league_type || "redraft",
-            current_season: data.current_season || "2024",
-            champion: data.champion || "",
-            champion_manager: data.champion_manager || "",
-            runner_up: data.runner_up || "",
-            runner_up_manager: data.runner_up_manager || "",
-            last_place: data.last_place || "",
-            last_place_manager: data.last_place_manager || "",
-            round1_eliminated: data.playoff_round1_eliminations || ["", "", "", ""],
-            round2_eliminated: data.playoff_round2_eliminations || ["", ""],
-          });
+          setLeagueType(data.league_type || "redraft");
+          if (data.last_season) setLastSeason(data.last_season);
+          if (data.this_season) setThisSeason(data.this_season);
           if (data.past_champions) setPastChampions(data.past_champions);
         }
       } catch {}
@@ -88,22 +83,15 @@ export default function LeagueSetupPage() {
         user_id: user.id,
         league_id: leagueId,
         league_name: leagueName,
-        league_type: form.league_type,
-        current_season: form.current_season,
-        champion: form.champion,
-        champion_manager: form.champion_manager,
-        runner_up: form.runner_up,
-        runner_up_manager: form.runner_up_manager,
-        last_place: form.last_place,
-        last_place_manager: form.last_place_manager,
-        playoff_round1_eliminations: form.round1_eliminated,
-        playoff_round2_eliminations: form.round2_eliminated,
+        league_type: leagueType,
+        last_season: lastSeason,
+        this_season: thisSeason,
         past_champions: pastChampions.filter(c => c.year && c.team),
         updated_at: new Date().toISOString(),
       });
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
-    } catch (e) {
+    } catch {
       alert("Failed to save. Please try again.");
     } finally {
       setSaving(false);
@@ -111,6 +99,14 @@ export default function LeagueSetupPage() {
   }
 
   const inputClass = "w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#00C853]/50";
+
+  function togglePlayoffTeam(team: string) {
+    const current = thisSeason.playoff_teams;
+    const updated = current.includes(team)
+      ? current.filter(t => t !== team)
+      : [...current, team];
+    setThisSeason({...thisSeason, playoff_teams: updated});
+  }
 
   return (
     <div className="min-h-screen bg-[#080808]">
@@ -145,77 +141,110 @@ export default function LeagueSetupPage() {
       <div className="md:ml-56 pt-14 md:pt-0 pb-24 md:pb-8 p-4 md:p-8 max-w-2xl">
         <div className="mb-8">
           <h1 className="font-display text-4xl tracking-wide mb-1">LEAGUE SETUP</h1>
-          {leagueName && <p className="text-white/40 text-sm">{leagueName}</p>}
-          <p className="text-white/30 text-xs mt-1">This info helps Marcus and Tanner tell accurate stories about your league.</p>
+          {leagueName && <p className="text-[#00C853] text-sm font-medium">{leagueName}</p>}
+          <p className="text-white/30 text-xs mt-1">Help Marcus and Tanner tell accurate stories about your league.</p>
         </div>
 
         {/* League Type */}
         <section className="glass rounded-2xl p-6 mb-6">
           <h2 className="font-display text-xl tracking-wide mb-4">LEAGUE TYPE</h2>
-          <div className="grid grid-cols-2 gap-3 mb-4">
-            {["redraft", "dynasty"].map(t => (
-              <button key={t} onClick={() => setForm({...form, league_type: t})}
-                className={"p-3 rounded-xl text-center text-sm border capitalize " + (form.league_type === t ? "border-[#00C853] bg-[#00C853]/10 text-white" : "border-white/10 text-white/50")}>
-                {t === "redraft" ? "🔄 Redraft" : "👑 Dynasty"}
+          <div className="grid grid-cols-2 gap-3">
+            {[{id:"redraft",icon:"🔄",label:"Redraft"},{id:"dynasty",icon:"👑",label:"Dynasty"}].map(t => (
+              <button key={t.id} onClick={() => setLeagueType(t.id)}
+                className={"p-3 rounded-xl text-center text-sm border " + (leagueType === t.id ? "border-[#00C853] bg-[#00C853]/10 text-white" : "border-white/10 text-white/50")}>
+                {t.icon} {t.label}
               </button>
             ))}
           </div>
-          <div>
-            <label className="text-xs text-white/40 uppercase tracking-widest mb-2 block">Current Season</label>
-            <input value={form.current_season} onChange={e => setForm({...form, current_season: e.target.value})}
-              placeholder="e.g. 2024" className={inputClass} />
-          </div>
         </section>
 
-        {/* Season Results */}
+        {/* This Season */}
         <section className="glass rounded-2xl p-6 mb-6">
-          <h2 className="font-display text-xl tracking-wide mb-1">SEASON RESULTS</h2>
-          <p className="text-white/30 text-xs mb-4">Enter team names and manager names for accuracy.</p>
+          <h2 className="font-display text-xl tracking-wide mb-1">THIS SEASON</h2>
+          <p className="text-white/30 text-xs mb-4">Used for Preseason, Weekly Preview, and Playoff Preview episodes.</p>
+          <div className="mb-4">
+            <label className="text-xs text-white/40 uppercase tracking-widest mb-2 block">Season Year</label>
+            <input value={thisSeason.year}
+              onChange={e => setThisSeason({...thisSeason, year: e.target.value})}
+              placeholder="e.g. 2025" className={inputClass} />
+          </div>
+          {allTeams.length > 0 && (
+            <div>
+              <label className="text-xs text-white/40 uppercase tracking-widest mb-2 block">Teams That Made The Playoffs</label>
+              <p className="text-white/20 text-xs mb-3">Tap to select/deselect</p>
+              <div className="grid grid-cols-2 gap-2">
+                {allTeams.map(team => (
+                  <button key={team} onClick={() => togglePlayoffTeam(team)}
+                    className={"p-2.5 rounded-lg text-xs border text-left transition-colors " +
+                      (thisSeason.playoff_teams.includes(team)
+                        ? "border-[#00C853] bg-[#00C853]/10 text-white"
+                        : "border-white/10 text-white/40")}>
+                    {thisSeason.playoff_teams.includes(team) ? "✓ " : ""}{team}
+                  </button>
+                ))}
+              </div>
+              {allTeams.length === 0 && (
+                <p className="text-white/20 text-xs">Connect your league to see teams here.</p>
+              )}
+            </div>
+          )}
+        </section>
+
+        {/* Last Season */}
+        <section className="glass rounded-2xl p-6 mb-6">
+          <h2 className="font-display text-xl tracking-wide mb-1">LAST SEASON</h2>
+          <p className="text-white/30 text-xs mb-4">Used for Offseason, Legacy, Championship, and Preseason episodes.</p>
+
+          <div className="mb-4">
+            <label className="text-xs text-white/40 uppercase tracking-widest mb-2 block">Season Year</label>
+            <input value={lastSeason.year}
+              onChange={e => setLastSeason({...lastSeason, year: e.target.value})}
+              placeholder="e.g. 2024" className={inputClass} />
+          </div>
+
           <div className="space-y-4">
             <div>
               <label className="text-xs text-[#FFD700] uppercase tracking-widest mb-2 block">🏆 Champion</label>
               <div className="grid grid-cols-2 gap-2">
-                <input value={form.champion} onChange={e => setForm({...form, champion: e.target.value})}
+                <input value={lastSeason.champion_team}
+                  onChange={e => setLastSeason({...lastSeason, champion_team: e.target.value})}
                   placeholder="Team name" className={inputClass} />
-                <input value={form.champion_manager} onChange={e => setForm({...form, champion_manager: e.target.value})}
+                <input value={lastSeason.champion_manager}
+                  onChange={e => setLastSeason({...lastSeason, champion_manager: e.target.value})}
                   placeholder="Manager name" className={inputClass} />
               </div>
             </div>
             <div>
               <label className="text-xs text-white/40 uppercase tracking-widest mb-2 block">🥈 Runner Up</label>
               <div className="grid grid-cols-2 gap-2">
-                <input value={form.runner_up} onChange={e => setForm({...form, runner_up: e.target.value})}
+                <input value={lastSeason.runner_up_team}
+                  onChange={e => setLastSeason({...lastSeason, runner_up_team: e.target.value})}
                   placeholder="Team name" className={inputClass} />
-                <input value={form.runner_up_manager} onChange={e => setForm({...form, runner_up_manager: e.target.value})}
+                <input value={lastSeason.runner_up_manager}
+                  onChange={e => setLastSeason({...lastSeason, runner_up_manager: e.target.value})}
                   placeholder="Manager name" className={inputClass} />
               </div>
             </div>
             <div>
               <label className="text-xs text-red-400 uppercase tracking-widest mb-2 block">💀 Last Place</label>
               <div className="grid grid-cols-2 gap-2">
-                <input value={form.last_place} onChange={e => setForm({...form, last_place: e.target.value})}
+                <input value={lastSeason.last_place_team}
+                  onChange={e => setLastSeason({...lastSeason, last_place_team: e.target.value})}
                   placeholder="Team name" className={inputClass} />
-                <input value={form.last_place_manager} onChange={e => setForm({...form, last_place_manager: e.target.value})}
+                <input value={lastSeason.last_place_manager}
+                  onChange={e => setLastSeason({...lastSeason, last_place_manager: e.target.value})}
                   placeholder="Manager name" className={inputClass} />
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Playoff Eliminations */}
-        <section className="glass rounded-2xl p-6 mb-6">
-          <h2 className="font-display text-xl tracking-wide mb-1">PLAYOFF RESULTS</h2>
-          <p className="text-white/30 text-xs mb-4">Who got eliminated in each round.</p>
-          <div className="space-y-4">
             <div>
               <label className="text-xs text-white/40 uppercase tracking-widest mb-2 block">1st Round Eliminated</label>
               <div className="grid grid-cols-2 gap-2">
-                {form.round1_eliminated.map((team, i) => (
+                {lastSeason.round1_eliminated.map((team, i) => (
                   <input key={i} value={team}
                     onChange={e => {
-                      const updated = [...form.round1_eliminated];
+                      const updated = [...lastSeason.round1_eliminated];
                       updated[i] = e.target.value;
-                      setForm({...form, round1_eliminated: updated});
+                      setLastSeason({...lastSeason, round1_eliminated: updated});
                     }}
                     placeholder={`Team ${i + 1}`} className={inputClass} />
                 ))}
@@ -224,12 +253,12 @@ export default function LeagueSetupPage() {
             <div>
               <label className="text-xs text-white/40 uppercase tracking-widest mb-2 block">2nd Round Eliminated</label>
               <div className="grid grid-cols-2 gap-2">
-                {form.round2_eliminated.map((team, i) => (
+                {lastSeason.round2_eliminated.map((team, i) => (
                   <input key={i} value={team}
                     onChange={e => {
-                      const updated = [...form.round2_eliminated];
+                      const updated = [...lastSeason.round2_eliminated];
                       updated[i] = e.target.value;
-                      setForm({...form, round2_eliminated: updated});
+                      setLastSeason({...lastSeason, round2_eliminated: updated});
                     }}
                     placeholder={`Team ${i + 1}`} className={inputClass} />
                 ))}
@@ -238,10 +267,10 @@ export default function LeagueSetupPage() {
           </div>
         </section>
 
-        {/* Past Champions */}
+        {/* All-Time Champions */}
         <section className="glass rounded-2xl p-6 mb-6">
           <h2 className="font-display text-xl tracking-wide mb-1">ALL-TIME CHAMPIONS</h2>
-          <p className="text-white/30 text-xs mb-4">For Legacy and Offseason episodes. Add one per season.</p>
+          <p className="text-white/30 text-xs mb-4">Used for Legacy episodes. Add one row per season.</p>
           <div className="space-y-3">
             {pastChampions.map((champ, i) => (
               <div key={i} className="grid grid-cols-3 gap-2">

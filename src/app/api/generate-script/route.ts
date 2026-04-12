@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
 
     // Validate format and type
     const validFormats = ["thewire", "debate", "podcast"];
-    const validTypes = ["weekly_recap", "draft_recap", "preseason", "playoff", "legacy", "offseason", "championship"];
+    const validTypes = ["weekly_recap", "weekly_preview", "matchup_of_the_week", "draft_recap", "preseason", "playoff", "playoff_recap", "championship", "championship_recap", "legacy", "offseason"];
     if (!validFormats.includes(format) || !validTypes.includes(episodeType)) {
       return NextResponse.json({ error: "Invalid format or episode type" }, { status: 400 });
     }

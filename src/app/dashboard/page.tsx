@@ -314,8 +314,8 @@ export default function DashboardPage() {
       </div>
 
       {modal && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-6">
-          <div className="bg-[#111111] border border-white/10 rounded-2xl p-6 w-full max-w-md">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-[#111111] border border-white/10 rounded-2xl p-6 w-full max-w-md my-auto">
             <h2 className="font-display text-2xl tracking-wide mb-5">GENERATE EPISODE</h2>
             <div className="space-y-4 mb-6">
               <div>

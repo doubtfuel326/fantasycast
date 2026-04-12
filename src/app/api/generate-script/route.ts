@@ -14,6 +14,48 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    // Check subscription and episode limits
+    const { createClient } = await import("@supabase/supabase-js");
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL || "",
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
+    );
+
+    const { data: subscriber } = await supabase
+      .from("subscribers")
+      .select("plan, status")
+      .eq("user_id", userId)
+      .single();
+
+    if (!subscriber || subscriber.status !== "active") {
+      return NextResponse.json({ error: "Active subscription required to generate episodes." }, { status: 403 });
+    }
+
+    const planLimits: Record<string, number> = {
+      starter: 3,
+      pro: 10,
+      elite: 999999,
+    };
+
+    const weeklyLimit = planLimits[subscriber.plan] || 3;
+
+    // Count episodes generated this week
+    const weekStart = new Date();
+    weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+    weekStart.setHours(0, 0, 0, 0);
+
+    const { count } = await supabase
+      .from("episodes")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", userId)
+      .gte("generated_at", weekStart.toISOString());
+
+    if ((count || 0) >= weeklyLimit) {
+      return NextResponse.json({
+        error: `Weekly episode limit reached. Your ${subscriber.plan} plan includes ${weeklyLimit} episodes per week. Upgrade for more.`
+      }, { status: 429 });
+    }
+
     const body = await req.json();
     const {
       leagueId = DEMO_LEAGUE_ID,

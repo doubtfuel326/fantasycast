@@ -5,6 +5,7 @@ const VOICES: any = {
 };
 export async function POST(req: NextRequest) {
   const { text, hostId } = await req.json();
+  console.log("Speak called with hostId:", hostId, "voiceId:", hostId === "host1" ? process.env.ELEVENLABS_HOST1_VOICE_ID?.slice(0,8) : process.env.ELEVENLABS_HOST2_VOICE_ID?.slice(0,8));
   const voiceId = hostId === "host1" ? process.env.ELEVENLABS_HOST1_VOICE_ID : process.env.ELEVENLABS_HOST2_VOICE_ID;
   const apiKey = process.env.ELEVENLABS_API_KEY;
   if (!voiceId || !apiKey) return NextResponse.json({ error: "ElevenLabs not configured" }, { status: 500 });

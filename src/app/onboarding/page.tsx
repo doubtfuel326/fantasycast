@@ -180,10 +180,25 @@ export default function OnboardingPage() {
                 <div className='space-y-2 max-h-96 overflow-y-auto'>
                   {yahooLeagues.map((league: any) => (
                     <button key={league.leagueId} onClick={() => {
-                      localStorage.setItem('fcast_league', JSON.stringify({ league: { leagueName: league.leagueName, totalTeams: league.totalTeams, scoringType: league.scoringType || 'head', season: league.season }, standings: [] }));
-                      localStorage.setItem('fcast_lid', league.leagueId);
-                      localStorage.setItem('fcast_platform', 'yahoo');
-                      window.location.href = '/dashboard?loadYahoo=' + league.leagueId;
+                      // Check league limit before connecting
+                      fetch('/api/check-league-limit?leagueId=' + league.leagueId + '&leagueName=' + encodeURIComponent(league.leagueName) + '&platform=yahoo')
+                        .then(r => r.json())
+                        .then(data => {
+                          if (data.error) {
+                            alert(data.error);
+                            return;
+                          }
+                          localStorage.setItem('fcast_league', JSON.stringify({ league: { leagueName: league.leagueName, totalTeams: league.totalTeams, scoringType: league.scoringType || 'head', season: league.season }, standings: [] }));
+                          localStorage.setItem('fcast_lid', league.leagueId);
+                          localStorage.setItem('fcast_platform', 'yahoo');
+                          window.location.href = '/dashboard?loadYahoo=' + league.leagueId;
+                        })
+                        .catch(() => {
+                          localStorage.setItem('fcast_league', JSON.stringify({ league: { leagueName: league.leagueName, totalTeams: league.totalTeams, scoringType: league.scoringType || 'head', season: league.season }, standings: [] }));
+                          localStorage.setItem('fcast_lid', league.leagueId);
+                          localStorage.setItem('fcast_platform', 'yahoo');
+                          window.location.href = '/dashboard?loadYahoo=' + league.leagueId;
+                        });
                     }} className='w-full glass rounded-xl p-4 text-left hover:border-[#00C853]/40 border border-white/5 transition-colors'>
                       <p className='font-medium text-sm'>{league.leagueName}</p>
                       <p className='text-white/40 text-xs mt-1'>{league.sport.toUpperCase()} · {league.season} · {league.totalTeams} teams</p>

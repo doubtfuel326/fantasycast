@@ -411,6 +411,24 @@ ${TANNER}
 LEAGUE DATA AND EPISODE INSTRUCTIONS:
 ${episodeContext}
 
+${leagueSettings ? `VERIFIED LEAGUE HISTORY — USE THIS DATA, DO NOT CONTRADICT IT:
+League Type: ${leagueSettings.league_type || "redraft"}
+
+LAST SEASON (${leagueSettings.last_season?.year || ""}):
+Champion: ${leagueSettings.last_season?.champion_team || "Unknown"} managed by ${leagueSettings.last_season?.champion_manager || "Unknown"}
+Runner Up: ${leagueSettings.last_season?.runner_up_team || "Unknown"} managed by ${leagueSettings.last_season?.runner_up_manager || "Unknown"}
+Last Place: ${leagueSettings.last_season?.last_place_team || "Unknown"} managed by ${leagueSettings.last_season?.last_place_manager || "Unknown"}
+1st Round Eliminated: ${leagueSettings.last_season?.round1_eliminated?.filter((t: string) => t).join(", ") || "Unknown"}
+2nd Round Eliminated: ${leagueSettings.last_season?.round2_eliminated?.filter((t: string) => t).join(", ") || "Unknown"}
+
+THIS SEASON (${leagueSettings.this_season?.year || ""}):
+Teams That Made Playoffs: ${leagueSettings.this_season?.playoff_teams?.join(", ") || "Not set"}
+
+ALL-TIME CHAMPIONS:
+${leagueSettings.past_champions?.map((c: any) => c.year + ": " + c.team + " (" + c.manager + ")").join("\n") || "Not set"}
+
+CRITICAL: The above data is verified by the league commissioner. Use it for all championship, playoff, legacy, offseason, and preseason references. NEVER invent streaks, wins, or results that contradict this data.` : "WARNING: No league setup data available. Only use standings and matchup data provided. Do not invent any playoff results, championship winners, or streaks not shown in the data."}
+
 CRITICAL WRITING RULES — violating these ruins the episode:
 1. Use manager names and team names CONSTANTLY — every segment should feel specific to THIS league and THESE people
 2. Marcus and Tanner must sound COMPLETELY DIFFERENT. Marcus = authoritative, measured, builds drama. Tanner = loud, opinionated, roasts people, takes hot takes.

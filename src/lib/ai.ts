@@ -440,7 +440,7 @@ OUTPUT FORMAT — return ONLY valid JSON, no other text before or after:
 Write 6-10 segments following the episode structure exactly. Each segment should have 4-8 lines of dialogue. Make every single line count. This should feel like a real sports broadcast, not a summary.`;
 
   const response = await anthropic.messages.create({
-    model: "claude-opus-4-5",
+    model: "claude-sonnet-4-5-20250929",
     max_tokens: 6000,
     messages: [{ role: "user", content: prompt }],
   });

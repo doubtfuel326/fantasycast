@@ -270,7 +270,7 @@ export default function DashboardPage() {
             <p className="text-green-400 text-xs mb-1">✓ Episode generated</p>
             <h2 className="font-display text-xl tracking-wide mb-1">{newEp.title}</h2>
             <p className="text-white/50 text-sm mb-3">{newEp.teaser}</p>
-            <Link href={"/episode/"+newEp.id+"?data="+encodeURIComponent(JSON.stringify(newEp))} className="btn-primary text-sm inline-block">Listen →</Link>
+            <Link href={"/episode/"+newEp.id} className="btn-primary text-sm inline-block">Listen →</Link>
           </div>
         )}
 
@@ -283,7 +283,7 @@ export default function DashboardPage() {
                 <button onClick={()=>setModal(true)} className="btn-primary text-sm">Generate your first episode ⚡</button>
               </div>
             ) : episodes.map(ep=>(
-              <Link key={ep.id} href={"/episode/"+ep.id+"?data="+encodeURIComponent(JSON.stringify(ep))} className="glass rounded-xl p-5 flex gap-4 border border-white/5 hover:border-white/15 block">
+              <Link key={ep.id} href={"/episode/"+ep.id} className="glass rounded-xl p-5 flex gap-4 border border-white/5 hover:border-white/15 block">
                 <div className="w-12 h-12 rounded-xl bg-[#00C853]/10 border border-[#00C853]/20 flex items-center justify-center flex-shrink-0">
                   <div className="w-0 h-0 border-t-[7px] border-t-transparent border-b-[7px] border-b-transparent border-l-[12px] border-l-[#00C853] ml-1" />
                 </div>

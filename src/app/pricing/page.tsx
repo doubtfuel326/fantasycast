@@ -88,9 +88,7 @@ export default function PricingPage() {
                   <span className="text-white/40 text-sm">/mo per league</span>
                 </div>
                 <p className="text-white/40 text-xs mt-2">
-                  {plan.episodesPerWeek === 1 ? "1 episode/week" :
-                   plan.episodesPerWeek === 7 ? "Daily episodes" :
-                   `${plan.episodesPerWeek} episodes/week`} ·{" "}
+                  {plan.episodesPerWeek >= 999999 ? "Unlimited episodes" : `${plan.episodesPerWeek} episodes/week`} ·{" "}
                   {plan.leagues === 1 ? "1 league" : `Up to ${plan.leagues} leagues`}
                 </p>
               </div>
@@ -125,24 +123,24 @@ export default function PricingPage() {
           <div className="space-y-6">
             {[
               {
-                q: "When does my episode generate?",
-                a: "Episodes auto-generate every Tuesday morning, after Monday Night Football finishes. Draft Recap generates within 2 hours of your draft ending.",
+                q: "How do I generate an episode?",
+                a: "Connect your Sleeper or Yahoo Fantasy league, then hit Generate Episode from your dashboard. Pick your format and episode type — your episode is ready in about 15 seconds.",
               },
               {
                 q: "Can I switch show formats?",
-                a: "Yes — you can switch between SportsCenter, Debate Show, and Podcast format at any time from your dashboard. The change takes effect on the next episode.",
+                a: "Yes — you can switch between The Wire, Debate Show, and Podcast format at any time from your dashboard.",
               },
               {
                 q: "Which fantasy platforms are supported?",
-                a: "Sleeper is fully supported now. ESPN and Yahoo Fantasy are coming soon for Pro and Elite plans. We use public APIs so no passwords are ever needed.",
+                a: "Sleeper and Yahoo Fantasy are fully supported on all plans. ESPN integration is coming soon.",
               },
               {
-                q: "What's the difference between 1 episode vs 3 per week?",
-                a: "On Starter, you get one auto-generated weekly recap. On Pro you can generate additional episodes for things like mid-week trade analysis, waiver wire breakdowns, or playoff previews. On Elite, you can generate a new episode every day.",
+                q: "What is the difference between the plans?",
+                a: "Starter gets 3 episodes per week for 1 league — perfect for most commissioners. Pro gets 10 episodes per week across 3 leagues. Elite gets unlimited episodes across 10 leagues plus weekly auto-generation.",
               },
               {
                 q: "Can I share episodes with my league?",
-                a: "Yes — every episode has a shareable link. Pro and Elite subscribers can share publicly so anyone in the league can listen without needing an account.",
+                a: "Yes — every episode has a shareable link. Anyone in your league can listen without needing a LeagueWire account.",
               },
             ].map((item) => (
               <div key={item.q} className="glass rounded-xl p-5">

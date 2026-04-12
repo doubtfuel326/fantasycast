@@ -456,7 +456,14 @@ OUTPUT FORMAT — return ONLY valid JSON, no other text before or after:
   ]
 }
 
-Write exactly 6 segments following the episode structure. Each segment should have exactly 4 lines of dialogue — 2 from Marcus, 2 from Tanner, alternating. Keep each line under 40 words. Total response must fit in 4000 tokens.`;
+Write exactly 6 segments following the episode structure.
+STRICT HOST RULES:
+- Every segment MUST strictly alternate: Marcus, Tanner, Marcus, Tanner (never two in a row from same host)
+- Each segment has exactly 6 lines: Marcus, Tanner, Marcus, Tanner, Marcus, Tanner
+- Marcus lines: authoritative, builds drama, uses phrases like "Here is what we know", "The numbers tell the story"
+- Tanner lines: hot takes, roasts managers by name, disagrees with Marcus, uses phrases like "Come on", "I said what I said"
+- Keep each line under 35 words
+- NEVER have the same host speak twice in a row`;
 
   const response = await anthropic.messages.create({
     model: "claude-sonnet-4-5-20250929",

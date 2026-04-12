@@ -441,12 +441,18 @@ Write 6-10 segments following the episode structure exactly. Each segment should
 
   const response = await anthropic.messages.create({
     model: "claude-opus-4-5",
-    max_tokens: 4000,
+    max_tokens: 6000,
     messages: [{ role: "user", content: prompt }],
   });
 
   const text = response.content[0].type === "text" ? response.content[0].text : "";
-  const clean = text.replace(/```json|```/g, "").trim();
+  // Extract JSON more robustly
+  let clean = text.replace(/```json|```/g, "").trim();
+  const jsonStart = clean.indexOf("{");
+  const jsonEnd = clean.lastIndexOf("}");
+  if (jsonStart !== -1 && jsonEnd !== -1) {
+    clean = clean.slice(jsonStart, jsonEnd + 1);
+  }
 
   try {
     const parsed = JSON.parse(clean);

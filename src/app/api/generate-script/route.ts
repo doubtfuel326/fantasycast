@@ -117,7 +117,10 @@ export async function POST(req: NextRequest) {
         .eq("league_id", leagueId)
         .single();
       leagueSettings = settings;
-    } catch {}
+      console.log("League settings loaded:", JSON.stringify(leagueSettings));
+    } catch (e: any) {
+      console.log("League settings error:", e.message);
+    }
 
     // Generate the AI script
     const script = await generateEpisodeScript(snapshot, format, episodeType, leagueSettings);

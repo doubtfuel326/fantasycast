@@ -80,6 +80,7 @@ export default function LeagueSetupPage() {
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
       );
       await supabase.from("league_settings").upsert({
+
         user_id: user.id,
         league_id: leagueId,
         league_name: leagueName,
@@ -88,7 +89,7 @@ export default function LeagueSetupPage() {
         this_season: thisSeason,
         past_champions: pastChampions.filter(c => c.year && c.team),
         updated_at: new Date().toISOString(),
-      });
+      }, { onConflict: "user_id,league_id" });
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch {

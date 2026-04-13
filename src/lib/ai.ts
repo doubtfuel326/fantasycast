@@ -465,14 +465,16 @@ OUTPUT FORMAT — return ONLY valid JSON, no other text before or after:
 }
 
 STRICT SCRIPT RULES — FOLLOW EXACTLY:
-- Write exactly 6 segments
+- Write exactly 5 segments
 - Each segment has exactly 4 lines: Marcus, Tanner, Marcus, Tanner — strictly alternating, never same host twice in a row
-- Each line must be under 30 words — short, punchy, specific
-- NO repeating the same point across different segments
-- NO generic filler lines — every line must reference a specific team, manager, or stat
-- Marcus: authoritative, builds drama. Tanner: hot takes, roasts by name, disagrees
-- Total episode should feel like 3-4 minutes when spoken aloud
-- If a topic was covered in one segment do NOT revisit it in another segment`;
+- Each line must be under 25 words — tight, punchy, specific
+- ONLY use TEAM NAMES — never say manager names alongside team names, pick one and stick to team names
+- NO repeating the same point across different segments — each segment covers ONE topic and moves on
+- NO generic filler lines — every line must reference a specific team name or result
+- The champion gets ONE segment maximum — do not keep returning to them
+- The regular season leader who lost in playoffs gets ONE mention maximum
+- Total episode should feel like 2-3 minutes when spoken aloud
+- Marcus: authoritative, builds drama. Tanner: hot takes, roasts teams by name, disagrees`;
 
   const response = await anthropic.messages.create({
     model: "claude-sonnet-4-5-20250929",

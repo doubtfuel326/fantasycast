@@ -464,14 +464,15 @@ OUTPUT FORMAT — return ONLY valid JSON, no other text before or after:
   ]
 }
 
-Write exactly 6 segments following the episode structure.
-STRICT HOST RULES:
-- Every segment MUST strictly alternate: Marcus, Tanner, Marcus, Tanner (never two in a row from same host)
-- Each segment has exactly 6 lines: Marcus, Tanner, Marcus, Tanner, Marcus, Tanner
-- Marcus lines: authoritative, builds drama, uses phrases like "Here is what we know", "The numbers tell the story"
-- Tanner lines: hot takes, roasts managers by name, disagrees with Marcus, uses phrases like "Come on", "I said what I said"
-- Keep each line under 35 words
-- NEVER have the same host speak twice in a row`;
+STRICT SCRIPT RULES — FOLLOW EXACTLY:
+- Write exactly 6 segments
+- Each segment has exactly 4 lines: Marcus, Tanner, Marcus, Tanner — strictly alternating, never same host twice in a row
+- Each line must be under 30 words — short, punchy, specific
+- NO repeating the same point across different segments
+- NO generic filler lines — every line must reference a specific team, manager, or stat
+- Marcus: authoritative, builds drama. Tanner: hot takes, roasts by name, disagrees
+- Total episode should feel like 3-4 minutes when spoken aloud
+- If a topic was covered in one segment do NOT revisit it in another segment`;
 
   const response = await anthropic.messages.create({
     model: "claude-sonnet-4-5-20250929",

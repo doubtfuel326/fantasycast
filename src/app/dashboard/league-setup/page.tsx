@@ -19,11 +19,15 @@ export default function LeagueSetupPage() {
     last_place_team: "", last_place_manager: "",
     round1_eliminated: ["", "", "", ""],
     round2_eliminated: ["", ""],
+    bye_teams: [] as string[],
+    num_byes: 0,
   });
 
   const [thisSeason, setThisSeason] = useState({
     year: "2025",
     playoff_teams: [] as string[],
+    bye_teams: [] as string[],
+    num_byes: 0,
   });
 
   const [pastChampions, setPastChampions] = useState<{year: string, team: string, manager: string}[]>([
@@ -264,6 +268,34 @@ export default function LeagueSetupPage() {
                     placeholder={`Team ${i + 1}`} className={inputClass} />
                 ))}
               </div>
+            </div>
+            <div>
+              <label className="text-xs text-white/40 uppercase tracking-widest mb-2 block">How Many Teams Had Byes Last Season</label>
+              <div className="grid grid-cols-3 gap-2 mb-3">
+                {[0,1,2].map(n => (
+                  <button key={n} onClick={() => setLastSeason({...lastSeason, num_byes: n})}
+                    className={"p-2.5 rounded-lg text-xs border text-center " +
+                      (lastSeason.num_byes === n ? "border-[#00C853] bg-[#00C853]/10 text-white" : "border-white/10 text-white/40")}>
+                    {n === 0 ? "No Byes" : n === 1 ? "1 Team" : "2 Teams"}
+                  </button>
+                ))}
+              </div>
+              {lastSeason.num_byes > 0 && (
+                <div>
+                  <label className="text-xs text-white/40 uppercase tracking-widest mb-2 block">Teams That Had Byes Last Season</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[...Array(lastSeason.num_byes)].map((_, i) => (
+                      <input key={i} value={lastSeason.bye_teams[i] || ""}
+                        onChange={e => {
+                          const updated = [...(lastSeason.bye_teams || [])];
+                          updated[i] = e.target.value;
+                          setLastSeason({...lastSeason, bye_teams: updated});
+                        }}
+                        placeholder={`Bye team ${i + 1}`} className={inputClass} />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </section>

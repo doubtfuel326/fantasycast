@@ -65,8 +65,23 @@ export default function LeagueSetupPage() {
           .single();
         if (data) {
           setLeagueType(data.league_type || "redraft");
-          if (data.last_season) setLastSeason(data.last_season);
-          if (data.this_season) setThisSeason(data.this_season);
+          if (data.last_season) setLastSeason({
+            year: "", champion_team: "", champion_manager: "",
+            runner_up_team: "", runner_up_manager: "",
+            last_place_team: "", last_place_manager: "",
+            round1_eliminated: ["", "", "", ""],
+            round2_eliminated: ["", ""],
+            bye_teams: [],
+            num_byes: 0,
+            ...data.last_season,
+          });
+          if (data.this_season) setThisSeason({
+            year: "2025",
+            playoff_teams: [],
+            bye_teams: [],
+            num_byes: 0,
+            ...data.this_season,
+          });
           if (data.past_champions) setPastChampions(data.past_champions);
         }
       } catch {}

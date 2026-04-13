@@ -208,6 +208,41 @@ export default function LeagueSetupPage() {
               )}
             </div>
           )}
+          <div className="mt-4">
+            <label className="text-xs text-white/40 uppercase tracking-widest mb-2 block">How Many Teams Get A Bye</label>
+            <div className="grid grid-cols-3 gap-2 mb-3">
+              {[0,1,2].map(n => (
+                <button key={n} onClick={() => setThisSeason({...thisSeason, num_byes: n, bye_teams: []})}
+                  className={"p-2.5 rounded-lg text-xs border text-center " +
+                    (thisSeason.num_byes === n ? "border-[#00C853] bg-[#00C853]/10 text-white" : "border-white/10 text-white/40")}>
+                  {n === 0 ? "No Byes" : n === 1 ? "1 Team" : "2 Teams"}
+                </button>
+              ))}
+            </div>
+            {thisSeason.num_byes > 0 && allTeams.length > 0 && (
+              <div>
+                <label className="text-xs text-white/40 uppercase tracking-widest mb-2 block">Teams With Byes This Season</label>
+                <p className="text-white/20 text-xs mb-2">Select up to {thisSeason.num_byes} team{thisSeason.num_byes > 1 ? "s" : ""} — update when playoffs start</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {allTeams.map(team => (
+                    <button key={team} onClick={() => {
+                      const current = thisSeason.bye_teams || [];
+                      const updated = current.includes(team)
+                        ? current.filter(t => t !== team)
+                        : current.length < thisSeason.num_byes ? [...current, team] : current;
+                      setThisSeason({...thisSeason, bye_teams: updated});
+                    }}
+                      className={"p-2.5 rounded-lg text-xs border text-left transition-colors " +
+                        ((thisSeason.bye_teams || []).includes(team)
+                          ? "border-[#FFD700] bg-[#FFD700]/10 text-white"
+                          : "border-white/10 text-white/40")}>
+                      {(thisSeason.bye_teams || []).includes(team) ? "🏖 " : ""}{team}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </section>
 
         {/* Last Season */}

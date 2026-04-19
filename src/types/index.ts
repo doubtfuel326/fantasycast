@@ -124,7 +124,7 @@ export interface Episode {
 
 // ─── Subscription Types ───────────────────────────────────────────────────────
 
-export type PlanTier = "starter" | "pro" | "elite";
+export type PlanTier = "league" | "pro_league" | "elite_league" | "dynasty";
 
 export interface Plan {
   id: PlanTier;

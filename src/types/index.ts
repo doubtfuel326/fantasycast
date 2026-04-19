@@ -132,6 +132,7 @@ export interface Plan {
   price: number;
   priceId: string;
   episodesPerWeek: number;
+  videoPerWeek: number;
   leagues: number;
   features: string[];
   highlighted?: boolean;

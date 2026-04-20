@@ -85,7 +85,7 @@ export default function PricingPage() {
                 <h2 className="font-display text-3xl tracking-wide mb-1">{plan.name.toUpperCase()}</h2>
                 <div className="flex items-baseline gap-1 mt-3">
                   <span className="font-display text-5xl tracking-wide">${plan.price}</span>
-                  <span className="text-white/40 text-sm">/mo per league</span>
+                  <span className="text-white/40 text-sm">/season</span>
                 </div>
                 <p className="text-white/40 text-xs mt-2">
                   {plan.episodesPerWeek >= 999999 ? "Unlimited episodes" : `${plan.episodesPerWeek} episodes/week`} ·{" "}

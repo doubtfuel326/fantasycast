@@ -31,9 +31,16 @@ export async function POST(req: NextRequest) {
       const email = session.customer_email || "";
 
       if (userId && tier) {
-        // Set season expiry to 6 months from now
+        // Set season expiry to February 1st of next year (end of NFL season)
+        const now = new Date();
         const expiresAt = new Date();
-        expiresAt.setMonth(expiresAt.getMonth() + 6);
+        // If purchased after Feb 1, expire next Feb 1. If before, expire this Feb 1.
+        if (now.getMonth() >= 1) {
+          expiresAt.setFullYear(now.getFullYear() + 1, 1, 1);
+        } else {
+          expiresAt.setFullYear(now.getFullYear(), 1, 1);
+        }
+        expiresAt.setHours(0, 0, 0, 0);
 
         await supabase.from("subscribers").upsert({
           user_id: userId,

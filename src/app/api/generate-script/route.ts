@@ -34,6 +34,10 @@ export async function POST(req: NextRequest) {
     }
 
     const planLimits: Record<string, number> = {
+      league: 3,
+      pro_league: 5,
+      elite_league: 999999,
+      dynasty: 999999,
       starter: 3,
       pro: 10,
       elite: 999999,

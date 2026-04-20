@@ -304,7 +304,7 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto flex items-center justify-between flex-wrap gap-6">
           <div>
             <p className="font-display text-2xl tracking-wide">READY TO GO LIVE?</p>
-            <p className="text-white/40 text-sm mt-1">Starts at $19/mo per league. Cancel anytime.</p>
+            <p className="text-white/40 text-sm mt-1">Season passes from $39. One payment, full NFL season access.</p>
           </div>
           <Link href="/pricing" className="btn-primary">
             See Pricing Plans →

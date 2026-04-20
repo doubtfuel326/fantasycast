@@ -124,11 +124,11 @@ export default function PricingPage() {
             {[
               {
                 q: "How do I generate an episode?",
-                a: "Connect your Sleeper or Yahoo Fantasy league, then hit Generate Episode from your dashboard. Pick your format and episode type — your episode is ready in about 15 seconds.",
+                a: "Connect your Sleeper or Yahoo Fantasy league from your dashboard, pick your format and episode type, and hit Generate. Your episode is ready in under 60 seconds.",
               },
               {
-                q: "Can I switch show formats?",
-                a: "Yes — you can switch between The Wire, Debate Show, and Podcast format at any time from your dashboard.",
+                q: "What formats are available?",
+                a: "Every plan includes three formats — The Wire (breaking news style), Debate Show (Marcus and Tanner argue everything), and Podcast (conversational deep dive). All 11 episode types are available on every plan.",
               },
               {
                 q: "Which fantasy platforms are supported?",
@@ -136,11 +136,19 @@ export default function PricingPage() {
               },
               {
                 q: "What is the difference between the plans?",
-                a: "Starter gets 3 episodes per week for 1 league — perfect for most commissioners. Pro gets 10 episodes per week across 3 leagues. Elite gets unlimited episodes across 10 leagues plus weekly auto-generation.",
+                a: "League gets 3 audio episodes per week for 1 league. Pro League adds 1 video per week plus 5 audio. Elite League gets 4 videos and unlimited audio across 3 leagues. Dynasty gets unlimited everything across up to 10 leagues.",
+              },
+              {
+                q: "Is this a monthly or annual subscription?",
+                a: "LeagueWire is a season pass — you pay once and get access for the full NFL season through February 1st. No monthly billing, no surprise charges.",
               },
               {
                 q: "Can I share episodes with my league?",
-                a: "Yes — every episode has a shareable link. Anyone in your league can listen without needing a LeagueWire account.",
+                a: "Yes — every episode has a shareable link. Anyone in your league can watch or listen without needing a LeagueWire account. Split the cost with your league and it is less than a fast food meal per person.",
+              },
+              {
+                q: "What happens when the season ends?",
+                a: "Your season pass expires on February 1st. When the new season starts you can renew at any plan level. NBA and MLB seasons coming soon.",
               },
             ].map((item) => (
               <div key={item.q} className="glass rounded-xl p-5">

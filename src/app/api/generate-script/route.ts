@@ -87,6 +87,17 @@ export async function POST(req: NextRequest) {
     let snapshot;
 
     console.log("Platform received:", platform, "LeagueId:", leagueId);
+
+    // Football only restriction
+    if (platform === "yahoo") {
+      const { buildYahooSnapshot } = await import("@/lib/yahoo");
+      const testSnap = await buildYahooSnapshot(userId, leagueId).catch(() => null);
+      if (testSnap && testSnap.league?.sport && testSnap.league.sport !== "nfl") {
+        return NextResponse.json({
+          error: "LeagueWire currently supports NFL fantasy leagues only. NBA and MLB support coming soon!"
+        }, { status: 400 });
+      }
+    }
     if (platform === "sleeper") {
       try {
         snapshot = await buildLeagueSnapshot(leagueId);

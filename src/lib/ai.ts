@@ -362,10 +362,11 @@ LAST PLACE: ${standings[standings.length - 1]?.teamName} (${standings[standings.
 EPISODE STRUCTURE — follow exactly, 4 segments maximum:
 1. OPENING: Season is over. Marcus sets the tone in one line. Tanner reacts immediately with the biggest story of the season. Fast and punchy.
 2. CHAMPION AND LAUGHING STOCK: Celebrate the champion in 2-3 lines max. Then immediately pivot to last place — Tanner roasts them brutally. Marcus tries to find something positive. Tanner shuts him down.
-3. SEASON AWARDS — only these 3, nothing else:
-   - MVP: Best team based on points scored and record. One line each from Marcus and Tanner.
-   - Biggest Choke: The team that had it and collapsed. Tanner names them and explains why in one brutal line.
-   - Last Place Shame: One final roast of the worst team. Tanner goes in hard.
+3. SEASON AWARDS — EXACTLY 3 AWARDS, NO MORE, NO EXCEPTIONS:
+   AWARD 1 — MVP: Best team based on points and record. Marcus announces it. Tanner agrees or disagrees in one line.
+   AWARD 2 — BIGGEST CHOKE: One team that collapsed. Tanner calls them out in one brutal line. Done.
+   AWARD 3 — LAST PLACE SHAME: One final roast. Tanner goes in. Marcus stays quiet.
+   DO NOT ADD ANY OTHER AWARDS. No best trade, no most improved, no comeback, no waiver pickup. ONLY THESE 3.
 4. NEXT SEASON STORYLINES AND BOLD PREDICTIONS: 2-3 quick storylines heading into next season. Marcus and Tanner each make ONE bold prediction for next year. They disagree. Close it out with energy.
 
 STRICT RULES FOR OFFSEASON:

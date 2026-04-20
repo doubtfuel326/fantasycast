@@ -361,13 +361,20 @@ LAST PLACE: ${standings[standings.length - 1]?.teamName} (${standings[standings.
 
 EPISODE STRUCTURE — follow exactly, 4 segments maximum:
 1. OPENING: Season is over. Marcus sets the tone in one line. Tanner reacts immediately with the biggest story of the season. Fast and punchy.
-2. CHAMPION AND LAUGHING STOCK: Celebrate the champion in 2-3 lines max. Then immediately pivot to last place — Tanner roasts them brutally. Marcus tries to find something positive. Tanner shuts him down.
+2. FULL STANDINGS RUNDOWN — mention EVERY single team, no exceptions:
+   - Start from champion at top, work all the way down to last place
+   - Each team gets exactly ONE punchy line describing their season
+   - For the champion: celebrate briefly
+   - For the runner up: mention how devastating the championship loss is for their franchise — is this a curse forming? Can they recover? Does this define their legacy going forward?
+   - For middle teams: one honest line about their season — did they overachieve, underachieve, or just exist?
+   - For last place: Tanner roasts them hard
+   - Do NOT skip any team — all ${standings.length} teams must be mentioned
 3. SEASON AWARDS — EXACTLY 3 AWARDS, NO MORE, NO EXCEPTIONS:
-   AWARD 1 — MVP: Best team based on points and record. Marcus announces it. Tanner agrees or disagrees in one line.
-   AWARD 2 — BIGGEST CHOKE: One team that collapsed. Tanner calls them out in one brutal line. Done.
-   AWARD 3 — LAST PLACE SHAME: One final roast. Tanner goes in. Marcus stays quiet.
-   DO NOT ADD ANY OTHER AWARDS. No best trade, no most improved, no comeback, no waiver pickup. ONLY THESE 3.
-4. NEXT SEASON STORYLINES AND BOLD PREDICTIONS: 2-3 quick storylines heading into next season. Marcus and Tanner each make ONE bold prediction for next year. They disagree. Close it out with energy.
+   AWARD 1 — MVP: Best team based on points and record. Marcus announces it. Tanner reacts.
+   AWARD 2 — BIGGEST CHOKE: One team that collapsed when it mattered. Tanner names them brutally.
+   AWARD 3 — LAST PLACE SHAME: Final roast of the worst team. Tanner goes in. Marcus stays quiet.
+   DO NOT ADD ANY OTHER AWARDS. ONLY THESE 3.
+4. NEXT SEASON STORYLINES AND BOLD PREDICTIONS: 2-3 quick storylines. Focus on: can the champion repeat, will the runner up recover from heartbreak, who is the sleeper threat. Marcus and Tanner each make ONE bold prediction. They disagree. Close with energy.
 
 STRICT RULES FOR OFFSEASON:
 - No trade awards — we do not have trade data

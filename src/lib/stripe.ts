@@ -13,11 +13,11 @@ export const PLANS: Plan[] = [
     name: "League",
     price: 39,
     priceId: process.env.STRIPE_PRICE_STARTER || "",
-    episodesPerWeek: 999999,
+    episodesPerWeek: 3,
     videoPerWeek: 0,
     leagues: 1,
     features: [
-      "Unlimited audio episodes per week",
+      "3 audio episodes per week",
       "1 fantasy league",
       "All 3 show formats (The Wire, Debate, Podcast)",
       "All 11 episode types",

@@ -124,6 +124,7 @@ export default function DashboardPage() {
       const r = await fetch("/api/league-preview?leagueId="+lid.trim()+"&platform=sleeper");
       if(!r.ok) throw new Error("League not found. Check your ID.");
       const d = await r.json();
+      if (d.league?.sport && d.league.sport !== "nfl") throw new Error("LeagueWire currently supports NFL fantasy leagues only. NBA and MLB support coming soon!");
       setLeague(d);
       localStorage.setItem(LKEY, JSON.stringify(d));
       localStorage.setItem(LIKEY, lid.trim());

@@ -359,32 +359,22 @@ CHAMPION: ${standings[0]?.teamName} (${standings[0]?.managerName})
 RUNNER UP: ${standings[1]?.teamName} (${standings[1]?.managerName})
 LAST PLACE: ${standings[standings.length - 1]?.teamName} (${standings[standings.length - 1]?.managerName})
 
-EPISODE STRUCTURE — follow exactly:
-1. OPENING: The season is officially over. Marcus and Tanner reflect on everything that happened. Was it a wild season or did it go as expected? Set the tone.
-2. FINAL STANDINGS: Top to bottom — quick one sentence story for each team's season. From champion to last place. Make each one feel specific.
-3. THE CHAMPION: One more celebration. What they accomplished this season, what their legacy looks like now, where they rank all time in this league.
-4. THE LAUGHING STOCK: Who had the worst season. Last place, most embarrassing moments, worst decisions. Tanner is absolutely ruthless. Marcus tries to find something positive. Tanner does not let him.
-5. SEASON AWARDS — give all eight:
-   - MVP: Best manager of the season, most dominant team
-   - Bust of the Year: Biggest disappointment, supposed to contend and fell apart
-   - Best Trade: The deal that changed someone's entire season
-   - Worst Trade: The deal that ruined someone's season. Tanner names names and explains exactly why.
-   - Best Waiver Wire Pickup: The manager who found gold where nobody else was looking
-   - Biggest Choke: The team that had it all and collapsed when it mattered most
-   - Most Improved: Team nobody expected to be good that surprised everyone
-   - Comeback of the Year: Team that started slow and made a serious run
-6. CHAMPIONSHIP LOSS RECOVERY — specific section for the runner up:
-   - How devastating was this loss on a scale of 1-10
-   - Is there a real path back next season or is the window closing
-   - What do they need to do differently
-   - Are they cursed or just unlucky — Tanner has a very strong opinion on this
-7. STORYLINES HEADING INTO NEXT SEASON:
-   - Can the champion repeat or is their window closing
-   - Will the laughing stock bounce back or hit rock bottom
-   - Which contender is one piece away from a championship run
-   - ${isDynasty ? "Dynasty offseason — rookie draft positioning, who is rebuilding, who is going all in next season" : "Who looks positioned to win next year based on this season's performance"}
-8. BOLD PREDICTIONS FOR NEXT SEASON: Marcus and Tanner each make 3 bold predictions. Champion pick, last place pick, biggest storyline. They disagree on everything.
-9. CLOSING: See you next season. The grind never stops. Offseason hype.`,
+EPISODE STRUCTURE — follow exactly, 4 segments maximum:
+1. OPENING: Season is over. Marcus sets the tone in one line. Tanner reacts immediately with the biggest story of the season. Fast and punchy.
+2. CHAMPION AND LAUGHING STOCK: Celebrate the champion in 2-3 lines max. Then immediately pivot to last place — Tanner roasts them brutally. Marcus tries to find something positive. Tanner shuts him down.
+3. SEASON AWARDS — only these 3, nothing else:
+   - MVP: Best team based on points scored and record. One line each from Marcus and Tanner.
+   - Biggest Choke: The team that had it and collapsed. Tanner names them and explains why in one brutal line.
+   - Last Place Shame: One final roast of the worst team. Tanner goes in hard.
+4. NEXT SEASON STORYLINES AND BOLD PREDICTIONS: 2-3 quick storylines heading into next season. Marcus and Tanner each make ONE bold prediction for next year. They disagree. Close it out with energy.
+
+STRICT RULES FOR OFFSEASON:
+- No trade awards — we do not have trade data
+- No waiver wire awards — we do not have waiver data
+- Champion gets maximum 3 lines total across the entire episode
+- Last place gets roasted once in segment 2 and once in awards — not repeatedly
+- Every line must reference a specific team name from the standings
+- Keep it moving — no dwelling on any single topic`,
   };
 
   return types[type] || types["weekly_recap"];

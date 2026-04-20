@@ -70,7 +70,7 @@ export const PLANS: Plan[] = [
     features: [
       "Unlimited video episodes",
       "Unlimited audio episodes",
-      "Unlimited fantasy leagues",
+      "Up to 10 fantasy leagues",
       "Everything in Elite League",
       "Full NFL season access",
     ],

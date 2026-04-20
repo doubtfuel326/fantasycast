@@ -178,7 +178,7 @@ export default function OnboardingPage() {
                 <p className='text-white/40 text-sm'>Loading your leagues...</p>
               ) : (
                 <div className='space-y-2 max-h-96 overflow-y-auto'>
-                  {yahooLeagues.map((league: any) => (
+                  {yahooLeagues.filter((league: any) => league.sport === "nfl" || league.sport === "NFL").map((league: any) => (
                     <button key={league.leagueId} onClick={() => {
                       // Check league limit before connecting
                       fetch('/api/check-league-limit?leagueId=' + league.leagueId + '&leagueName=' + encodeURIComponent(league.leagueName) + '&platform=yahoo')

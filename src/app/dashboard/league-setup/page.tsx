@@ -33,6 +33,9 @@ export default function LeagueSetupPage() {
   const [pastChampions, setPastChampions] = useState<{year: string, team: string, manager: string}[]>([
     { year: "", team: "", manager: "" }
   ]);
+  const [prevLeagueId, setPrevLeagueId] = useState("");
+  const [importing, setImporting] = useState(false);
+  const [imported, setImported] = useState(false);
 
   useEffect(() => {
     try {
@@ -88,6 +91,67 @@ export default function LeagueSetupPage() {
     }
     loadSettings();
   }, [user?.id]);
+
+  async function importHistory() {
+    if (!prevLeagueId.trim() || !user?.id) return;
+    setImporting(true);
+    try {
+      const { createClient } = await import("@supabase/supabase-js");
+      const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL || "",
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
+      );
+      const { data } = await supabase
+        .from("league_settings")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("league_id", prevLeagueId.trim())
+        .single();
+
+      if (!data) {
+        alert("No league history found for that ID. Make sure you entered the correct previous season league ID.");
+        setImporting(false);
+        return;
+      }
+
+      // Copy over history
+      if (data.league_type) setLeagueType(data.league_type);
+      if (data.past_champions) setPastChampions(data.past_champions);
+      if (data.last_season) {
+        // Move last season data to past champions if not already there
+        const lastSeasonData = data.last_season;
+        if (lastSeasonData.champion_team && lastSeasonData.year) {
+          const alreadyExists = (data.past_champions || []).some((c: any) => c.year === lastSeasonData.year);
+          if (!alreadyExists) {
+            setPastChampions(prev => [...(data.past_champions || []), {
+              year: lastSeasonData.year,
+              team: lastSeasonData.champion_team,
+              manager: lastSeasonData.champion_manager || ""
+            }]);
+          }
+        }
+        setLastSeason({
+          year: lastSeasonData.year || "",
+          champion_team: lastSeasonData.champion_team || "",
+          champion_manager: lastSeasonData.champion_manager || "",
+          runner_up_team: lastSeasonData.runner_up_team || "",
+          runner_up_manager: lastSeasonData.runner_up_manager || "",
+          last_place_team: lastSeasonData.last_place_team || "",
+          last_place_manager: lastSeasonData.last_place_manager || "",
+          round1_eliminated: lastSeasonData.round1_eliminated || ["", "", "", ""],
+          round2_eliminated: lastSeasonData.round2_eliminated || ["", ""],
+          bye_teams: lastSeasonData.bye_teams || [],
+          num_byes: lastSeasonData.num_byes || 0,
+        });
+      }
+      setImported(true);
+      setTimeout(() => setImported(false), 3000);
+    } catch (e) {
+      alert("Failed to import history. Please try again.");
+    } finally {
+      setImporting(false);
+    }
+  }
 
   async function save() {
     if (!user?.id || !leagueId) return;
@@ -164,6 +228,28 @@ export default function LeagueSetupPage() {
           {leagueName && <p className="text-[#00C853] text-sm font-medium">{leagueName}</p>}
           <p className="text-white/30 text-xs mt-1">Help Marcus and Tanner tell accurate stories about your league.</p>
         </div>
+
+        {/* Import Previous Season */}
+        <section className="glass rounded-2xl p-6 mb-6 border border-[#00C853]/20">
+          <h2 className="font-display text-xl tracking-wide mb-1">RETURNING LEAGUE?</h2>
+          <p className="text-white/30 text-xs mb-4">Paste your previous season league ID to carry over your history, champions, and league type automatically.</p>
+          <div className="flex gap-2">
+            <input
+              value={prevLeagueId}
+              onChange={e => setPrevLeagueId(e.target.value)}
+              placeholder="Previous season league ID"
+              className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#00C853]/50"
+            />
+            <button
+              onClick={importHistory}
+              disabled={importing || !prevLeagueId.trim()}
+              className="btn-primary px-4 py-2.5 text-sm whitespace-nowrap"
+            >
+              {importing ? "Importing..." : imported ? "✓ Imported!" : "Import History"}
+            </button>
+          </div>
+          <p className="text-white/20 text-xs mt-2">Find your previous league ID in Sleeper or Yahoo league settings.</p>
+        </section>
 
         {/* League Type */}
         <section className="glass rounded-2xl p-6 mb-6">

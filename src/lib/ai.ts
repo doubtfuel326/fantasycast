@@ -465,16 +465,51 @@ OUTPUT FORMAT — return ONLY valid JSON, no other text before or after:
 }
 
 STRICT SCRIPT RULES — FOLLOW EXACTLY:
-- Write exactly 5 segments
-- Each segment has exactly 4 lines: Marcus, Tanner, Marcus, Tanner — strictly alternating, never same host twice in a row
-- Each line must be under 25 words — tight, punchy, specific
-- ONLY use TEAM NAMES — never say manager names alongside team names, pick one and stick to team names
-- NO repeating the same point across different segments — each segment covers ONE topic and moves on
-- NO generic filler lines — every line must reference a specific team name or result
-- The champion gets ONE segment maximum — do not keep returning to them
-- The regular season leader who lost in playoffs gets ONE mention maximum
-- Total episode should feel like 2-3 minutes when spoken aloud
-- Marcus: authoritative, builds drama. Tanner: hot takes, roasts teams by name, disagrees`;
+
+EPISODE LENGTH BY TYPE:
+- matchup_of_the_week, championship, championship_recap: Write exactly 3 segments, 4 lines each. Target 60 seconds total. Every line under 12 words.
+- weekly_recap, weekly_preview, draft_recap, preseason, playoff, playoff_recap, offseason, legacy: Write exactly 5 segments, 4-6 lines each. Target 2-3 minutes total. Every line under 20 words. Shorter is always better.
+
+HOST RULES — NON NEGOTIABLE:
+- ALWAYS strictly alternate: Marcus, Tanner, Marcus, Tanner — NEVER same host twice in a row
+- ONLY use TEAM NAMES — never combine team name and manager name in same line
+- Marcus: one punchy authoritative statement. Builds drama. Never rambles.
+- Tanner: immediate hot take. Roasts teams by name. Disagrees with Marcus. Never passive.
+
+FORMAT RULES:
+- THE WIRE: Fast, urgent, news ticker energy. Jump straight into the story. No transitions.
+- DEBATE: Every topic is an argument. Marcus takes one side, Tanner takes the opposite. Someone is always wrong.
+- PODCAST: Slightly more conversational but still tight. Reference league history when relevant. Feel like two friends who know this league.
+
+MATCHUP COVERAGE RULES (for weekly_recap and weekly_preview):
+- Every matchup gets at minimum 1 line covering the score and result
+- High impact matchups get 2-3 lines — cover these first:
+  1. First place implications
+  2. Playoff elimination or clinch games
+  3. Biggest upset of the week
+  4. Bye week race — top seeds fighting for first round bye
+  5. Dynasty tanking angle if applicable
+- One liner matchups: just the score and a quick reaction, move on immediately
+
+FRAUD TEAM DETECTION — USE THIS EVERY WEEK:
+- Look at the standings data provided
+- Identify any team with a WINNING record but points scored in the BOTTOM THIRD of the league — call them out as a fraud team. Their luck will run out.
+- Identify any team with a LOSING record but points in the TOP THIRD — they are unlucky and dangerous. A threat nobody is taking seriously.
+- Tanner should call out the fraud team hard. Marcus should acknowledge the unlucky team as a sleeper threat.
+- This is a major weekly storyline — do not skip it if the data supports it.
+
+SEASON STORYLINE RULES:
+- Always reference the playoff picture and bye week race during weeks 1-14
+- Call out teams on hot streaks vs cold streaks based on recent results
+- Reference the defending champion and last place team when relevant
+- Dynasty leagues: always mention tanking implications and draft positioning
+
+QUALITY RULES:
+- NO filler lines — every line must reference a specific team, score, or storyline
+- NO repeating the same point across segments — each segment covers ONE topic and moves on
+- NO invented facts — only use data provided in the league data above
+- Make people feel something — excitement, laughter, outrage, pride
+- Write like this will be shared in a league group chat and everyone will have a reaction`;
 
   const response = await anthropic.messages.create({
     model: "claude-sonnet-4-5-20250929",

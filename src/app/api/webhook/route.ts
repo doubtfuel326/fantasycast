@@ -31,15 +31,20 @@ export async function POST(req: NextRequest) {
       const email = session.customer_email || "";
 
       if (userId && tier) {
+        // Set season expiry to 6 months from now
+        const expiresAt = new Date();
+        expiresAt.setMonth(expiresAt.getMonth() + 6);
+
         await supabase.from("subscribers").upsert({
           user_id: userId,
           email,
           stripe_customer_id: customerId,
           plan: tier,
           status: "active",
+          expires_at: expiresAt.toISOString(),
           updated_at: new Date().toISOString(),
         });
-        console.log(`✅ Subscription activated: user=${userId} tier=${tier}`);
+        console.log(`✅ Season pass activated: user=${userId} tier=${tier} expires=${expiresAt.toISOString()}`);
       }
       break;
     }

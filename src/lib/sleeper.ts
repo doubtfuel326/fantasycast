@@ -170,7 +170,7 @@ export async function buildLeagueSnapshot(leagueId: string): Promise<LeagueSnaps
       platform: "sleeper",
       leagueId,
       leagueName: league.name,
-      sport: league.sport || "nfl",
+      sport: (league.sport || "nfl") as "nfl" | "nba" | "mlb" | "nhl",
       season: league.season,
       totalTeams: league.total_rosters,
       scoringType: league.scoring_settings?.rec ? "PPR" : "Standard",

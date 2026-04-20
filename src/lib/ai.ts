@@ -375,7 +375,12 @@ STRICT RULES FOR OFFSEASON:
 - Champion gets maximum 3 lines total across the entire episode
 - Last place gets roasted once in segment 2 and once in awards — not repeatedly
 - Every line must reference a specific team name from the standings
-- Keep it moving — no dwelling on any single topic`,
+- Keep it moving — no dwelling on any single topic
+- EVERY team in the standings must get at least one mention across the episode — do not skip middle of the table teams
+- NEVER invent per game averages or per week stats — only use the total points scored shown in the standings data
+- NEVER say a team made the playoffs unless they are listed in the playoff teams data from league settings
+- NEVER calculate or estimate any stat not explicitly provided in the data — if you do not have the number do not mention it
+- Points scored in standings = TOTAL for the whole season, never divide or average it`,
   };
 
   return types[type] || types["weekly_recap"];

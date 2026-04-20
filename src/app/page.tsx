@@ -121,7 +121,7 @@ export default function HomePage() {
           </div>
 
           <p className="text-white/25 text-xs mt-4">
-            Starts at $19/mo · Works with Sleeper, ESPN, Yahoo
+            From $39/season · Works with Sleeper & Yahoo Fantasy
           </p>
         </div>
 

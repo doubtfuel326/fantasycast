@@ -460,12 +460,46 @@ OUTPUT FORMAT — return ONLY valid JSON, no other text before or after:
     {
       "segmentTitle": "Segment name",
       "lines": [
-        { "host": "Marcus", "text": "What Marcus says — authoritative, specific, builds drama" },
-        { "host": "Tanner", "text": "What Tanner says — hot take, roasts someone, disagrees" }
+        {
+          "host": "Marcus",
+          "text": "What Marcus says",
+          "graphic": {
+            "type": "matchup_result",
+            "team1": "Team A",
+            "team2": "Team B", 
+            "score1": 142.3,
+            "score2": 118.6,
+            "winner": "Team A"
+          }
+        },
+        {
+          "host": "Tanner",
+          "text": "What Tanner says — roasting someone",
+          "graphic": {
+            "type": "headline",
+            "text": "TEAM B: FRAUD ALERT?",
+            "tone": "negative"
+          }
+        }
       ]
     }
   ]
 }
+
+GRAPHIC TYPES — assign one to every line based on what is being said:
+- "matchup_result": when discussing a specific game result. Include team1, team2, score1, score2, winner fields using EXACT data from standings/matchups provided.
+- "standings": when discussing standings, playoff picture, or a team's record. Include team, wins, losses, pointsFor fields.
+- "headline": when making a hot take, roasting a team, calling out fraud, or making a bold statement. Include text (the headline, max 6 words, ALL CAPS, punchy) and tone ("positive", "negative", or "neutral").
+- "champion": when celebrating the champion or a major achievement. Include team field.
+- "prediction": when Marcus or Tanner makes a prediction. Include pick and reasoning fields.
+- "normal": for any line that doesn't fit above categories.
+
+HEADLINE EXAMPLES for tone:
+- Negative: "TEAM A: BIGGEST FRAUD IN LEAGUE?", "CAN TEAM B GET A WIN?", "DYNASTY OVER FOR TEAM C?"
+- Positive: "TEAM A: BACK TO BACK?", "NINER GANG: REDEMPTION SEASON!", "LYON AVE: DYNASTY BUILDING!"
+- Neutral: "THE PLAYOFF PICTURE SHIFTS", "WEEK 8 CHANGES EVERYTHING"
+
+IMPORTANT: Use EXACT team names and scores from the data provided. Never invent scores.
 
 STRICT SCRIPT RULES — FOLLOW EXACTLY:
 

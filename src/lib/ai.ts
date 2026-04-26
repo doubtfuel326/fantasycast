@@ -441,7 +441,7 @@ CRITICAL RULES — READ CAREFULLY:
 8. The season just ended — treat this as fresh news, not ancient history` : "WARNING: No league setup data available. Only use standings and matchup data provided. Do not invent any playoff results, championship winners, or streaks not shown in the data."}
 
 CRITICAL WRITING RULES — violating these ruins the episode:
-1. Use manager names and team names CONSTANTLY — every segment should feel specific to THIS league and THESE people
+1. Use TEAM NAMES ONLY — never say a manager name alongside or after a team name in dialogue. Pick one identity per team and stick to the team name only. Say "Niner Gang" not "Niner Gang, manwellz's team" or "manwellz's Niner Gang"
 2. Marcus and Tanner must sound COMPLETELY DIFFERENT. Marcus = authoritative, measured, builds drama. Tanner = loud, opinionated, roasts people, takes hot takes.
 3. Never write generic sports content. Every line must reference actual data from the league data provided.
 4. Every segment must have genuine energy — no flat writing, no boring lines

@@ -475,45 +475,31 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
 
           {/* Controls */}
           <div className="px-5 py-4" style={{ background: "#0d0d0d" }}>
-            <div className="flex items-center justify-center gap-3 mb-3">
-              {/* Skip back */}
-              <button onClick={skipBack}
-                className="w-9 h-9 rounded-full bg-white/5 border border-white/8 flex items-center justify-center text-white/30 hover:text-white transition-colors text-xs">
-                ⏪
-              </button>
-              {/* Prev line */}
-              <button onClick={() => jumpToLine(Math.max(0, activeLine - 1))}
-                className="w-9 h-9 rounded-full bg-white/5 border border-white/8 flex items-center justify-center text-white/30 hover:text-white transition-colors">
-                ⏮
-              </button>
-              {/* Play/Pause */}
+            <div className="flex items-center justify-center mb-4">
               <button onClick={togglePlay}
-                className="w-14 h-14 rounded-full flex items-center justify-center transition-all"
-                style={{ background: playing ? "#E74C3C" : episodeColor, boxShadow: `0 0 20px ${playing ? "rgba(231,76,60,0.3)" : episodeColor + "50"}` }}>
+                className="w-16 h-16 rounded-full flex items-center justify-center transition-all"
+                style={{ background: playing ? "#E74C3C" : episodeColor, boxShadow: `0 0 24px ${playing ? "rgba(231,76,60,0.3)" : episodeColor + "50"}` }}>
                 {playing
-                  ? <span className="text-white text-lg">⏸</span>
-                  : <div className="w-0 h-0 border-t-[9px] border-t-transparent border-b-[9px] border-b-transparent border-l-[14px] border-l-white ml-1" />
+                  ? <span className="text-white text-xl">⏸</span>
+                  : <div className="w-0 h-0 border-t-[10px] border-t-transparent border-b-[10px] border-b-transparent border-l-[16px] border-l-white ml-1" />
                 }
               </button>
-              {/* Next line */}
-              <button onClick={() => jumpToLine(Math.min(allLines.length - 1, activeLine + 1))}
-                className="w-9 h-9 rounded-full bg-white/5 border border-white/8 flex items-center justify-center text-white/30 hover:text-white transition-colors">
-                ⏭
-              </button>
-              {/* Skip forward */}
-              <button onClick={skipForward}
-                className="w-9 h-9 rounded-full bg-white/5 border border-white/8 flex items-center justify-center text-white/30 hover:text-white transition-colors text-xs">
-                ⏩
-              </button>
             </div>
-
-            {/* Progress counter */}
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-[10px] text-white/20 font-display">{activeLine + 1}</span>
-              <div className="flex-1 h-px bg-white/5 relative">
-                <div className="absolute top-0 left-0 h-full transition-all duration-300" style={{ width: `${progress}%`, background: episodeColor }} />
-              </div>
-              <span className="text-[10px] text-white/20 font-display">{allLines.length}</span>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="text-[10px] text-white/20 font-display w-6 text-right">{activeLine + 1}</span>
+              <input
+                type="range"
+                min={0}
+                max={Math.max(allLines.length - 1, 0)}
+                value={activeLine}
+                onChange={e => jumpToLine(parseInt(e.target.value))}
+                className="flex-1 h-1 rounded-full appearance-none cursor-pointer"
+                style={{
+                  background: `linear-gradient(to right, ${episodeColor} ${progress}%, rgba(255,255,255,0.08) ${progress}%)`,
+                  WebkitAppearance: "none",
+                }}
+              />
+              <span className="text-[10px] text-white/20 font-display w-6">{allLines.length}</span>
             </div>
 
             {finished && (
@@ -587,6 +573,22 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
         @keyframes marquee {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
+        }
+        input[type=range]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background: white;
+          cursor: pointer;
+        }
+        input[type=range]::-moz-range-thumb {
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background: white;
+          cursor: pointer;
+          border: none;
         }
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(4px); }

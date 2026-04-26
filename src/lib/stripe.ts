@@ -29,7 +29,7 @@ export const PLANS: Plan[] = [
   {
     id: "pro_league",
     name: "Pro League",
-    price: 55,
+    price: 75,
     priceId: process.env.STRIPE_PRICE_PRO || "",
     episodesPerWeek: 5,
     videoPerWeek: 1,
@@ -46,7 +46,7 @@ export const PLANS: Plan[] = [
   {
     id: "elite_league",
     name: "Elite League",
-    price: 99,
+    price: 119,
     priceId: process.env.STRIPE_PRICE_ELITE || "",
     episodesPerWeek: 999999,
     videoPerWeek: 4,
@@ -62,7 +62,7 @@ export const PLANS: Plan[] = [
   {
     id: "dynasty",
     name: "Dynasty",
-    price: 199,
+    price: 219,
     priceId: process.env.STRIPE_PRICE_DYNASTY || "",
     episodesPerWeek: 999999,
     videoPerWeek: 999999,
@@ -76,6 +76,20 @@ export const PLANS: Plan[] = [
     ],
   },
 ];
+
+export const TRIAL_PLAN = {
+  id: "trial",
+  name: "Trial",
+  price: 7,
+  priceId: process.env.STRIPE_PRICE_TRIAL || "",
+  description: "One AI video episode for your fantasy league",
+  features: [
+    "1 AI video episode",
+    "All 3 show formats",
+    "Shareable episode link",
+    "No commitment required",
+  ],
+};
 
 export function getPlanByTier(tier: PlanTier): Plan {
   return PLANS.find((p) => p.id === tier) || PLANS[0];

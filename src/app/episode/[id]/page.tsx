@@ -214,8 +214,20 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
   const [loadingAudio, setLoadingAudio] = useState(false);
   const [audioError, setAudioError] = useState("");
   const [showSegmentCard, setShowSegmentCard] = useState<string | null>(null);
+  const [finished, setFinished] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const playingRef = useRef(false);
+
+  // Stop audio when leaving page
+  useEffect(() => {
+    return () => {
+      playingRef.current = false;
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = "";
+      }
+    };
+  }, []);
 
   const allLines = episode?.script?.segments?.flatMap((s: any, si: number) =>
     s.lines.map((l: any, li: number) => ({
@@ -330,7 +342,17 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
     setPlaying(false);
     setTalkingHost(null);
     playingRef.current = false;
+    setFinished(true);
   }, [playing, activeLine, allLines]);
+
+  function restartEpisode() {
+    if (audioRef.current) audioRef.current.pause();
+    setActiveLine(0);
+    setPlaying(false);
+    setTalkingHost(null);
+    setFinished(false);
+    playingRef.current = false;
+  }
 
   function jumpToLine(index: number) {
     if (playing) { playingRef.current = false; if (audioRef.current) audioRef.current.pause(); }
@@ -460,6 +482,13 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
               </div>
               <span className="text-xs text-white/25 font-display">{allLines.length}</span>
             </div>
+            {finished && (
+              <button onClick={restartEpisode}
+                className="w-full mt-3 py-2.5 rounded-xl text-sm font-medium border transition-all"
+                style={{ borderColor: episodeColor + "40", color: episodeColor, background: episodeColor + "10" }}>
+                ↺ Watch Again
+              </button>
+            )}
           </div>
 
           <div className="border-t border-white/5 bg-black/40 py-2 overflow-hidden">

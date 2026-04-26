@@ -501,6 +501,8 @@ HEADLINE EXAMPLES for tone:
 
 IMPORTANT: Use EXACT team names and scores from the data provided. Never invent scores.
 
+CRITICAL: Every single line MUST have a "graphic" field. No exceptions. Lines without a graphic field will break the player. If unsure which type to use, use "headline" with a relevant text. The graphic field is REQUIRED on every line.
+
 STRICT SCRIPT RULES — FOLLOW EXACTLY:
 
 EPISODE LENGTH BY TYPE:

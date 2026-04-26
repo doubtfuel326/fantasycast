@@ -62,16 +62,36 @@ function MatchupGraphic({ data }: { data: any }) {
 }
 
 function HeadlineGraphic({ data }: { data: any }) {
-  const neg = { bg: "rgba(231,76,60,0.1)", text: "#E74C3C", border: "rgba(231,76,60,0.3)" };
-  const pos = { bg: "rgba(0,200,83,0.1)", text: "#00C853", border: "rgba(0,200,83,0.3)" };
-  const neu = { bg: "rgba(255,255,255,0.05)", text: "rgba(255,255,255,0.7)", border: "rgba(255,255,255,0.1)" };
-  const c = data.tone === "negative" ? neg : data.tone === "positive" ? pos : neu;
-  const icon = data.tone === "negative" ? "⚠ BREAKING" : data.tone === "positive" ? "★ TOP STORY" : "📊 UPDATE";
+  const isNeg = data.tone === "negative";
+  const isPos = data.tone === "positive";
+  const accentColor = isNeg ? "#E74C3C" : isPos ? "#00C853" : "#FFD700";
+  const label = isNeg ? "BREAKING" : isPos ? "TOP STORY" : "UPDATE";
   return (
     <div className="w-full max-w-lg mx-auto">
-      <div className="rounded-2xl border p-8 text-center" style={{ background: c.bg, borderColor: c.border }}>
-        <div className="text-xs tracking-widest mb-3 opacity-50" style={{ color: c.text }}>{icon}</div>
-        <p className="font-display text-3xl md:text-4xl tracking-wide leading-tight" style={{ color: c.text }}>{data.text}</p>
+      {/* ESPN-style chyron */}
+      <div className="relative overflow-hidden rounded-xl">
+        {/* Background studio feel */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#111] to-[#080808]" />
+        <div className="absolute inset-0 opacity-10"
+          style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
+        {/* Top accent line */}
+        <div className="h-1 w-full" style={{ background: accentColor }} />
+        <div className="relative px-6 py-8">
+          {/* Label bar */}
+          <div className="flex items-center gap-3 mb-4">
+            <div className="px-3 py-1 text-white text-[10px] font-display tracking-widest" style={{ background: accentColor }}>
+              {label}
+            </div>
+            <div className="flex-1 h-px bg-white/10" />
+            <div className="font-display text-[10px] tracking-widest text-white/20">LEAGUEWIRE</div>
+          </div>
+          {/* Main headline */}
+          <p className="font-display text-3xl md:text-4xl tracking-wide leading-tight text-white">{data.text}</p>
+          {/* Bottom accent */}
+          <div className="mt-4 h-px w-16 rounded-full" style={{ background: accentColor }} />
+        </div>
+        {/* Bottom accent line */}
+        <div className="h-0.5 w-full opacity-50" style={{ background: accentColor }} />
       </div>
     </div>
   );
@@ -141,22 +161,30 @@ function PredictionGraphic({ data, host }: { data: any; host: string }) {
   );
 }
 
-function NormalGraphic({ host }: { host: string }) {
+function NormalGraphic({ host, episodeTitle }: { host: string; episodeTitle?: string }) {
   const isMarcus = host === "Marcus" || host === "host1";
   const color = isMarcus ? "#00C853" : "#E67E22";
-  const initials = isMarcus ? "MC" : "TC";
   const name = isMarcus ? "MARCUS COLE" : "TANNER CROSS";
-  const role = isMarcus ? "Lead Anchor" : "Co-Host";
+  const role = isMarcus ? "LEAD ANCHOR" : "CO-HOST";
   return (
     <div className="w-full max-w-lg mx-auto">
-      <div className="rounded-2xl border border-white/5 bg-[#0d0d0d] p-6 flex items-center gap-4">
-        <div className="w-14 h-14 rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0"
-          style={{ background: color + "15", color, border: "2px solid " + color + "40" }}>
-          {initials}
-        </div>
-        <div>
-          <p className="text-xs tracking-widest font-display" style={{ color }}>{name}</p>
-          <p className="text-white/30 text-xs">{role}</p>
+      <div className="relative overflow-hidden rounded-xl border border-white/5">
+        <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, #0d0d0d 0%, #111 100%)" }} />
+        <div className="absolute inset-0 opacity-5"
+          style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "25px 25px" }} />
+        <div className="h-0.5 w-full" style={{ background: color }} />
+        <div className="relative p-6 flex items-center justify-between">
+          <div>
+            <p className="font-display text-[10px] tracking-widest mb-1 opacity-50" style={{ color }}>NOW SPEAKING</p>
+            <p className="font-display text-2xl tracking-wide text-white">{name}</p>
+            <p className="text-[10px] tracking-widest mt-1" style={{ color, opacity: 0.7 }}>{role} · LEAGUEWIRE</p>
+          </div>
+          <div className="flex gap-1 items-end h-10">
+            {[4,7,5,9,6,8,4,6,9,5].map((h, i) => (
+              <div key={i} className="w-1.5 rounded-full opacity-60 animate-pulse"
+                style={{ height: h * 4 + "px", background: color, animationDelay: i * 0.1 + "s" }} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -382,11 +410,18 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
           </div>
 
           <div className="p-6 md:p-8 min-h-[280px] flex items-center justify-center relative">
+            {/* Studio background */}
+            <div className="absolute inset-0" style={{
+              background: "radial-gradient(ellipse at 50% 0%, rgba(0,200,83,0.04) 0%, transparent 60%), linear-gradient(180deg, #0d0d0d 0%, #080808 100%)"
+            }} />
+            <div className="absolute inset-0 opacity-3"
+              style={{ backgroundImage: "linear-gradient(rgba(0,200,83,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,200,83,0.08) 1px, transparent 1px)", backgroundSize: "50px 50px" }} />
+            {/* Active host glow */}
             <div className="absolute inset-0 transition-all duration-700" style={{
               background: playing
                 ? isMarcus
-                  ? "radial-gradient(ellipse at 30% 50%, rgba(0,200,83,0.05) 0%, transparent 60%)"
-                  : "radial-gradient(ellipse at 70% 50%, rgba(230,126,34,0.05) 0%, transparent 60%)"
+                  ? "radial-gradient(ellipse at 30% 50%, rgba(0,200,83,0.06) 0%, transparent 50%)"
+                  : "radial-gradient(ellipse at 70% 50%, rgba(230,126,34,0.06) 0%, transparent 50%)"
                 : "none"
             }} />
             <div className="relative w-full">
@@ -401,18 +436,7 @@ export default function EpisodePage({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          {currentLine && (
-            <div className="px-6 pb-4 flex items-center justify-center">
-              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all ${isMarcus ? "border-[#00C853]/30 bg-[#00C853]/5" : "border-orange-500/30 bg-orange-500/5"}`}>
-                <div className={`w-1.5 h-1.5 rounded-full ${playing ? "animate-pulse" : ""}`}
-                  style={{ background: isMarcus ? "#00C853" : "#E67E22" }} />
-                <span className="text-xs font-display tracking-wider" style={{ color: isMarcus ? "#00C853" : "#E67E22" }}>
-                  {isMarcus ? "MARCUS COLE" : "TANNER CROSS"}
-                </span>
-                <span className="text-white/20 text-[10px]">· {currentLine.segmentTitle}</span>
-              </div>
-            </div>
-          )}
+
 
           {audioError && <p className="text-red-400 text-xs text-center pb-3">{audioError}</p>}
 

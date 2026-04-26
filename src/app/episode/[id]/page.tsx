@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
         siteName: "LeagueWire",
         images: [
           {
-            url: \`https://www.leaguewire.net/og-episode.png\`,
+            url: "https://www.leaguewire.net/og-episode.png",
             width: 1200,
             height: 630,
             alt: title,
@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
         card: "summary_large_image",
         title: `${title}`,
         description: `${leagueName} · ${teaser}`,
-        images: [`https://www.leaguewire.net/og-episode.png`],
+        images: ["https://www.leaguewire.net/og-episode.png"],
       },
     };
   } catch {

@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
       openGraph: {
         title: `${title}`,
         description: `${leagueName} · ${teaser}`,
-        url: \`https://www.leaguewire.net/episode/${params.id}\`,
+        url: `https://www.leaguewire.net/episode/${params.id}`,
         siteName: "LeagueWire",
         images: [
           {
@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
         card: "summary_large_image",
         title: `${title}`,
         description: `${leagueName} · ${teaser}`,
-        images: [\`https://www.leaguewire.net/og-episode.png\`],
+        images: [`https://www.leaguewire.net/og-episode.png`],
       },
     };
   } catch {

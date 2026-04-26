@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
-import { PLANS } from "@/lib/stripe";
+import { PLANS, TRIAL_PLAN } from "@/lib/stripe";
 import type { PlanTier } from "@/types";
 
 const CHECK = () => (
@@ -60,7 +60,34 @@ export default function PricingPage() {
             YOUR LEAGUE.<br />
             <span className="text-[#00C853]">YOUR PLAN.</span>
           </h1>
-          <p className="text-white/40 text-sm">Per league. Cancel anytime. No contracts.</p>
+          <p className="text-white/40 text-sm">Season passes for the full NFL season. Try it first for $7.</p>
+        </div>
+
+        {/* Trial Card */}
+        <div className="max-w-sm mx-auto w-full mb-8">
+          <div className="glass border border-[#FFD700]/40 rounded-2xl p-6 text-center">
+            <div className="inline-block bg-[#FFD700]/10 text-[#FFD700] text-xs font-medium px-3 py-1 rounded-full mb-3">Try Before You Buy</div>
+            <h3 className="font-display text-2xl tracking-wide mb-1">NOT SURE YET?</h3>
+            <p className="text-white/40 text-sm mb-4">Get one AI video episode for your league. No season commitment.</p>
+            <div className="flex items-baseline justify-center gap-1 mb-4">
+              <span className="font-display text-4xl tracking-wide">$7</span>
+              <span className="text-white/40 text-sm">one video</span>
+            </div>
+            <ul className="space-y-2 mb-6 text-left">
+              {TRIAL_PLAN.features.map((f) => (
+                <li key={f} className="flex items-center gap-2 text-sm text-white/70">
+                  <span className="text-[#FFD700]">✓</span>{f}
+                </li>
+              ))}
+            </ul>
+            <button
+              onClick={() => handleSubscribe("trial" as any)}
+              disabled={loading !== null}
+              className="w-full py-3 rounded-xl font-medium text-sm bg-[#FFD700]/10 hover:bg-[#FFD700]/20 text-[#FFD700] border border-[#FFD700]/30 transition-all disabled:opacity-50"
+            >
+              {loading === "trial" ? "Redirecting..." : "Try For $7 →"}
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-3 gap-6 max-lg:grid-cols-1 max-lg:max-w-md max-lg:mx-auto">

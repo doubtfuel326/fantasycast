@@ -62,15 +62,15 @@ export const PLANS: Plan[] = [
   {
     id: "dynasty",
     name: "Dynasty",
-    price: 219,
+    price: 249,
     priceId: process.env.STRIPE_PRICE_DYNASTY || "",
     episodesPerWeek: 999999,
     videoPerWeek: 999999,
-    leagues: 10,
+    leagues: 6,
     features: [
       "Unlimited video episodes",
       "Unlimited audio episodes",
-      "Up to 10 fantasy leagues",
+      "Up to 6 fantasy leagues",
       "Everything in Elite League",
       "Full NFL season access",
     ],

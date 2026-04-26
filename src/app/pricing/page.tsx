@@ -85,7 +85,7 @@ export default function PricingPage() {
               disabled={loading !== null}
               className="w-full py-3 rounded-xl font-medium text-sm bg-[#FFD700]/10 hover:bg-[#FFD700]/20 text-[#FFD700] border border-[#FFD700]/30 transition-all disabled:opacity-50"
             >
-              {loading === "trial" ? "Redirecting..." : "Try For $7 →"}
+              {(loading as any) === "trial" ? "Redirecting..." : "Try For $7 →"}
             </button>
           </div>
         </div>

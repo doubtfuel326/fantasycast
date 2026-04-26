@@ -15,7 +15,10 @@ export async function POST(req: NextRequest) {
 
     const { tier } = await req.json() as { tier: PlanTier };
 
-    const plan = PLANS.find((p) => p.id === tier);
+    const { TRIAL_PLAN } = await import("@/lib/stripe");
+    const plan = tier === "trial" 
+      ? { ...TRIAL_PLAN, leagues: 1, episodesPerWeek: 1, videoPerWeek: 1, highlighted: false } as any
+      : PLANS.find((p) => p.id === tier);
     if (!plan) {
       return NextResponse.json({ error: "Invalid plan" }, { status: 400 });
     }

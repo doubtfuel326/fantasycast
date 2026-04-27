@@ -57,11 +57,11 @@ function getEpisodeTypeContext(type: EpisodeType, snapshot: LeagueSnapshot): str
   const leagueType = isDynasty ? "DYNASTY LEAGUE" : "REDRAFT LEAGUE";
 
   const standingsText = standings
-    .map((t) => `${t.rank}. ${t.teamName} (${t.managerName}): ${t.wins}-${t.losses}, ${t.pointsFor.toFixed(1)} pts scored`)
+    .map((t) => `${t.rank}. ${t.teamName}: ${t.wins}-${t.losses}, ${t.pointsFor.toFixed(1)} pts scored`)
     .join("\n");
 
   const matchupText = matchups
-    .map((m) => `${m.team1.teamName} (${m.team1.managerName}) ${m.team1Score.toFixed(1)} vs ${m.team2.teamName} (${m.team2.managerName}) ${m.team2Score.toFixed(1)} — Winner: ${m.winner}`)
+    .map((m) => `${m.team1.teamName} ${m.team1Score.toFixed(1)} vs ${m.team2.teamName} ${m.team2Score.toFixed(1)} — Winner: ${m.winner}`)
     .join("\n");
 
   const tradeText = recentTrades.length > 0
@@ -151,7 +151,7 @@ EPISODE: DYNASTY ROOKIE DRAFT RECAP — ${league.leagueName} ${league.season}
 DYNASTY LEAGUE | ${league.totalTeams} teams
 
 TEAM ROSTERS:
-${teams.map((t) => `${t.teamName} (${t.managerName}): ${t.wins}-${t.losses}, ${t.pointsFor.toFixed(1)} pts`).join("\n")}
+${teams.map((t) => `${t.teamName}: ${t.wins}-${t.losses}, ${t.pointsFor.toFixed(1)} pts`).join("\n")}
 
 EPISODE STRUCTURE — follow exactly:
 1. OPENING: Set the context. This is not about winning now — it is about building a dynasty. Who is rebuilding, who is competing, who is selling the future. Make the stakes clear.
@@ -167,7 +167,7 @@ EPISODE: DRAFT RECAP — ${league.leagueName} ${league.season}
 REDRAFT LEAGUE | ${league.totalTeams} teams
 
 TEAM ROSTERS:
-${teams.map((t) => `${t.teamName} (${t.managerName}): ${t.wins}-${t.losses}, ${t.pointsFor.toFixed(1)} pts`).join("\n")}
+${teams.map((t) => `${t.teamName}: ${t.wins}-${t.losses}, ${t.pointsFor.toFixed(1)} pts`).join("\n")}
 
 EPISODE STRUCTURE — follow exactly:
 1. OPENING: Recap the draft day energy. How long it took, any drama, set the scene like you were there.

@@ -241,6 +241,19 @@ export default function DashboardPage() {
       )}
       {/* Main content */}
       <div className="md:ml-56 pt-14 md:pt-0 pb-20 md:pb-0 p-4 md:p-8">
+        {/* League Setup reminder banner */}
+        <Link href="/dashboard/league-setup" className="block mb-6">
+          <div className="rounded-xl border border-[#00C853]/20 bg-[#00C853]/5 px-4 py-3 flex items-center justify-between hover:border-[#00C853]/40 transition-all">
+            <div className="flex items-center gap-3">
+              <span className="text-lg">🏆</span>
+              <div>
+                <p className="text-sm font-medium text-white">Get more accurate episodes</p>
+                <p className="text-xs text-white/40">Fill out League Setup with your playoff results, champion, and history</p>
+              </div>
+            </div>
+            <span className="text-[#00C853] text-xs font-display tracking-widest flex-shrink-0">SET UP →</span>
+          </div>
+        </Link>
         <div className="flex items-start justify-between mb-6">
           <div>
             {lg ? <>

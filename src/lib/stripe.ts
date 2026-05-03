@@ -17,7 +17,7 @@ export const PLANS: Plan[] = [
     videoPerWeek: 0,
     leagues: 1,
     features: [
-      "3 audio episodes per week",
+      "3 radio shows per week",
       "1 fantasy league",
       "All 3 show formats (The Wire, Debate, Podcast)",
       "All 11 episode types",
@@ -37,7 +37,7 @@ export const PLANS: Plan[] = [
     highlighted: true,
     features: [
       "1 video episode per week",
-      "5 audio episodes per week",
+      "5 radio shows per week",
       "1 fantasy league",
       "Everything in League",
       "Full NFL season access",
@@ -53,7 +53,7 @@ export const PLANS: Plan[] = [
     leagues: 3,
     features: [
       "4 video episodes per week",
-      "Unlimited audio episodes",
+      "Unlimited radio shows",
       "Up to 3 fantasy leagues",
       "Everything in Pro League",
       "Full NFL season access",
@@ -69,7 +69,7 @@ export const PLANS: Plan[] = [
     leagues: 6,
     features: [
       "Unlimited video episodes",
-      "Unlimited audio episodes",
+      "Unlimited radio shows",
       "Up to 6 fantasy leagues",
       "Everything in Elite League",
       "Full NFL season access",

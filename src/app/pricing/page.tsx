@@ -163,7 +163,7 @@ export default function PricingPage() {
               },
               {
                 q: "What is the difference between the plans?",
-                a: "League gets 3 audio episodes per week for 1 league. Pro League adds 1 video per week plus 5 audio. Elite League gets 4 videos and unlimited audio across 3 leagues. Dynasty gets unlimited everything across up to 6 leagues.",
+                a: "League gets 3 radio shows per week for 1 league. Pro League adds 1 video per week plus 5 radio shows. Elite League gets 4 videos and unlimited radio shows across 3 leagues. Dynasty gets unlimited everything across up to 6 leagues.",
               },
               {
                 q: "Is this a monthly or annual subscription?",
